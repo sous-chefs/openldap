@@ -36,7 +36,7 @@ template "/etc/ldap.conf" do
   group "root"
 end    
 
-template "/etc/ldap/ldap.conf" do
+template "#{node.openldap.dir}/ldap.conf" do
   source "ldap-ldap.conf.erb"
   mode 0644
   owner "root"
