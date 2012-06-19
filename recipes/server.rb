@@ -29,6 +29,11 @@ when "ubuntu"
       action :upgrade
     end
   end
+  directory "/var/cache/local/preseeding" do
+    mode 0755
+    owner "root"
+    group "root"
+  end
   cookbook_file "/var/cache/local/preseeding/slapd.seed" do
     source "slapd.seed"
     mode 0600 
