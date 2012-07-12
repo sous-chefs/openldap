@@ -16,7 +16,7 @@
 # limitations under the License.
 #
 
-if domain.length > 0
+if domain && domain.length > 0
   default[:openldap][:basedn] = "dc=#{domain.split('.').join(",dc=")}"
   default[:openldap][:server] = "ldap.#{domain}"
 end
