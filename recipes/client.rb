@@ -22,7 +22,7 @@ package "ldap-utils" do
 end
 
 directory node[:openldap][:ssl_dir] do
-  mode 0755
+  mode 00755
   owner "root"
   group "root"
 end

@@ -31,7 +31,7 @@ when "ubuntu"
   end
   cookbook_file "/var/cache/local/preseeding/slapd.seed" do
     source "slapd.seed"
-    mode 0600 
+    mode 00600
     owner "root"
     group "root"
   end
@@ -50,7 +50,7 @@ end
 
 cookbook_file "#{node[:openldap][:ssl_dir]}/#{node[:openldap][:server]}.pem" do
   source "ssl/#{node[:openldap][:server]}.pem"
-  mode 0644
+  mode 00644
   owner "root"
   group "root"
 end
@@ -64,7 +64,7 @@ if (node[:platform] == "ubuntu") and (node[:platform_version].to_f >= 8.10)
     source "default_slapd.erb"
     owner "root"
     group "root"
-    mode 0644
+    mode 00644
   end
 
   directory "#{node[:openldap][:dir]}/slapd.d" do
@@ -73,17 +73,17 @@ if (node[:platform] == "ubuntu") and (node[:platform_version].to_f >= 8.10)
     group "openldap"
     action :create
   end
-  
+
   execute "slapd-config-convert" do
     command "slaptest -f #{node[:openldap][:dir]}/slapd.conf -F #{node[:openldap][:dir]}/slapd.d/"
     user "openldap"
     action :nothing
     notifies :start, resources(:service => "slapd"), :immediately
   end
-  
+
   template "#{node[:openldap][:dir]}/slapd.conf" do
     source "slapd.conf.erb"
-    mode 0640
+    mode 00640
     owner "openldap"
     group "openldap"
     notifies :stop, resources(:service => "slapd"), :immediately
@@ -96,16 +96,15 @@ else
       source "default_slapd.erb"
       owner "root"
       group "root"
-      mode 0644
+      mode 00644
     end
   end
-  
+
   template "#{node[:openldap][:dir]}/slapd.conf" do
     source "slapd.conf.erb"
-    mode 0640
+    mode 00640
     owner "openldap"
     group "openldap"
     notifies :restart, resources(:service => "slapd")
   end
 end
-
