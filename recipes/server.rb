@@ -18,7 +18,7 @@
 #
 include_recipe "openldap::client"
 
-case node[:platform]
+case node['platform']
 when "ubuntu"
     package "db4.8-util" do
       action :upgrade
@@ -42,8 +42,8 @@ else
   end
 end
 
-cookbook_file "#{node[:openldap][:ssl_dir]}/#{node[:openldap][:server]}.pem" do
-  source "ssl/#{node[:openldap][:server]}.pem"
+cookbook_file "#{node['openldap']['ssl_dir']}/#{node['openldap']['server']}.pem" do
+  source "ssl/#{node['openldap']['server']}.pem"
   mode 00644
   owner "root"
   group "root"
@@ -53,7 +53,7 @@ service "slapd" do
   action [:enable, :start]
 end
 
-if (node[:platform] == "ubuntu")
+if (node['platform'] == "ubuntu")
   template "/etc/default/slapd" do
     source "default_slapd.erb"
     owner "root"
@@ -61,7 +61,7 @@ if (node[:platform] == "ubuntu")
     mode 00644
   end
 
-  directory "#{node[:openldap][:dir]}/slapd.d" do
+  directory "#{node['openldap']['dir']}/slapd.d" do
     recursive true
     owner "openldap"
     group "openldap"
@@ -69,13 +69,13 @@ if (node[:platform] == "ubuntu")
   end
 
   execute "slapd-config-convert" do
-    command "slaptest -f #{node[:openldap][:dir]}/slapd.conf -F #{node[:openldap][:dir]}/slapd.d/"
+    command "slaptest -f #{node['openldap']['dir']}/slapd.conf -F #{node['openldap']['dir']}/slapd.d/"
     user "openldap"
     action :nothing
     notifies :start, resources(:service => "slapd"), :immediately
   end
 
-  template "#{node[:openldap][:dir]}/slapd.conf" do
+  template "#{node['openldap']['dir']}/slapd.conf" do
     source "slapd.conf.erb"
     mode 00640
     owner "openldap"
@@ -84,7 +84,7 @@ if (node[:platform] == "ubuntu")
     notifies :run, resources(:execute => "slapd-config-convert")
   end
 else
-  case node[:platform]
+  case node['platform']
   when "debian","ubuntu"
     template "/etc/default/slapd" do
       source "default_slapd.erb"
@@ -94,7 +94,7 @@ else
     end
   end
 
-  template "#{node[:openldap][:dir]}/slapd.conf" do
+  template "#{node['openldap']['dir']}/slapd.conf" do
     source "slapd.conf.erb"
     mode 00640
     owner "openldap"
