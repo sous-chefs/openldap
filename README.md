@@ -52,6 +52,15 @@ remains nil by default as a default value is not easily predicted.
 * `openldap[:auth_binddn]` - AuthLDAPBindDN
 * `openldap[:auth_bindpw]` - AuthLDAPBindPassword
 
+## Server backup attributes
+* `openldap[:server_backup][:num_backups_retained]` - The number of backups ldap backups
+  to retain
+* `openldap[:server_backup][:backup_nfs_mount]` - The path to the NFS export.  An example
+mount would be: "server.dmz:/path"
+* `openldap[:server_backup][:mount_path]` - Where to mount the NFS export on your local
+system.  The folder will be created recursively so it doesn't need exist prior to the run.
+
+
 Usage
 =====
 
