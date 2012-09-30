@@ -59,3 +59,8 @@ if openldap[:basedn] && openldap[:server]
   default[:openldap][:auth_bindpw] = nil
   default[:openldap][:auth_url]    = "ldap://#{openldap[:server]}/#{openldap[:auth_binddn]}?uid?sub?(objecctClass=*)"
 end
+
+# OpenLDAP backup attributes
+default['openldap']['server_backup']['num_backups_retained'] = 7
+default['openldap']['server_backup']['backup_nfs_mount'] = nil
+default['openldap']['server_backup']['mount_path'] = nil
