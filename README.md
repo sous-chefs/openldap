@@ -9,13 +9,13 @@ Requirements
 
 ## Platform:
 
-Ubuntu 8.10 was primarily used in testing this cookbook. Other Ubuntu
-versions and Debian may work. CentOS and Red Hat are not fully
+Ubuntu 10.04 was primarily used in testing this cookbook. Other Ubuntu
+versions and Debian may work. Red Hat and derivatives are not fully
 supported, but we take patches.
 
 ## Cookbooks:
 
-* openssh 
+* openssh
 * nscd
 
 Attributes
@@ -27,7 +27,7 @@ attributes/openldap.rb.
 
 ## Client node attributes
 
-* `openldap[:basedn]` - basedn 
+* `openldap[:basedn]` - basedn
 * `openldap[:server]` - the LDAP server fully qualified domain name,
   default `'ldap'.node[:domain]`.
 
@@ -57,10 +57,10 @@ Usage
 
 Edit Rakefile variables for SSL certificate.
 
-On client systems, 
+On client systems,
 
     include_recipe "openldap::auth"
-  
+
 This will get the required packages and configuration for client
 systems. This will be required on server systems as well, so this is a
 good candidate for inclusion in a base role.
@@ -69,7 +69,7 @@ On server systems, set the server node attributes in the Chef node, or
 in a JSON attributes file. Include the openldap::server recipe:
 
     include_recipe "openldap::server"
-  
+
 When initially installing a brand new LDAP master server on Ubuntu
 8.10, the configuration directory may need to be removed and recreated
 before slapd will start successfully. Doing this programmatically may
@@ -87,7 +87,7 @@ notified to start, so start it manually.
     $ sudo rm -rf /etc/ldap/slapd.d/ /etc/ldap/slapd.conf
     $ sudo chef-client
     $ sudo /etc/init.d/slapd start
-  
+
 ### A note about certificates
 
 Certificates created by the Rakefile are self signed. If you have a
@@ -96,20 +96,20 @@ locations in the templates as required. We suggest copying this
 cookbook to the site-cookbooks for such modifications, so you can
 still pull from our master for updates, and then merge your changes
 in.
-  
+
 ## New Directory:
 
 If installing for the first time, the initial directory needs to be created. Create an ldif file, and start populating the directory.
-  
+
 ## Passwords:
 
 Set the password, openldap[:rootpw] for the rootdn in the node's attributes. This should be a password hash generated from slappasswd. The default slappasswd command on Ubuntu 8.10 and Mac OS X 10.5 will generate a SHA1 hash:
 
     $ slappasswd -s "secretsauce"
     {SSHA}6BjlvtSbVCL88li8IorkqMSofkLio58/
-  
-Set this by default in the attributes file, or on the node's entry in the webui.  
-  
+
+Set this by default in the attributes file, or on the node's entry in the webui.
+
 License and Author
 ==================
 
