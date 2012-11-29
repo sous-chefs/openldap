@@ -9,12 +9,14 @@ recipe            "openldap", "Empty, use one of the other recipes"
 recipe            "openldap::auth", "Set up openldap for user authentication"
 recipe            "openldap::client", "Install openldap client packages"
 recipe            "openldap::server", "Set up openldap to be a slapd server"
+recipe            "openldap::slave", "uses search to set replication slave attributes"
+recipe            "openldap::master", "use on nodes that should be a slapd master"
 
 %w{ ubuntu debian redhat centos amazon scientific}.each do |os|
   supports os
 end
 
-%w{ openssh nscd }.each do |cb|
+%w{ openssh nscd openssl }.each do |cb|
   depends cb
 end
 
