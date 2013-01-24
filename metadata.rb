@@ -12,7 +12,7 @@ recipe            "openldap::server", "Set up openldap to be a slapd server"
 recipe            "openldap::slave", "uses search to set replication slave attributes"
 recipe            "openldap::master", "use on nodes that should be a slapd master"
 
-%w{ ubuntu debian redhat centos amazon scientific}.each do |os|
+%w{ ubuntu debian }.each do |os|
   supports os
 end
 
