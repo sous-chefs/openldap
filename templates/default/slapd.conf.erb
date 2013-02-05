@@ -25,7 +25,7 @@ pidfile         <%= node['openldap']['run_dir'] %>/slapd.pid
 argsfile        <%= node['openldap']['run_dir'] %>/slapd.args
 
 # Read slapd.conf(5) for possible values
-loglevel        0
+loglevel        <%= node['openldap']['loglevel'] %>
 
 <% unless node['platform'] == "centos" -%>
 # Where the dynamically loaded modules are stored

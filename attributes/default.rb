@@ -45,6 +45,7 @@ end
 default['openldap']['ssl_dir'] = "#{openldap['dir']}/ssl"
 default['openldap']['cafile']  = "#{openldap['ssl_dir']}/ca.crt"
 default['openldap']['slapd_type'] = nil
+default['openldap']['loglevel'] = 0
 
 if node['openldap']['slapd_type'] == "slave"
   default['openldap']['slapd_master'] = node['openldap']['server']
