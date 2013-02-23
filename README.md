@@ -34,10 +34,136 @@ attributes/openldap.rb.
 
 ## Server node attributes
 
+### Replication options
+
 * `openldap[:slapd_type]` - master | slave
 * `openldap[:slapd_rid]` - unique integer ID, required if type is slave.
 * `openldap[:slapd_master]` - hostname of slapd master, attempts to
   search for slapd_type master.
+
+### Advanced options
+
+* `openldap[:slapd_schema]` - list of schema files which should be loaded
+  (full path or filename without file extension for schema files in schema
+  subdirectory)
+* `openldap[:slapd_modules]` - list of slapd modules
+* `openldap[:slapd_loglevel]` - loglevel for slapd, integers or names,
+  see slapd.conf man page for more information
+* `openldap[:slapd_sizelimit]` - default entry size limit for search queries
+* `openldap[:slapd_tool-threads]` - maximum number of threads to use
+  in tool mode, should be not greater than the number of processors
+
+### Access control lists
+
+`openldap[:slapd_acls]` defines the access control lists. It's a hash with
+priority as key (lowest is the most important).
+
+Every entry is a hash createing an access line in slapd.conf:
+
+* `entry[:dn]` describes the dn which should match, nil means all
+* `entry[:dntype]` matchtype for the dn, e.g. exact, base, regex, one, sub
+* `entry[:filter]` filters entries like RFC 4515 (e.g.) ldapsearch;
+  no value or nil results in '(objectClass=*)'
+* `entry[:attrs]` comma-separated list of attributes the rules applies to.
+* `entry[:access]` a priority hash with rules who has which privileges.
+
+Every access entry is a hash with the following options:
+
+* `access[:action]` allowed actions, e.g. read, write, +w
+* `access[:control]` special parsing options (stop, break, continue), stop is
+  the default
+* To rights to special groups, set `access[:self]`, `access[:anonymous]`,
+  `access[:users]` or other spe to true,
+* To grant rights by other match types, set the test as key (e.g. dn.exact)
+  and the test value as value
+
+Examples:
+
+```json
+{
+  "0": {
+    "dn": "^(.+,)?uid=([^,]+),dc=example,dc=com$",
+    "dntype": "regex",
+    "access": {
+      "0": {
+        "dn.exact,expand": "uid=$2,dc=example,dc=com",
+        "action": "write"
+      }
+    }
+  }
+}
+```
+
+Per default all data are readable by everyone and only the admin can modify.
+The access to the user attributes is limit to admin, replication and
+authentication:
+
+```json
+{
+  "00": {
+    "attrs": "userPassword,shadowLastChange",
+    "access": {
+      "00": { "group.exact": "cn=administrators,${basedn}", "action": "write" },
+      "10": { "dn": "cn=syncrole,${basedn}", "action": "read" },
+      "20": { "anonymous": true, "action": "auth" },
+      "30": { "self": true, "action": "write" },
+      "40": "none"
+    }
+  },
+  "10": {
+    "dn": "",
+    "dntype": "base",
+    "access": "read",
+  },
+  "20": {
+    "access": {
+      "00": { "group.exact": "cn=administrators,${basedn}", "action": "write" },
+      "10": { "dn": "cn=syncrole,${basedn}", "action": "read" },
+      "20": "read"
+    }
+  }
+}
+```
+
+**Warning:** You may need to update these acls if you change your `basedn`.
+
+See **slapd.access**(5) man page for more information and all supported options.
+
+### Database configuration
+
+`openldap[:slapd_databases]` is a hash with all databases of this openldap
+server. Normally only one database - called default - is created. The key
+inside this hash is only for internal identification and can be free choosen.
+
+* `database[:type]` - backend type, e.g. hdb
+* `database[:suffix]` - suffix of this backend, e.g. 'dc=example,dc=org'
+* `database[:rootdn]` - administrator dn for this backend,
+  e.g. 'cn=admin,dc=example,dc=org'
+* `database[:rootpw]` - passwort for administrator dn
+* `database[:direcoty]` - storage dirctory in file system
+* `database[:lastmod]` - should slapd control meta attributes like
+  modifyTimestamp automatically
+* `database[:indexes]` - dictionary with index definition. key is the list for
+  attributes (comma-separated), values are the required actions which should be
+  possible via index (e.g. eq,pres,sub). You index name default for default
+  values. Set index value to `true` or `''` to support default index actions.
+  Set index value to `false` or `nil` to unset before defined value.
+
+### Additional options
+
+The slapd.conf config is devided into multiple parts. For every parts
+additional (for the cookbook unknown) options can be set via special hashes:
+`openldap[:slapd_options]` for global options and
+`openldap[:slapd_databases][name][:options]` for database specific options.
+
+The key of the hash is the name of the options in slapd.conf and the value
+should be nil (option hidden), a string (single option) or a array with
+strings (one line with option and value for entry in array).
+The strings are not escaped. So a value with a blank can be escaped
+by encapsulate with ".
+
+See **slapd.conf**(5) man page for more information about escaping and all
+configuration options.
 
 ## Apache configuration attributes
 
