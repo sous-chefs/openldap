@@ -12,10 +12,13 @@ TLSCertificateFile     <%= node['openldap']['dir'] %>/ssl/<%= node['openldap']['
 TLSCertificateKeyFile  <%= node['openldap']['dir'] %>/ssl/<%= node['openldap']['server'] %>.pem
 
 # Schema and objectClass definitions
-include         <%= node['openldap']['dir'] %>/schema/core.schema
-include         <%= node['openldap']['dir'] %>/schema/cosine.schema
-include         <%= node['openldap']['dir'] %>/schema/nis.schema
-include         <%= node['openldap']['dir'] %>/schema/inetorgperson.schema
+<% node['openldap']['slapd_schema'].each do |schema| -%>
+<% if schema[0] == '/' %>
+include         <%= schema %>
+<% else %>
+include         <%= node['openldap']['dir'] %>/schema/<%= schema %>.schema
+<% end %>
+<% end -%>
 
 # Where the pid file is put. The init.d script
 # will not stop the server if you change this.
@@ -25,23 +28,37 @@ pidfile         <%= node['openldap']['run_dir'] %>/slapd.pid
 argsfile        <%= node['openldap']['run_dir'] %>/slapd.args
 
 # Read slapd.conf(5) for possible values
-loglevel        0
+loglevel        <%= node['openldap']['slapd_loglevel'] %>
 
 <% unless node['platform'] == "centos" -%>
 # Where the dynamically loaded modules are stored
 modulepath	<%= node['openldap']['module_dir'] %>
-moduleload	back_hdb
 <% if node['openldap']['slapd_type'] == "master" -%>
 moduleload  syncprov
+<% end -%>
+<% node['openldap']['slapd_modules'].each do |modulename| -%>
+moduleload  <%= modulename %>
 <% end -%>
 <% end -%>
 
 # The maximum number of entries that is returned for a search operation
-sizelimit 500
+sizelimit <%= node['openldap']['slapd_sizelimit'] %>
 
 # The tool-threads parameter sets the actual amount of cpu's that is used
 # for indexing.
-tool-threads 1
+tool-threads <%= node['openldap']['slapd_tool-threads'] %>
+
+
+######
+# ACLS
+######
+
+<% @acl.each do |acl| %>
+access <%= acl[0] %>
+<% acl[1].each do |entry| %>
+  <%= entry %>
+<% end -%>
+<% end -%>
 
 #######################################################################
 # Specific Backend Directives for hdb:
@@ -50,32 +67,41 @@ tool-threads 1
 backend		hdb
 
 #####
-# Database
+# Databases
 #####
-database        hdb
-suffix          "<%= node['openldap']['basedn'] %>"
-rootdn          "cn=admin,<%= node['openldap']['basedn'] %>"
-rootpw		      <%= node['openldap']['rootpw'] %>
-directory       "/var/lib/ldap"
-lastmod         on
-
-dbconfig set_cachesize 0 31457280 0
-
-# Number of objects that can be locked at the same time.
-dbconfig set_lk_max_objects 1500
-# Number of locks (both requested and granted)
-dbconfig set_lk_max_locks 1500
-# Number of lockers
-dbconfig set_lk_max_lockers 1500
+<% node['openldap']['slapd_databases'].sort.each do |name, database| -%>
+database        <%= database['type']%>
+suffix          <%= database['suffix'] || node['openldap']['basedn'] %>
+rootdn          <%= database['rootdn'] || "cn=admin,#{node['openldap']['basedn']}" %>
+rootpw          <%= database['rootpw'] || node['openldap']['rootpw'] %>
+directory       <%= database['directory'] %>
+lastmod         <%= database['lastmod'] %>
 
 ##
 # Indexes
 ##
-index default pres,eq,approx,sub
-index objectClass eq
-index cn,ou,sn,uid,l,mail,gecos,memberUid,description
-index loginShell,homeDirectory pres,eq,approx
-index uidNumber,gidNumber pres,eq
+<% unless (database['indexes'] || {})['default'].nil? %>
+index default <%= database['indexes']['default'] %>
+<% end -%>
+<% (database['indexes'] || {}).sort.each do |attributes, options| -%>
+<% next if attributes == 'default' || options.nil? || options == false -%>
+index <%= attributes %> <%= options == true ? '' : options %>
+<% end -%>
+
+# Other options
+
+<% (database['options'] || {}).sort.each do |option, value| -%>
+<% if value.kind_of? Array %>
+<% value.each do |singlevalue| %>
+<%= option %> <%= singlevalue %>
+<% end -%>
+<% else -%>
+<%= option %> <%= value %>
+<% end -%>
+<% end -%>
+
+<% end -%>
+### END Databases
 
 <% if node['openldap']['slapd_type'] == "master" -%>
 overlay syncprov
@@ -95,32 +121,13 @@ syncrepl rid=<%= node['openldap']['slapd_rid'] %>
   starttls=yes
   credentials="<%= node['openldap']['slapd_replpw'] %>"
 <% end -%>
-# The userPassword by default can be changed
-# by the entry owning it if they are authenticated.
-# Others should not be able to see it, except the
-# admin entry below
-# These access lines apply to database #1 only
-access to attrs=userPassword,shadowLastChange
-        by group.exact="cn=administrators,<%= node['openldap']['basedn'] %>" write
-        by dn="cn=syncrole,<%= node['openldap']['basedn'] %>" read
-        by anonymous auth
-        by self write
-        by * none
 
-# Ensure read access to the base for things like
-# supportedSASLMechanisms.  Without this you may
-# have problems with SASL not knowing what
-# mechanisms are available and the like.
-# Note that this is covered by the 'access to *'
-# ACL below too but if you change that as people
-# are wont to do you'll still need this if you
-# want SASL (and possible other things) to work
-# happily.
-access to dn.base="" by * read
-
-# The admin dn has full write access, everyone else
-# can read everything.
-access to *
-        by group.exact="cn=administrators,<%= node['openldap']['basedn'] %>" write
-        by dn="cn=syncrole,<%= node['openldap']['basedn'] %>" read
-        by * read
+<% (node['openldap']['slapd_options'] || {}).sort.each do |option, value| -%>
+<% if value.kind_of? Array %>
+<% value.each do |singlevalue| %>
+<%= option %> <%= singlevalue %>
+<% end -%>
+<% else -%>
+<%= option %> <%= value %>
+<% end -%>
+<% end -%>
