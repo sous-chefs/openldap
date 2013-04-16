@@ -18,9 +18,11 @@ nss_base_shadow ou=people,<%= node['openldap']['basedn'] %>
 nss_base_group ou=group,<%= node['openldap']['basedn'] %>
 nss_base_automount ou=automount,<%= node['openldap']['basedn'] %>
 
+<% if node['openldap']['tls_enabled'] %>
 # TLS Options
 ssl start_tls
 tls_checkpeer no
+<% end %>
 
 # Password options
-pam_password md5
+pam_password <%= node['openldap']['password_mechanism'] %>

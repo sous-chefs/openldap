@@ -18,6 +18,9 @@
 
 default['openldap']['basedn'] = "dc=localdomain"
 default['openldap']['server'] = "ldap.localdomain"
+default['openldap']['tls_enabled'] = true
+default['openldap']['password_mechanism'] = 'md5'
+
 
 if node['domain'].length > 0
   default['openldap']['basedn'] = "dc=#{node['domain'].split('.').join(",dc=")}"
@@ -59,3 +62,4 @@ if node['openldap']['basedn'] && node['openldap']['server']
   default['openldap']['auth_bindpw'] = nil
   default['openldap']['auth_url']    = "ldap://#{openldap['server']}/#{openldap['auth_binddn']}?uid?sub?(objecctClass=*)"
 end
+
