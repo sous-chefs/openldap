@@ -72,7 +72,7 @@ if (node['platform'] == "ubuntu")
     command "slaptest -f #{node['openldap']['dir']}/slapd.conf -F #{node['openldap']['dir']}/slapd.d/"
     user "openldap"
     action :nothing
-    notifies :start, resources(:service => "slapd"), :immediately
+    notifies :start, "service[slapd]", :immediately
   end
 
   template "#{node['openldap']['dir']}/slapd.conf" do
@@ -80,8 +80,8 @@ if (node['platform'] == "ubuntu")
     mode 00640
     owner "openldap"
     group "openldap"
-    notifies :stop, resources(:service => "slapd"), :immediately
-    notifies :run, resources(:execute => "slapd-config-convert")
+    notifies :stop, "service[slapd]", :immediately
+    notifies :run, "execute[slapd-config-convert]"
   end
 else
   case node['platform']
@@ -99,6 +99,6 @@ else
     mode 00640
     owner "openldap"
     group "openldap"
-    notifies :restart, resources(:service => "slapd")
+    notifies :restart, "service[slapd]"
   end
 end
