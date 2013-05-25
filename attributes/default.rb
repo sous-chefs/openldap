@@ -24,7 +24,7 @@ if node['domain'].length > 0
   default['openldap']['server'] = "ldap.#{node['domain']}"
 end
 
-openldap['rootpw'] = nil
+default['openldap']['rootpw'] = nil
 
 # File and directory locations for openldap.
 case node['platform']
