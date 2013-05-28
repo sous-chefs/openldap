@@ -19,9 +19,11 @@
 default['openldap']['basedn'] = "dc=localdomain"
 default['openldap']['server'] = "ldap.localdomain"
 
-if node['domain'].length > 0
-  default['openldap']['basedn'] = "dc=#{node['domain'].split('.').join(",dc=")}"
-  default['openldap']['server'] = "ldap.#{node['domain']}"
+unless node['domain'].nil?
+  if node['domain'].length > 0
+    default['openldap']['basedn'] = "dc=#{node['domain'].split('.').join(",dc=")}"
+    default['openldap']['server'] = "ldap.#{node['domain']}"
+  end
 end
 
 default['openldap']['rootpw'] = nil
