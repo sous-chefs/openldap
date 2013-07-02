@@ -19,6 +19,7 @@
 default['openldap']['basedn'] = "dc=localdomain"
 default['openldap']['server'] = "ldap.localdomain"
 
+default['domain'] = ''
 if node['domain'].length > 0
   default['openldap']['basedn'] = "dc=#{node['domain'].split('.').join(",dc=")}"
   default['openldap']['server'] = "ldap.#{node['domain']}"
