@@ -15,7 +15,7 @@ CADIR = File.expand_path(File.join(File.dirname(__FILE__), "files", "default", "
 desc "Create a new self-signed SSL certificate for FQDN=foo.example.com"
 task :ssl_cert do
   $expect_verbose = true
-  fqdn = ENV["FQDN"]
+  fqdn = ENV["FQDN"] || 'ldap.localdomain'
   fqdn =~ /^(.+?)\.(.+)$/
   hostname = $1
   domain = $2
