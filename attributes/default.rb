@@ -19,7 +19,7 @@
 default['openldap']['basedn'] = "dc=localdomain"
 default['openldap']['server'] = "ldap.localdomain"
 
-if node['domain'] && !@node['domain'].empty?
+if node['domain'] && !node['domain'].empty?
   default['openldap']['basedn'] = "dc=#{node['domain'].split('.').join(",dc=")}"
   default['openldap']['server'] = "ldap.#{node['domain']}"
 end
