@@ -23,7 +23,7 @@ when "ubuntu"
     package "db4.8-util" do
       action :upgrade
     end
-  cookbook_file "/var/cache/local/preseeding/slapd.seed" do
+  cookbook_file "/tmp/slapd.seed" do
     source "slapd.seed"
     mode 00600
     owner "root"
