@@ -42,6 +42,8 @@ else
   default['openldap']['module_dir'] = "/usr/lib/ldap"
 end
 
+default['openldap']['preseed_dir'] = "/var/cache/local/preseeding"
+
 default['openldap']['ssl_dir'] = "#{openldap['dir']}/ssl"
 default['openldap']['cafile']  = "#{openldap['ssl_dir']}/ca.crt"
 default['openldap']['slapd_type'] = nil
