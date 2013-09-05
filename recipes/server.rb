@@ -54,6 +54,7 @@ cookbook_file "#{node['openldap']['ssl_dir']}/#{node['openldap']['server']}.pem"
   mode 00644
   owner "root"
   group "root"
+  only_if { node['openldap']['manage_ssl'] == true }
 end
 
 service "slapd" do
