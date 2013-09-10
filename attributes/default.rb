@@ -43,6 +43,8 @@ else
 end
 
 default['openldap']['preseed_dir'] = "/var/cache/local/preseeding"
+default['openldap']['tls_checkpeer'] = false
+default['openldap']['pam_password'] = 'md5'
 
 default['openldap']['manage_ssl'] = true
 default['openldap']['ssl_dir'] = "#{openldap['dir']}/ssl"
