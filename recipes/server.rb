@@ -53,7 +53,7 @@ else
   end
 end
 
-if node['openldap']['manage_ssl']
+if node['openldap']['tls_enabled'] && node['openldap']['manage_ssl']
   cookbook_file node['openldap']['ssl_cert'] do
     source "ssl/#{node['openldap']['server']}.pem"
     mode 00644

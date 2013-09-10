@@ -40,3 +40,17 @@ suites:
       ssl_cert: "/etc/ldap/ssl/ldap.example.com.pem"
       ssl_key: "/etc/ldap/ssl/ldap.example.com.pem"
       cafile: "/etc/ldap/ssl/ldap.example.com.pem"
+- name: tls_disabled
+  run_list:
+  - recipe[openldap::server]
+  - recipe[openldap::auth]
+  - recipe[minitest-handler]
+  attributes:
+   openldap:
+     server: localhost
+     rootpw: "{SSHA}6BjlvtSbVCL88li8IorkqMSofkLio58/" # secretsauce
+     tls_enabled: false
+     passwd_ou: peeps
+     shadow_ou: ninjas
+     group_ou: pirates
+     automount_ou: barge

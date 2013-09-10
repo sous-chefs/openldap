@@ -16,13 +16,16 @@ scope sub
 nss_base_passwd ou=<%= node['openldap']['passwd_ou'] %>,<%= node['openldap']['basedn'] %>
 nss_base_shadow ou=<%= node['openldap']['shadow_ou'] %>,<%= node['openldap']['basedn'] %>
 nss_base_group ou=<%= node['openldap']['group_ou'] %>,<%= node['openldap']['basedn'] %>
-nss_base_automount ou=<%= node['openldap']['automount_oi'] %>,<%= node['openldap']['basedn'] %>
+nss_base_automount ou=<%= node['openldap']['automount_ou'] %>,<%= node['openldap']['basedn'] %>
 
-<% if node['openldap']['tls_enabled'] %>
+<% if node['openldap']['tls_enabled'] -%>
 # TLS Options
 ssl start_tls
+<% if node['openldap']['tls_checkpeer'] -%>
+tls_checkpeer yes
+<% else -%>
 tls_checkpeer no
-<% end %>
+<% end -%>
+<% end -%>
 
-# Password options
-pam_password <%= node['openldap']['password_mechanism'] %>
+pam_password <%= node['openldap']['pam_password'] %>
