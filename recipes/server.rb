@@ -23,7 +23,14 @@ when "ubuntu"
     package "db4.8-util" do
       action :upgrade
     end
-  cookbook_file "/var/cache/local/preseeding/slapd.seed" do
+  directory node['openldap']['preseed_dir'] do
+    action :create
+    recursive true
+    mode 00700
+    owner "root"
+    group "root"
+  end
+  cookbook_file "#{node['openldap']['preseed_dir']}/slapd.seed" do
     source "slapd.seed"
     mode 00600
     owner "root"
