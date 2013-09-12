@@ -49,7 +49,8 @@ cookbook_file "/etc/nsswitch.conf" do
   owner "root"
   group "root"
   notifies :restart, "service[nscd]", :immediately
-  notifies :run, ["execute[nscd-clear-passwd]", "execute[nscd-clear-group]"], :immediately
+  notifies :run, "execute[nscd-clear-passwd]", :immediately
+  notifies :run, "execute[nscd-clear-group]", :immediately
 end
 
 %w{ account auth password session }.each do |pam|

@@ -42,8 +42,15 @@ else
   default['openldap']['module_dir'] = "/usr/lib/ldap"
 end
 
+default['openldap']['preseed_dir'] = "/var/cache/local/preseeding"
+default['openldap']['tls_checkpeer'] = false
+default['openldap']['pam_password'] = 'md5'
+
+default['openldap']['manage_ssl'] = true
 default['openldap']['ssl_dir'] = "#{openldap['dir']}/ssl"
-default['openldap']['cafile']  = "#{openldap['ssl_dir']}/ca.crt"
+default['openldap']['ssl_cert'] = "#{openldap['ssl_dir']}/#{openldap['server']}.pem"
+default['openldap']['ssl_key'] = "#{openldap['ssl_dir']}/#{openldap['server']}.pem"
+
 default['openldap']['slapd_type'] = nil
 
 if node['openldap']['slapd_type'] == "slave"

@@ -20,7 +20,11 @@ nss_base_automount ou=automount,<%= node['openldap']['basedn'] %>
 
 # TLS Options
 ssl start_tls
+<% if node['openldap']['tls_checkpeer'] -%>
+tls_checkpeer yes
+<% else -%>
 tls_checkpeer no
+<% end -%>
 
 # Password options
-pam_password md5
+pam_password <%= node['openldap']['pam_password'] %>
