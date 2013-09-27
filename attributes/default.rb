@@ -46,6 +46,7 @@ default['openldap']['preseed_dir'] = "/var/cache/local/preseeding"
 
 default['openldap']['manage_ssl'] = true
 default['openldap']['ssl_dir'] = "#{openldap['dir']}/ssl"
+default['openldap']['cafile']  = nil
 default['openldap']['ssl_cert'] = "#{openldap['ssl_dir']}/#{openldap['server']}.pem"
 default['openldap']['ssl_key'] = "#{openldap['ssl_dir']}/#{openldap['server']}.pem"
 
