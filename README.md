@@ -28,6 +28,12 @@ Be aware of the attributes used by this cookbook and adjust the defaults for you
 - `openldap[:slapd_type]` - master | slave
 - `openldap[:slapd_rid]` - unique integer ID, required if type is slave.
 - `openldap[:slapd_master]` - hostname of slapd master, attempts to search for slapd_type master.
+- `openldap[:manage_ssl]` - Whether or not this cookbook manages your SSL certificates.
+   If set to `true`, this cookbook will expect your SSL certificates to be in files/default/ssl and will configure slapd appropriately.
+   If set to `false`, you will need to provide your SSL certificates **prior** to this recipe being run. Be sure to set `openldap[:ssl_cert]` and `openldap[:ssl_key]` appropriately.
+- `openldap[:ssl_cert]` - The full path to your SSL certificate.
+- `openldap[:ssl_key]` - The full path to your SSL key.
+- `openldap[:cacert]` - Your certificate authority's certificate (or intermediate authorities), if needed.
 
 ### Apache configuration attributes
 
@@ -97,7 +103,17 @@ Simply remove the configuration, rerun chef-client. For some reason slapd isn't 
 
 ### A note about certificates
 
-Certificates created by the Rakefile are self signed. If you have a purchased CA, that can be used. Be sure to update the certificate locations in the templates as required. We suggest copying this cookbook to the site-cookbooks for such modifications, so you can still pull from our master for updates, and then merge your changes in.
+Certificates created by the Rakefile are self signed. If you have a purchased CA, that can be used.
+
+We provide two methods of managing SSL certificates, based off of `openldap[:manage_ssl]`.
+
+If `openldap[:manage_ssl]` is `true`, then this cookbook manage your certificates itself, and will expect all certificates, intermediate certificates, and keys to be in the same file as defined in `openldap[:ssl_cert]`.
+
+Be sure to update the certificate locations in the templates as required. We suggest copying this cookbook to the site-cookbooks for such modifications, so you can still pull from our master for updates, and then merge your changes in.
+
+However, if `openldap[:manage_ssl]` is `false`, then you will need to place the SSL certificates on the client file system **prior** to this cookbook being run. This provides you the flexibility to provide the same set of SSL certificates for multiple uses as well as in one place across your environment, but you will need to manage them.
+- Set `openldap[:ssl-cert]`, `openldap[:ssl_key]`, and `openldap[:cacert]` appropriately.
+- Ensure that that user openldap can access these files. Watch out for apparmor and SELinux if you are placing your SSL certificates in a non-default location.
 
 ### New Directory
 If installing for the first time, the initial directory needs to be created. Create an ldif file, and start populating the directory.
