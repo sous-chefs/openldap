@@ -84,7 +84,8 @@ index uidNumber,gidNumber pres,eq
 overlay syncprov
 syncprov-checkpoint 100 10
 syncprov-sessionlog 100
-<% else -%>
+<% end -%>
+<% if node['openldap']['slapd_type'] == "slave" -%>
 syncrepl rid=<%= node['openldap']['slapd_rid'] %>
   provider=ldap://<%= node['openldap']['slapd_master'] %>:389
   type=refreshAndPersist
