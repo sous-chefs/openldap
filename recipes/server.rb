@@ -44,7 +44,7 @@ when "ubuntu"
     action :upgrade
   end
 else
-  package "db4.2-util" do
+  package "db4.8-util" do
     action :upgrade
   end
 
