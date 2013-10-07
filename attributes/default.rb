@@ -18,6 +18,15 @@
 
 default['openldap']['basedn'] = "dc=localdomain"
 default['openldap']['server'] = "ldap.localdomain"
+default['openldap']['tls_enabled'] = true
+default['openldap']['password_mechanism'] = 'md5'
+
+default['openldap']['passwd_ou'] = 'people'
+default['openldap']['shadow_ou'] = 'people'
+default['openldap']['group_ou'] = 'groups'
+default['openldap']['automount_ou'] = 'automount'
+
+
 
 if node['domain'].length > 0
   default['openldap']['basedn'] = "dc=#{node['domain'].split('.').join(",dc=")}"
