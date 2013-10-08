@@ -3,6 +3,12 @@ openldap Cookbok CHANGELOG
 This file is used to list changes made in each version of the openldap cookbook.
 
 
+v1.12.2
+-------
+### Improvement
+- **[COOK-3699](https://tickets.opscode.com/browse/COOK-3699)** - OpenLDAP Cookbooks - add extra options
+
+
 u tv0.12.0
 -------
 ### New Feature
