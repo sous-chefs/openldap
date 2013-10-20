@@ -11,6 +11,17 @@ platforms:
   run_list:
   - recipe[apt]
 suites:
+- name: lwrp
+  run_list:
+    - recipe[openldap-test::lwrp]
+    - recipe[minitest-handler]
+  attributes:
+    openldap:
+      manage_ssl: false
+      rootpw: "{SSHA}6BjlvtSbVCL88li8IorkqMSofkLio58/" # secretsauce
+      basedn: "dc=example, dc=com"
+      server: "ldap.example.com"
+      preseed_dir: "/tmp/does_not_exist"
 - name: server
   run_list:
     - recipe[openldap::server]
