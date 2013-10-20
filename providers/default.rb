@@ -36,12 +36,12 @@ def do_action
     ldap_delete_command = "ldapdelete -Y EXTERNAL -H ldapi:/// "
   end
 
-  execute "create_command" do
+  execute "#{new_resource.name}_create_command" do
     command "#{ldap_command} #{node['openldap']['config_dir']}/#{new_resource.name}.ldif"
     ignore_failure true
     action :nothing
   end
-  execute "delete_command" do
+  execute "#{new_resource.name}_delete_command" do
     command "#{ldap_delete_command} #{new_resource.name}"
     ignore_failure true
     action :nothing
