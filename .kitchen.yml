@@ -13,11 +13,12 @@ platforms:
 suites:
 - name: lwrp
   run_list:
+    - recipe[openldap::master]
+    - recipe[openldap::auth]
     - recipe[openldap-test::lwrp]
     - recipe[minitest-handler]
   attributes:
     openldap:
-      manage_ssl: false
       rootpw: "{SSHA}6BjlvtSbVCL88li8IorkqMSofkLio58/" # secretsauce
       basedn: "dc=example, dc=com"
       server: "ldap.example.com"
