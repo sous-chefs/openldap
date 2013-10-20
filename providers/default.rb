@@ -78,9 +78,9 @@ def do_action
     end
     
     if create
-      notifies :run, "execute[delete_command]"
+      notifies :run, "execute[#{new_resource.name}_delete_command]"
     end
-    notifies :run, "execute[create_command]"
+    notifies :run, "execute[#{new_resource.name}_create_command]"
   end
   
 end
