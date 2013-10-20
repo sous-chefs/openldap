@@ -74,3 +74,6 @@ if node['openldap']['basedn'] && node['openldap']['server']
   default['openldap']['auth_bindpw'] = nil
   default['openldap']['auth_url']    = "ldap://#{openldap['server']}/#{openldap['auth_binddn']}?uid?sub?(objectClass=*)"
 end
+
+default['openldap']['config_dir'] = "#{openldap['dir']}/chef"
+
