@@ -58,7 +58,7 @@ cookbook_file node['openldap']['ssl_cert'] do
   mode 00644
   owner "root"
   group "root"
-  only_if node['openldap']['manage_ssl']
+  only_if { node['openldap']['manage_ssl'] }
 end
 
 service "slapd" do
