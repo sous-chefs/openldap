@@ -38,12 +38,12 @@ def do_action
 
   execute "create_command" do
     command "#{ldap_command} #{node['openldap']['config_dir']}/#{new_resource.name}.ldif"
-    ignore_failure true
+#    ignore_failure true
     action :nothing
   end
   execute "delete_command" do
     command "#{ldap_delete_command} #{new_resource.name}"
-    ignore_failure true
+#    ignore_failure true
     action :nothing
   end
   #occasionally the action of the resource is a array, if not default and a symbol is default. Thats odd.
