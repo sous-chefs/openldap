@@ -57,9 +57,9 @@ backend		hdb
 #####
 database        hdb
 suffix          "<%= node['openldap']['basedn'] %>"
-rootdn          "cn=admin,<%= node['openldap']['basedn'] %>"
+rootdn          "<%= node['openldap']['rootdn'] %>"
 rootpw		      <%= node['openldap']['rootpw'] %>
-directory       "/var/lib/ldap"
+directory       "<%= node['openldap']['db_dir'] %>"
 lastmod         on
 
 dbconfig set_cachesize 0 31457280 0
