@@ -58,7 +58,7 @@ backend		hdb
 database        hdb
 suffix          "<%= node['openldap']['basedn'] %>"
 rootdn          "<%= node['openldap']['rootdn'] %>"
-rootpw		      <%= node['openldap']['rootpw'] %>
+rootpw		      <%= node['openldap']['roothash'] %>
 directory       "<%= node['openldap']['db_dir'] %>"
 lastmod         on
 
