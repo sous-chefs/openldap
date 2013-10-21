@@ -29,8 +29,8 @@ def do_action
   Chef::Log.info("Processing #{@new_resource.resource_name} #{@new_resource.name} action #{@new_resource.action}")
   
   if @new_resource.resource_name == :openldap_node
-    ldap_command = "ldapadd -D \"#{node['openldap']['admin_binddn']}\" -w#{node['openldap']['admin_password']} -f "
-    ldap_delete_command = "ldapdelete -D \"#{node['openldap']['admin_binddn']}\" -w#{node['openldap']['admin_password']} "
+    ldap_command = "ldapadd -D \"#{node['openldap']['rootdn']}\" -w#{node['openldap']['rootpw']} -f "
+    ldap_delete_command = "ldapdelete -D \"#{node['openldap']['rootdn']}\" -w#{node['openldap']['rootpw']} "
   elsif @new_resource.resource_name == :openldap_config
     ldap_command = "ldapadd -Y EXTERNAL -H ldapi:/// -f "
     ldap_delete_command = "ldapdelete -Y EXTERNAL -H ldapi:/// "
