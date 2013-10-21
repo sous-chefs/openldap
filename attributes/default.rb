@@ -18,6 +18,7 @@
 
 default['openldap']['basedn'] = "dc=localdomain"
 default['openldap']['server'] = "ldap.localdomain"
+default['openldap']['timeout'] = 10
 default['openldap']['tls_enabled'] = true
 default['openldap']['password_mechanism'] = 'md5'
 

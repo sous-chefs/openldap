@@ -26,3 +26,6 @@ tls_checkpeer no
 
 # Password options
 pam_password <%= node['openldap']['password_mechanism'] %>
+
+# Default timeout
+timeout <%= node['openldap']['timeout'] %>
