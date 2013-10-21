@@ -93,7 +93,7 @@ if (node['platform'] == "ubuntu")
     owner "openldap"
     group "openldap"
     notifies :stop, "service[slapd]", :immediately
-    notifies :run, "execute[slapd-config-convert]"
+    notifies :run, "execute[slapd-config-convert]", :immediately
   end
 else
   case node['platform']
