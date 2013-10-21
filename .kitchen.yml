@@ -20,7 +20,7 @@ suites:
     openldap:
       rootpw: secretsauce
       roothash: "{SSHA}6BjlvtSbVCL88li8IorkqMSofkLio58/"
-      basedn: "dc=example, dc=com"
+      basedn: "dc=example,dc=com"
       server: "ldap.example.com"
       preseed_dir: "/tmp/does_not_exist"
 - name: server
