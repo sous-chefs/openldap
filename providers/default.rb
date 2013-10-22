@@ -32,8 +32,8 @@ def do_action
     ldap_command = "ldapadd -D \"#{node['openldap']['rootdn']}\" -w#{node['openldap']['rootpw']} -f "
     ldap_delete_command = "ldapdelete -D \"#{node['openldap']['rootdn']}\" -w#{node['openldap']['rootpw']} "
   elsif @new_resource.resource_name == :openldap_config
-    ldap_command = "ldapadd -D \"#{node['openldap']['rootdn']}\" -w#{node['openldap']['rootpw']} -f "
-    ldap_delete_command = "ldapdelete -D \"#{node['openldap']['rootdn']}\" -w#{node['openldap']['rootpw']} "
+    ldap_command = "ldapadd -Y EXTERNAL -H ldapi:/// -f "
+    ldap_delete_command = "ldapdelete -Y EXTERNAL -H ldapi:/// "
   end
 
   execute "create_command" do
