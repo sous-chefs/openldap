@@ -29,16 +29,16 @@ def do_action
   Chef::Log.info("Processing #{@new_resource.resource_name} #{@new_resource.name} action #{@new_resource.action}")
   
   if @new_resource.resource_name == :openldap_node
-    ldap_command = "ldapadd -D \"#{node['openldap']['admin_binddn']}\" -w#{node['openldap']['admin_password']} -f "
-    ldap_delete_command = "ldapdelete -D \"#{node['openldap']['admin_binddn']}\" -w#{node['openldap']['admin_password']} "
+    ldap_command = "ldapadd -D \"#{node['openldap']['rootdn']}\" -w#{node['openldap']['rootpw']} -f "
+    ldap_delete_command = "ldapdelete -D \"#{node['openldap']['rootdn']}\" -w#{node['openldap']['rootpw']} "
   elsif @new_resource.resource_name == :openldap_config
-    ldap_command = "ldapadd -Y EXTERNAL -H ldapi:/// -f "
-    ldap_delete_command = "ldapdelete -Y EXTERNAL -H ldapi:/// "
+    ldap_command = "ldapadd -D \"#{node['openldap']['rootdn']}\" -w#{node['openldap']['rootpw']} -f "
+    ldap_delete_command = "ldapdelete -D \"#{node['openldap']['rootdn']}\" -w#{node['openldap']['rootpw']} "
   end
 
   execute "create_command" do
     command "#{ldap_command} #{node['openldap']['config_dir']}/#{new_resource.name}.ldif"
-    ignore_failure true
+#    ignore_failure true
     action :nothing
   end
   execute "delete_command" do
@@ -46,7 +46,7 @@ def do_action
     ignore_failure true
     action :nothing
   end
-  #occasionally the action of the resource is a array, if not default and a symbol is default. Thats odd.
+  #occasionally the action of the resource is a array, if not default and a symbol if default. Thats odd.
   
   create =  if new_resource.action.kind_of?(Array)
               new_resource.action.include?(:create)
@@ -78,9 +78,9 @@ def do_action
     end
     
     if create
-      notifies :run, "execute[delete_command]"
+      notifies :run, "execute[delete_command]", :immediately
     end
-    notifies :run, "execute[create_command]"
+    notifies :run, "execute[create_command]", :immediately
   end
   
 end

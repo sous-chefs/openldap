@@ -33,7 +33,9 @@ if node['domain'].length > 0
   default['openldap']['server'] = "ldap.#{node['domain']}"
 end
 
+default['openldap']['rootdn'] = "cn=admin,#{node['openldap']['basedn']}"
 default['openldap']['rootpw'] = nil
+default['openldap']['roothash'] = nil
 
 # File and directory locations for openldap.
 case node['platform']
@@ -45,6 +47,7 @@ when "debian","ubuntu"
   default['openldap']['dir']        = "/etc/ldap"
   default['openldap']['run_dir']    = "/var/run/slapd"
   default['openldap']['module_dir'] = "/usr/lib/ldap"
+  default['openldap']['db_dir'] = "/var/lib/ldap"
 else
   default['openldap']['dir']        = "/etc/ldap"
   default['openldap']['run_dir']    = "/var/run/slapd"
