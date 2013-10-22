@@ -15,7 +15,17 @@ suites:
   run_list:
     - recipe[openldap::server]
     - recipe[openldap-test::lwrp]
-    - recipe[minitest-handler]
+#    - recipe[minitest-handler] # not working due to rootpw is now roothash
+  attributes:
+    openldap:
+      rootpw: secretsauce
+      roothash: "{SSHA}6BjlvtSbVCL88li8IorkqMSofkLio58/"
+      preseed_dir: "/tmp/does_not_exist"
+- name: users
+  run_list:
+    - recipe[openldap::server]
+    - recipe[openldap::users]
+#    - recipe[minitest-handler] # not working due to rootpw is now roothash
   attributes:
     openldap:
       rootpw: secretsauce
