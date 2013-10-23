@@ -16,7 +16,18 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+
+
 include_recipe "openldap::client"
+
+
+::Chef::Recipe.send(:include, Opscode::OpenSSL::Password)
+unless node['openldap']['rootpw']
+  node.set['openldap']['rootpw'] = secure_password
+  rootpass = Mixlib::ShellOut.new("slappasswd -h {ssha} -s #{node['openldap']['rootpw']}").run_command
+  node.set['openldap']['roothash'] = rootpass.stdout.chomp
+end
+
 
 case node['platform']
 when "ubuntu"
@@ -53,13 +64,12 @@ else
   end
 end
 
-if node['openldap']['manage_ssl']
-  cookbook_file node['openldap']['ssl_cert'] do
-    source "ssl/#{node['openldap']['server']}.pem"
-    mode 00644
-    owner "root"
-    group "root"
-  end
+cookbook_file node['openldap']['ssl_cert'] do
+  source "ssl/#{node['openldap']['server']}.pem"
+  mode 00644
+  owner "root"
+  group "root"
+  only_if { node['openldap']['manage_ssl'] }
 end
 
 service "slapd" do
@@ -94,7 +104,7 @@ if (node['platform'] == "ubuntu")
     owner "openldap"
     group "openldap"
     notifies :stop, "service[slapd]", :immediately
-    notifies :run, "execute[slapd-config-convert]"
+    notifies :run, "execute[slapd-config-convert]", :immediately
   end
 else
   case node['platform']

@@ -1,0 +1,6 @@
+dn: <%=@name%>
+<% @attributes.each do |attr, value| %>
+  <% (value.kind_of?(Array) ? value : [value]).each do |v| %>
+<%=attr%>: <%=v%>
+  <% end %>
+<% end %>
