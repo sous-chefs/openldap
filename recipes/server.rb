@@ -25,7 +25,6 @@ include_recipe "openldap::client"
 unless node['openldap']['rootpw']
   node.set['openldap']['rootpw'] = secure_password
   rootpass = Mixlib::ShellOut.new("slappasswd -h {ssha} -s #{node['openldap']['rootpw']}").run_command
-  Chef::Log.info(anon_pass.stdout)
   node.set['openldap']['roothash'] = rootpass.stdout.chomp
 end
 
