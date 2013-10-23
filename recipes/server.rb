@@ -16,7 +16,19 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+
+
 include_recipe "openldap::client"
+
+
+::Chef::Recipe.send(:include, Opscode::OpenSSL::Password)
+unless node['openldap']['rootpw']
+  node.set['openldap']['rootpw'] = secure_password
+  rootpass = Mixlib::ShellOut.new("slappasswd -h {ssha} -s #{node['openldap']['rootpw']}").run_command
+  Chef::Log.info(anon_pass.stdout)
+  node.set['openldap']['roothash'] = rootpass.stdout.chomp
+end
+
 
 case node['platform']
 when "ubuntu"
