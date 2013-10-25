@@ -8,10 +8,12 @@
 ####
 
 # TLS configuration
+<% if node['openldap']['tls_enabled'] -%>
 TLSCertificateFile     <%= node['openldap']['ssl_cert'] %>
 TLSCertificateKeyFile  <%= node['openldap']['ssl_key'] %>
 <% if node['openldap']['cafile'] -%>
 TLSCACertificateFile   <%= node['openldap']['cafile'] %>
+<% end -%>
 <% end -%>
 
 # Schema and objectClass definitions

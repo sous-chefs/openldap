@@ -22,6 +22,9 @@ Be aware of the attributes used by this cookbook and adjust the defaults for you
 
 - `openldap[:basedn]` - basedn
 - `openldap[:server]` - the LDAP server fully qualified domain name, default `'ldap'.node[:domain]`.
+- `openldap[:tls_enabled]` - specifies whether TLS will be used at all. Setting this to fals will result in your credentials being sent in clear-text.
+- `openldap[:tls_checkpeer]` - specifies whether the client should verify the server's TLS certificate. Highly recommended to set tls_checkpeer to true for production uses in order to avoid man-in-the-middle attacks. Defaults to false for testing and backwards compatibility.
+- `openldap[:pam_password]` - specifies the password change protocol to use. Defaults to md5.
 
 ### Server node attributes
 
