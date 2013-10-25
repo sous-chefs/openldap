@@ -3,6 +3,13 @@ openldap Cookbok CHANGELOG
 This file is used to list changes made in each version of the openldap cookbook.
 
 
+v1.12.4
+-------
+
+- [COOK-3772] - nscd clears don't work
+- [COOK-411]  - Openldap authentication should validate server certificate
+
+
 v1.12.2
 -------
 ### Improvement
