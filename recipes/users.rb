@@ -41,7 +41,6 @@ openldap_node node['openldap']['anon_binddn'] do
   })
 end
   
-=begin UNUSED
 openldap_config "olcDatabase={1}hdb,cn=config" do
   attributes ({
     :olcDbDirectory => node['openldap']['db_dir'],
@@ -65,7 +64,6 @@ openldap_config "olcDatabase={1}hdb,cn=config" do
     :olcRootPW => node['openldap']['roothash']
   })
 end
-=end
 
 ################################################
 # Set up a structure for users and groups
