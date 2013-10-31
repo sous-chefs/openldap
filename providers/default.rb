@@ -38,7 +38,7 @@ def do_action
 
   execute "create_command" do
     command "#{ldap_command} #{node['openldap']['config_dir']}/#{new_resource.name}.ldif"
-#    ignore_failure true
+    ignore_failure true
     action :nothing
   end
   execute "delete_command" do
