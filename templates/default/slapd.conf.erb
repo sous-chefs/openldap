@@ -8,8 +8,13 @@
 ####
 
 # TLS configuration
-TLSCertificateFile     <%= node['openldap']['dir'] %>/ssl/<%= node['openldap']['server'] %>.pem
-TLSCertificateKeyFile  <%= node['openldap']['dir'] %>/ssl/<%= node['openldap']['server'] %>.pem
+<% if node['openldap']['tls_enabled'] -%>
+TLSCertificateFile     <%= node['openldap']['ssl_cert'] %>
+TLSCertificateKeyFile  <%= node['openldap']['ssl_key'] %>
+<% if node['openldap']['cafile'] -%>
+TLSCACertificateFile   <%= node['openldap']['cafile'] %>
+<% end -%>
+<% end -%>
 
 # Schema and objectClass definitions
 include         <%= node['openldap']['dir'] %>/schema/core.schema
@@ -81,7 +86,8 @@ index uidNumber,gidNumber pres,eq
 overlay syncprov
 syncprov-checkpoint 100 10
 syncprov-sessionlog 100
-<% else -%>
+<% end -%>
+<% if node['openldap']['slapd_type'] == "slave" -%>
 syncrepl rid=<%= node['openldap']['slapd_rid'] %>
   provider=ldap://<%= node['openldap']['slapd_master'] %>:389
   type=refreshAndPersist

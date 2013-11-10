@@ -20,4 +20,9 @@ nss_base_group ou=group,<%= node['openldap']['basedn'] %>
 
 # TLS Options
 ssl start_tls
+
+<% if node['openldap']['tls_checkpeer'] -%>
+tls_checkpeer yes
+<% else -%>
 tls_checkpeer no
+<% end -%>
