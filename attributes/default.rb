@@ -28,6 +28,7 @@ default['openldap']['automount_ou'] = 'automount'
 
 
 
+default['domain'] = ''
 if node['domain'].length > 0
   default['openldap']['basedn'] = "dc=#{node['domain'].split('.').join(",dc=")}"
   default['openldap']['server'] = "ldap.#{node['domain']}"

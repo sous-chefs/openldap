@@ -15,12 +15,13 @@ CADIR = File.expand_path(File.join(File.dirname(__FILE__), "files", "default", "
 desc "Create a new self-signed SSL certificate for FQDN=foo.example.com"
 task :ssl_cert do
   $expect_verbose = true
-  fqdn = ENV["FQDN"]
+  fqdn = ENV["FQDN"] || 'ldap.localdomain'
   fqdn =~ /^(.+?)\.(.+)$/
   hostname = $1
   domain = $2
   raise "Must provide FQDN!" unless fqdn && hostname && domain
   puts "** Creating self signed SSL Certificate for #{fqdn}"
+  FileUtils.mkdir_p(CADIR) unless File.exist?(CADIR)
   sh("(cd #{CADIR} && openssl genrsa 2048 > #{fqdn}.key)")
   sh("(cd #{CADIR} && chmod 644 #{fqdn}.key)")
   puts "* Generating Self Signed Certificate Request"
