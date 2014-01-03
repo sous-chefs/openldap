@@ -3,6 +3,11 @@ openldap Cookbok CHANGELOG
 This file is used to list changes made in each version of the openldap cookbook.
 
 
+v1.12.6 (2014-01-03)
+--------------------
+adding checks for node['domain'].nil? in attributes
+
+
 v1.12.4
 -------
 
