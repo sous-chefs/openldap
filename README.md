@@ -138,6 +138,14 @@ We provide two methods of managing SSL certificates, based off of `openldap[:man
 
 If `openldap[:manage_ssl]` is `true`, then this cookbook manage your certificates itself, and will expect all certificates, intermediate certificates, and keys to be in the same file as defined in `openldap[:ssl_cert]`.
 
+Use https://github.com/atomic-penguin/cookbook-certificate cookbook for advanced certificate deployment or use wrapper cookbook with following code to source ssl files from the wrapper cookbook folder structure:
+
+    r = resources("cookbook_file[#{node['openldap']['ssl_cert']}]")
+    r.cookbook('NAME OF YOUR WRAPPER COOKBOK')
+
+    r = resources("cookbook_file[#{node['openldap']['ssl_key']}]")
+    r.cookbook('NAME OF YOUR WRAPPER COOKBOK')
+
 Be sure to update the certificate locations in the templates as required. We suggest copying this cookbook to the site-cookbooks for such modifications, so you can still pull from our master for updates, and then merge your changes in.
 
 However, if `openldap[:manage_ssl]` is `false`, then you will need to place the SSL certificates on the client file system **prior** to this cookbook being run. This provides you the flexibility to provide the same set of SSL certificates for multiple uses as well as in one place across your environment, but you will need to manage them.
