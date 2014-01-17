@@ -62,10 +62,6 @@ if node['openldap']['tls_enabled'] && node['openldap']['manage_ssl']
   end
 end
 
-service "slapd" do
-  action [:enable, :start]
-end
-
 if (node['platform'] == "ubuntu")
   template "/etc/default/slapd" do
     source "default_slapd.erb"
@@ -115,3 +111,8 @@ else
     notifies :restart, "service[slapd]"
   end
 end
+
+service "slapd" do
+  action [:enable, :start]
+end
+
