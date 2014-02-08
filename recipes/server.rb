@@ -43,6 +43,14 @@ when "ubuntu"
     response_file "slapd.seed"
     action :upgrade
   end
+when "redhat","centos"
+  package "db4-utils" do
+    action :upgrade
+  end
+
+  package "openldap-servers" do
+    action :upgrade
+  end
 else
   package "db4.2-util" do
     action :upgrade
