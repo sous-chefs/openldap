@@ -17,16 +17,13 @@
 # limitations under the License.
 #
 
-#package "ldap-utils" do
-  #action :upgrade
-#end
-
-ldaputils_pkg = 'ldap-utils'
-case node['platform_family']
-    when 'debian'
+case node['platform']
+    when 'debian', 'ubuntu'
         ldaputils_pkg = 'ldap-utils'
-    when 'rhel'
+    when 'redhat', 'centos'
         ldaputils_pkg = 'openldap-clients'
+    else
+        ldaputils_pkg = 'ldap-utils'
 end
 
 package ldaputils_pkg do
