@@ -3,6 +3,12 @@ openldap Cookbok CHANGELOG
 This file is used to list changes made in each version of the openldap cookbook.
 
 
+v1.12.10 (2014-04-09)
+---------------------
+- [COOK-4239] - Service enable/start resource moved to end
+- [COOK-4239] - Fix sslfiles + ubuntu fix
+
+
 v1.12.8 (2014-01-03)
 --------------------
 Merged nildomain branch
