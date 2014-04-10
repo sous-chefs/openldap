@@ -56,7 +56,7 @@ default['openldap']['pam_password'] = 'md5'
 default['openldap']['manage_ssl'] = true
 default['openldap']['ssl_dir'] = "#{openldap['dir']}/ssl"
 default['openldap']['cafile']  = nil
-default['openldap']['ssl_cert'] = "#{openldap['ssl_dir']}/#{openldap['server']}.pem"
+default['openldap']['ssl_cert'] = "#{openldap['ssl_dir']}/#{openldap['server']}_cert.pem"
 default['openldap']['ssl_key'] = "#{openldap['ssl_dir']}/#{openldap['server']}.pem"
 
 default['openldap']['slapd_type'] = nil

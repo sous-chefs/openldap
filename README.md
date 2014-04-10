@@ -98,11 +98,37 @@ When initially installing a brand new LDAP master server on Ubuntu 8.10, the con
     => ldif_enum_tree: failed to read entry for /etc/ldap/slapd.d/cn=config/olcDatabase={1}bdb.ldif
     slaptest: bad configuration directory!
 
-Simply remove the configuration, rerun chef-client. For some reason slapd isn't getting started even though the service resource is notified to start, so start it manually.
+For some reason slapd isn't getting started even though the service resource is notified to start, so start it manually.
+Solution is to simply remove the configuration:
 
     $ sudo rm -rf /etc/ldap/slapd.d/ /etc/ldap/slapd.conf
     $ sudo chef-client
     $ sudo /etc/init.d/slapd start
+
+Or in your wrapper cookbook rewind with ubuntu related fix:
+
+    #Fix the wrong content of slapd.d dir on ubuntu 12.04
+    chef_gem "chef-rewind"
+    require 'chef/rewind'
+    case node['platform']
+    when 'ubuntu'
+        rewind "package[slapd]" do
+            response_file "slapd.seed"
+            action :upgrade
+            notifies :run, "execute[fix-ubuntu-slapdd]", :immediately
+        end
+    end
+    #Removes slapd.d/cn=config and slapd.conf deployed from distribution. They will be re-created during the openldap recipe cooking.
+    execute "fix-ubuntu-slapdd" do
+        cmd =  "   test -d #{node['openldap']['dir']}/slapd.d && rm -rf #{node['openldap']['dir']}/slapd.d/cn=config"
+        cmd << " ; test -d #{node['openldap']['dir']}/slapd.conf && rm -rf #{node['openldap']['dir']}/slapd.conf"
+        cmd << " ; touch #{node['openldap']['dir']}/.fix-ubuntu-slapdd.done"
+        command cmd
+        ignore_failure true
+        action :nothing
+        not_if { ::File.exists?("#{node['openldap']['dir']}/.fix-ubuntu-slapdd.done") }
+    end
+
 
 ### A note about certificates
 
@@ -111,6 +137,14 @@ Certificates created by the Rakefile are self signed. If you have a purchased CA
 We provide two methods of managing SSL certificates, based off of `openldap[:manage_ssl]`.
 
 If `openldap[:manage_ssl]` is `true`, then this cookbook manage your certificates itself, and will expect all certificates, intermediate certificates, and keys to be in the same file as defined in `openldap[:ssl_cert]`.
+
+Use https://github.com/atomic-penguin/cookbook-certificate cookbook for advanced certificate deployment or use wrapper cookbook with following code to source ssl files from the wrapper cookbook folder structure:
+
+    r = resources("cookbook_file[#{node['openldap']['ssl_cert']}]")
+    r.cookbook('NAME OF YOUR WRAPPER COOKBOK')
+
+    r = resources("cookbook_file[#{node['openldap']['ssl_key']}]")
+    r.cookbook('NAME OF YOUR WRAPPER COOKBOK')
 
 Be sure to update the certificate locations in the templates as required. We suggest copying this cookbook to the site-cookbooks for such modifications, so you can still pull from our master for updates, and then merge your changes in.
 
