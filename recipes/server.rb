@@ -19,7 +19,7 @@
 include_recipe "openldap::client"
 
 case node['platform']
-when "ubuntu"
+when "ubuntu", "debian"
   package "db4.8-util" do
     action :upgrade
   end
