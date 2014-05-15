@@ -20,9 +20,11 @@ include_recipe "openldap::client"
 
 case node['platform']
 when "ubuntu"
-  package "db4.8-util" do
-    action :upgrade
-  end
+  node['platform_version'] > '14' ? dbutil_ver = 'db5.1-util' : dbutil_ver = 'db4.8-util'
+
+package dbutil_ver do
+      action :upgrade
+    end
 
   directory node['openldap']['preseed_dir'] do
     action :create
@@ -44,7 +46,7 @@ when "ubuntu"
     action :upgrade
   end
 else
-  package "db4.2-util" do
+  package "db4.8-util" do
     action :upgrade
   end
 
