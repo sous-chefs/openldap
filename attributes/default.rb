@@ -35,18 +35,18 @@ default['openldap']['rootpw'] = nil
 
 # File and directory locations for openldap.
 case node['platform']
-when "redhat","centos","amazon","scientific"
-  default['openldap']['dir']        = "/etc/openldap"
-  default['openldap']['run_dir']    = "/var/run/openldap"
-  default['openldap']['module_dir'] = "/usr/lib64/openldap"
-when "debian","ubuntu"
-  default['openldap']['dir']        = "/etc/ldap"
-  default['openldap']['run_dir']    = "/var/run/slapd"
-  default['openldap']['module_dir'] = "/usr/lib/ldap"
+when 'redhat', 'centos', 'amazon', 'scientific'
+  default['openldap']['packages']['client'] = %w{openldap-clients}
+  default['openldap']['packages']['auth']   = %w{nss-pam-ldapd}
+  default['openldap']['dir']                = '/etc/openldap'
+  default['openldap']['run_dir']            = '/var/run/openldap'
+  default['openldap']['module_dir']         = '/usr/lib64/openldap'
 else
-  default['openldap']['dir']        = "/etc/ldap"
-  default['openldap']['run_dir']    = "/var/run/slapd"
-  default['openldap']['module_dir'] = "/usr/lib/ldap"
+  default['openldap']['packages']['client'] = %w{ldap-utils}
+  default['openldap']['packages']['auth']   = %w{libpam-ldapd libnss-ldapd}
+  default['openldap']['dir']                = '/etc/ldap'
+  default['openldap']['run_dir']            = '/var/run/slapd'
+  default['openldap']['module_dir']         = '/usr/lib/ldap'
 end
 
 default['openldap']['preseed_dir'] = "/var/cache/local/preseeding"

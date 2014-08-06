@@ -17,8 +17,10 @@
 # limitations under the License.
 #
 
-package "ldap-utils" do
-  action :upgrade
+node['openldap']['packages']['client'].each do |pkg|
+  package pkg do
+    action :upgrade
+  end
 end
 
 directory node['openldap']['ssl_dir'] do

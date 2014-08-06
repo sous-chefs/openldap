@@ -7,9 +7,16 @@
 # See ldap.conf(5) for details
 # This file should be world readable but not world writable.
 
+URI    ldap://<%= node['openldap']['server'] %>
 BASE <%= node['openldap']['basedn'] %>
+<% if node['openldap']['cafile'] -%>
+TLS_CACERT <%= node['openldap']['cafile'] %>
+<% end -%>
+<% if node['openldap']['tls_checkpeer'] -%>
+TLS_REQCERT demand
+<% else -%>
 TLS_REQCERT never
-#URI    ldap://ldap.example.com ldap://ldap-master.example.com:666
+<% end -%>
 
 #SIZELIMIT      12
 #TIMELIMIT      15
