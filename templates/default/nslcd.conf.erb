@@ -1,0 +1,14 @@
+#
+# nslcd.conf generated for <%= node['hostname'] %>
+#
+# Managed by Chef
+
+uri ldap://<%= node['openldap']['server'] %>
+base <%= node['openldap']['basedn'] %>
+scope sub
+
+ssl start_tls
+tls_reqcert demand
+<% if node['openldap']['cafile'] -%>
+tls_cacertfile <%= node['openldap']['cafile'] %>
+<% end -%>

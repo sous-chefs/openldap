@@ -16,7 +16,7 @@ recipe            "openldap::master", "use on nodes that should be a slapd maste
   supports os
 end
 
-%w{ openssh nscd openssl }.each do |cb|
+%w{ openssh openssl }.each do |cb|
   depends cb
 end
 
