@@ -80,6 +80,11 @@ attribute "openldap/slapd_rid",
   :description => "Slave's ID, must be unique",
   :default => "102"
 
+attribute "openldap/auth_filters",
+  :display_name => "OpenLDAP Auth filters",
+  :description => "Used to modify the LDAP filters for LDAP authentication",
+  :default => {}
+
 attribute "openldap/auth_type",
   :display_name => "OpenLDAP Auth Type",
   :description => "Used in Apache configs, AuthBasicProvider",
