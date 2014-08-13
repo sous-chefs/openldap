@@ -12,3 +12,7 @@ tls_reqcert demand
 <% if node['openldap']['cafile'] -%>
 tls_cacertfile <%= node['openldap']['cafile'] %>
 <% end -%>
+
+<% node['openldap']['auth_filters'].each do |mapping, filterstring| %>
+filter <%= mapping %> <%= filterstring %>
+<% end %>
