@@ -39,14 +39,20 @@ when "redhat","centos","amazon","scientific"
   default['openldap']['dir']        = "/etc/openldap"
   default['openldap']['run_dir']    = "/var/run/openldap"
   default['openldap']['module_dir'] = "/usr/lib64/openldap"
+  default['openldap']['system_acct'] = 'ldap'
+  default['openldap']['system_group'] = 'ldap'
 when "debian","ubuntu"
   default['openldap']['dir']        = "/etc/ldap"
   default['openldap']['run_dir']    = "/var/run/slapd"
   default['openldap']['module_dir'] = "/usr/lib/ldap"
+  default['openldap']['system_acct'] = 'openldap'
+  default['openldap']['system_group'] = 'openldap'
 else
   default['openldap']['dir']        = "/etc/ldap"
   default['openldap']['run_dir']    = "/var/run/slapd"
   default['openldap']['module_dir'] = "/usr/lib/ldap"
+  default['openldap']['system_acct'] = 'openldap'
+  default['openldap']['system_group'] = 'openldap'
 end
 
 default['openldap']['preseed_dir'] = "/var/cache/local/preseeding"
