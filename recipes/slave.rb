@@ -24,7 +24,7 @@ if Chef::Config[:solo]
 else
   ::Chef::Recipe.send(:include, Opscode::OpenSSL::Password)
   node.default['openldap']['slapd_replpw'] = secure_password
-  node.default['openldap']['slapd_master'] = search(:nodes, 'openldap_slapd_type:master').map {|n| n['openldap']['server']}.first
+  node.default['openldap']['slapd_master'] = search(:node, 'openldap_slapd_type:master').map {|n| n['openldap']['server']}.first
   node.save
 end
 
