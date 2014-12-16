@@ -4,8 +4,12 @@
 # Managed by Chef
 #
 
+<% if node['openldap']['uri'].nil? -%>
 host <%= node['openldap']['server'] %>
 port 389
+<% else -%>
+uri <%= node['openldap']['uri'] %>
+<% end -%>
 bind_policy soft
 
 ldap_version 3

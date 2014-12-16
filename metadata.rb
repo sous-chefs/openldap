@@ -4,7 +4,7 @@ maintainer_email  "cookbooks@opscode.com"
 license           "Apache 2.0"
 description       "Configures a server to be an OpenLDAP master, replication slave or client for auth"
 long_description  IO.read(File.join(File.dirname(__FILE__), 'README.md'))
-version           "1.12.11"
+version           "1.13.0"
 recipe            "openldap", "Empty, use one of the other recipes"
 recipe            "openldap::auth", "Set up openldap for user authentication"
 recipe            "openldap::client", "Install openldap client packages"
@@ -29,6 +29,11 @@ attribute "openldap/server",
   :display_name => "OpenLDAP Server",
   :description => "LDAP Server, used for URIs",
   :default => "ldap.domain"
+
+attribute "openldap/uri",
+  :display_name => "OpenLDAP Server URI",
+  :description => "LDAP Server URI in a form 'ldap://ldap1.example.com/ ldap://10.0.0.1:389/'. This attribute is used instead of 'server' for configuring ldap client",
+  :default => nil
 
 attribute "openldap/rootpw",
   :display_name => "OpenLDAP Root Password",
