@@ -34,6 +34,7 @@ template "/etc/ldap.conf" do
   mode 00644
   owner "root"
   group "root"
+  notifies :restart, "service[ssh]", :delayed
 end
 
 template "#{node['openldap']['dir']}/ldap.conf" do

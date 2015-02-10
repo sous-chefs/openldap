@@ -3,10 +3,13 @@
 #
 # Managed by Chef
 #
-# $Id:$
 
+<% if node['openldap']['uri'].nil? -%>
 host <%= node['openldap']['server'] %>
 port 389
+<% else -%>
+uri <%= node['openldap']['uri'] %>
+<% end -%>
 #bind_policy soft
 nss_reconnect_tries 2
 ldap_version 3
@@ -14,15 +17,17 @@ ldap_version 3
 # Where to find data
 base <%= node['openldap']['basedn'] %>
 scope sub
-nss_base_passwd ou=people,<%= node['openldap']['basedn'] %>
-nss_base_shadow ou=people,<%= node['openldap']['basedn'] %>
-nss_base_group ou=group,<%= node['openldap']['basedn'] %>
+nss_base_passwd ou=<%= node['openldap']['passwd_ou'] %>,<%= node['openldap']['basedn'] %>
+nss_base_shadow ou=<%= node['openldap']['shadow_ou'] %>,<%= node['openldap']['basedn'] %>
+nss_base_group ou=<%= node['openldap']['group_ou'] %>,<%= node['openldap']['basedn'] %>
+nss_base_automount ou=<%= node['openldap']['automount_ou'] %>,<%= node['openldap']['basedn'] %>
 
+<% if node['openldap']['tls_enabled'] -%>
 # TLS Options
 ssl start_tls
-
 <% if node['openldap']['tls_checkpeer'] -%>
 tls_checkpeer yes
 <% else -%>
 tls_checkpeer no
+<% end -%>
 <% end -%>

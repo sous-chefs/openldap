@@ -18,6 +18,7 @@
 
 default['openldap']['basedn'] = "dc=localdomain"
 default['openldap']['server'] = "ldap.localdomain"
+default['openldap']['uri'] = nil
 default['openldap']['tls_enabled'] = true
 default['openldap']['pam_password'] = 'md5'
 
