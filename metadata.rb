@@ -1,6 +1,6 @@
 name              "openldap"
-maintainer        "Opscode, Inc."
-maintainer_email  "cookbooks@opscode.com"
+maintainer        "Chef Software, Inc."
+maintainer_email  "cookbooks@chef.io"
 license           "Apache 2.0"
 description       "Configures a server to be an OpenLDAP master, replication slave or client for auth"
 long_description  IO.read(File.join(File.dirname(__FILE__), 'README.md'))
