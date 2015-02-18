@@ -108,8 +108,11 @@ Solution is to simply remove the configuration:
 Or in your wrapper cookbook rewind with ubuntu related fix:
 
     #Fix the wrong content of slapd.d dir on ubuntu 12.04
-    chef_gem "chef-rewind"
+    chef_gem "chef-rewind" do
+      compile_time true
+    action :install    
     require 'chef/rewind'
+    
     case node['platform']
     when 'ubuntu'
         rewind "package[slapd]" do
