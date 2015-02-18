@@ -2,6 +2,9 @@ openldap Cookbok CHANGELOG
 ==========================
 This file is used to list changes made in each version of the openldap cookbook.
 
+v1.12.12 (2014-04-09)
+---------------------
+- Updating to work with latest openssl cookbook
 
 v1.12.10 (2014-04-09)
 ---------------------
