@@ -16,7 +16,7 @@ recipe            "openldap::master", "use on nodes that should be a slapd maste
   supports os
 end
 
-%w{ openssh nscd openssl }.each do |cb|
+%w{ openssh openssl }.each do |cb|
   depends cb
 end
 
@@ -79,6 +79,11 @@ attribute "openldap/slapd_rid",
   :display_name => "OpenLDAP Slapd Replication ID",
   :description => "Slave's ID, must be unique",
   :default => "102"
+
+attribute "openldap/auth_filters",
+  :display_name => "OpenLDAP Auth filters",
+  :description => "Used to modify the LDAP filters for LDAP authentication",
+  :default => {}
 
 attribute "openldap/auth_type",
   :display_name => "OpenLDAP Auth Type",
