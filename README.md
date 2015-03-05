@@ -22,6 +22,9 @@ Attributes
 ----------
 Be aware of the attributes used by this cookbook and adjust the defaults for your environment where required, in `attributes/default.rb`.
 
+### Overall install attributes
+- `openldap['package_install_action']` - The action to be taken for all packages in the recipes. Defaults to :install, but can also be set to :upgrade to upgrade all packages referenced in the recipes.
+
 ### Client node attributes
 
 - `openldap['basedn']` - basedn

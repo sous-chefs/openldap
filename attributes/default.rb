@@ -77,7 +77,10 @@ if node['openldap']['basedn'] && node['openldap']['server']
   default['openldap']['auth_url']    = "ldap://#{openldap['server']}/#{openldap['auth_binddn']}?uid?sub?(objectClass=*)"
 end
 
-# packages
+# package settings
+
+default['openldap']['package_install_action'] = :install
+
 if node['platform'] == 'ubuntu' && node['platform_version'].to_f >= 14.04
   default['openldap']['packages']['bdb'] = 'db5.3-util'
 elsif node['platform'] == 'ubuntu'

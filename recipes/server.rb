@@ -21,7 +21,7 @@ include_recipe 'openldap::client'
 case node['platform_family']
 when 'debian'
   package "#{node['openldap']['packages']['bdb']}" do
-    action :upgrade
+    action node['openldap']['package_install_action']
   end
 
   directory node['openldap']['preseed_dir'] do
@@ -41,15 +41,15 @@ when 'debian'
 
   package 'slapd' do
     response_file 'slapd.seed'
-    action :upgrade
+    action node['openldap']['package_install_action']
   end
 else
   package "#{node['openldap']['packages']['bdb']}" do
-    action :upgrade
+    action node['openldap']['package_install_action']
   end
 
   package 'slapd' do
-    action :upgrade
+    action node['openldap']['package_install_action']
   end
 end
 

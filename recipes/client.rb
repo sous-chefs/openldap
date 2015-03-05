@@ -18,7 +18,7 @@
 #
 
 package 'ldap-utils' do
-  action :upgrade
+  action node['openldap']['package_install_action']
 end
 
 directory node['openldap']['ssl_dir'] do
