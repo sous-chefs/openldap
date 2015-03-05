@@ -34,7 +34,7 @@ when 'ubuntu'
 
   cookbook_file "#{node['openldap']['preseed_dir']}/slapd.seed" do
     source 'slapd.seed'
-    mode 00600
+    mode '0600'
     owner 'root'
     group 'root'
   end
@@ -56,13 +56,13 @@ end
 if node['openldap']['tls_enabled'] && node['openldap']['manage_ssl']
   cookbook_file node['openldap']['ssl_cert'] do
     source "ssl/#{node['openldap']['server']}_cert.pem"
-    mode 00644
+    mode '0644'
     owner 'root'
     group 'root'
   end
   cookbook_file node['openldap']['ssl_key'] do
     source "ssl/#{node['openldap']['server']}.pem"
-    mode 00644
+    mode '0644'
     owner 'root'
     group 'root'
   end
@@ -73,7 +73,7 @@ if (node['platform'] == 'ubuntu')
     source 'default_slapd.erb'
     owner 'root'
     group 'root'
-    mode 00644
+    mode '0644'
   end
 
   directory "#{node['openldap']['dir']}/slapd.d" do
@@ -92,7 +92,7 @@ if (node['platform'] == 'ubuntu')
 
   template "#{node['openldap']['dir']}/slapd.conf" do
     source 'slapd.conf.erb'
-    mode 00640
+    mode '0640'
     owner 'openldap'
     group 'openldap'
     notifies :stop, 'service[slapd]', :immediately
@@ -105,13 +105,13 @@ else
       source 'default_slapd.erb'
       owner 'root'
       group 'root'
-      mode 00644
+      mode '0644'
     end
   end
 
   template "#{node['openldap']['dir']}/slapd.conf" do
     source 'slapd.conf.erb'
-    mode 00640
+    mode '0640'
     owner 'openldap'
     group 'openldap'
     notifies :restart, 'service[slapd]'
