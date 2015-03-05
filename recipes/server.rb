@@ -27,7 +27,7 @@ when 'debian'
   directory node['openldap']['preseed_dir'] do
     action :create
     recursive true
-    mode 00700
+    mode '0700'
     owner 'root'
     group 'root'
   end
