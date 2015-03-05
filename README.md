@@ -9,6 +9,9 @@ Requirements
 - Ubuntu 10.04+
 - Debian
 
+### Chef
+Chef version 0.10.10+ (with Ohai 0.6.12+) is required.
+
 ### Cookbooks
 - openssh
 - nscd

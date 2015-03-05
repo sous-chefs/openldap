@@ -18,8 +18,8 @@
 #
 include_recipe 'openldap::client'
 
-case node['platform']
-when 'ubuntu'
+case node['platform_family']
+when 'debian'
   package "#{node['openldap']['packages']['bdb']}" do
     action :upgrade
   end
@@ -68,7 +68,7 @@ if node['openldap']['tls_enabled'] && node['openldap']['manage_ssl']
   end
 end
 
-if (node['platform'] == 'ubuntu')
+if node['platform_family'] == 'debian'
   template '/etc/default/slapd' do
     source 'default_slapd.erb'
     owner 'root'
@@ -99,16 +99,6 @@ if (node['platform'] == 'ubuntu')
     notifies :run, 'execute[slapd-config-convert]'
   end
 else
-  case node['platform']
-  when 'debian', 'ubuntu'
-    template '/etc/default/slapd' do
-      source 'default_slapd.erb'
-      owner 'root'
-      group 'root'
-      mode '0644'
-    end
-  end
-
   template "#{node['openldap']['dir']}/slapd.conf" do
     source 'slapd.conf.erb'
     mode '0640'

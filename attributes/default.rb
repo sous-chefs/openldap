@@ -34,12 +34,12 @@ end
 default['openldap']['rootpw'] = nil
 
 # File and directory locations for openldap.
-case node['platform']
-when 'redhat', 'centos', 'amazon', 'scientific'
+case node['platform_family']
+when 'rhel'
   default['openldap']['dir']        = '/etc/openldap'
   default['openldap']['run_dir']    = '/var/run/openldap'
   default['openldap']['module_dir'] = '/usr/lib64/openldap'
-when 'debian', 'ubuntu'
+when 'debian'
   default['openldap']['dir']        = '/etc/ldap'
   default['openldap']['run_dir']    = '/var/run/slapd'
   default['openldap']['module_dir'] = '/usr/lib/ldap'
