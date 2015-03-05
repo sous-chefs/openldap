@@ -17,12 +17,13 @@
 # limitations under the License.
 #
 
-package "ldap-utils" do
+package 'ldap-utils' do
   action :upgrade
 end
 
 directory node['openldap']['ssl_dir'] do
-  mode 00755
-  owner "root"
-  group "root"
+  mode '0755'
+  owner 'root'
+  group 'root'
 end
+
