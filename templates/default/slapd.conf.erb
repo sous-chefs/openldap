@@ -34,8 +34,8 @@ loglevel        <%= node['openldap']['loglevel'] %>
 
 <% unless node['platform'] == "centos" -%>
 # Where the dynamically loaded modules are stored
-modulepath	<%= node['openldap']['module_dir'] %>
-moduleload	back_hdb
+modulepath      <%= node['openldap']['module_dir'] %>
+moduleload      back_hdb
 <% if node['openldap']['slapd_type'] == "master" -%>
 moduleload  syncprov
 <% end -%>
@@ -52,7 +52,7 @@ tool-threads 1
 # Specific Backend Directives for hdb:
 # Backend specific directives apply to this backend until another
 # 'backend' directive occurs
-backend		hdb
+backend         hdb
 
 #####
 # Database
@@ -60,7 +60,7 @@ backend		hdb
 database        hdb
 suffix          "<%= node['openldap']['basedn'] %>"
 rootdn          "cn=admin,<%= node['openldap']['basedn'] %>"
-rootpw		      <%= node['openldap']['rootpw'] %>
+rootpw          <%= node['openldap']['rootpw'] %>
 directory       "/var/lib/ldap"
 lastmod         on
 
