@@ -6,7 +6,7 @@ Configures a server to be an OpenLDAP master, OpenLDAP replication slave, or Ope
 Requirements
 ------------
 ### Platform
-Ubuntu 10.04 was primarily used in testing this cookbook. Other Ubuntu versions and Debian may work. Red Hat and derivatives are not fully supported, but we take patches.
+- Ubuntu 10.04+
 
 ### Cookbooks
 - openssh
