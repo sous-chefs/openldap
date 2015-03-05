@@ -41,6 +41,7 @@ Be aware of the attributes used by this cookbook and adjust the defaults for you
 - `openldap['ssl_cert']` - The full path to your SSL certificate.
 - `openldap['ssl_key']` - The full path to your SSL key.
 - `openldap['cacert']` - Your certificate authority's certificate (or intermediate authorities), if needed.
+- `openldap['loglevel']` - The server log level.  Defaults to 0
 
 ### Apache configuration attributes
 

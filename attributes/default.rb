@@ -31,6 +31,8 @@ unless node['domain'].nil? || node['domain'].split('.').count < 2
   default['openldap']['server'] = "ldap.#{node['domain']}"
 end
 
+default['openldap']['loglevel'] = 0
+
 default['openldap']['rootpw'] = nil
 
 # File and directory locations for openldap.
