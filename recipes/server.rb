@@ -16,11 +16,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-include_recipe "openldap::client"
+include_recipe 'openldap::client'
 
 case node['platform']
-when "ubuntu"
-  package "db4.8-util" do
+when 'ubuntu'
+  package 'db4.8-util' do
     action :upgrade
   end
 
@@ -28,27 +28,27 @@ when "ubuntu"
     action :create
     recursive true
     mode 00700
-    owner "root"
-    group "root"
+    owner 'root'
+    group 'root'
   end
 
   cookbook_file "#{node['openldap']['preseed_dir']}/slapd.seed" do
-    source "slapd.seed"
+    source 'slapd.seed'
     mode 00600
-    owner "root"
-    group "root"
+    owner 'root'
+    group 'root'
   end
 
-  package "slapd" do
-    response_file "slapd.seed"
+  package 'slapd' do
+    response_file 'slapd.seed'
     action :upgrade
   end
 else
-  package "db4.2-util" do
+  package 'db4.2-util' do
     action :upgrade
   end
 
-  package "slapd" do
+  package 'slapd' do
     action :upgrade
   end
 end
@@ -57,68 +57,67 @@ if node['openldap']['tls_enabled'] && node['openldap']['manage_ssl']
   cookbook_file node['openldap']['ssl_cert'] do
     source "ssl/#{node['openldap']['server']}_cert.pem"
     mode 00644
-    owner "root"
-    group "root"
+    owner 'root'
+    group 'root'
   end
   cookbook_file node['openldap']['ssl_key'] do
     source "ssl/#{node['openldap']['server']}.pem"
     mode 00644
-    owner "root"
-    group "root"
+    owner 'root'
+    group 'root'
   end
 end
 
-if (node['platform'] == "ubuntu")
-  template "/etc/default/slapd" do
-    source "default_slapd.erb"
-    owner "root"
-    group "root"
+if (node['platform'] == 'ubuntu')
+  template '/etc/default/slapd' do
+    source 'default_slapd.erb'
+    owner 'root'
+    group 'root'
     mode 00644
   end
 
   directory "#{node['openldap']['dir']}/slapd.d" do
     recursive true
-    owner "openldap"
-    group "openldap"
+    owner 'openldap'
+    group 'openldap'
     action :create
   end
 
-  execute "slapd-config-convert" do
+  execute 'slapd-config-convert' do
     command "slaptest -f #{node['openldap']['dir']}/slapd.conf -F #{node['openldap']['dir']}/slapd.d/"
-    user "openldap"
+    user 'openldap'
     action :nothing
-    notifies :start, "service[slapd]", :immediately
+    notifies :start, 'service[slapd]', :immediately
   end
 
   template "#{node['openldap']['dir']}/slapd.conf" do
-    source "slapd.conf.erb"
+    source 'slapd.conf.erb'
     mode 00640
-    owner "openldap"
-    group "openldap"
-    notifies :stop, "service[slapd]", :immediately
-    notifies :run, "execute[slapd-config-convert]"
+    owner 'openldap'
+    group 'openldap'
+    notifies :stop, 'service[slapd]', :immediately
+    notifies :run, 'execute[slapd-config-convert]'
   end
 else
   case node['platform']
-  when "debian","ubuntu"
-    template "/etc/default/slapd" do
-      source "default_slapd.erb"
-      owner "root"
-      group "root"
+  when 'debian', 'ubuntu'
+    template '/etc/default/slapd' do
+      source 'default_slapd.erb'
+      owner 'root'
+      group 'root'
       mode 00644
     end
   end
 
   template "#{node['openldap']['dir']}/slapd.conf" do
-    source "slapd.conf.erb"
+    source 'slapd.conf.erb'
     mode 00640
-    owner "openldap"
-    group "openldap"
-    notifies :restart, "service[slapd]"
+    owner 'openldap'
+    group 'openldap'
+    notifies :restart, 'service[slapd]'
   end
 end
 
-service "slapd" do
+service 'slapd' do
   action [:enable, :start]
 end
-

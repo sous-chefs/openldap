@@ -17,55 +17,55 @@
 # limitations under the License.
 #
 
-include_recipe "openldap::client"
-include_recipe "openssh"
-include_recipe "nscd"
+include_recipe 'openldap::client'
+include_recipe 'openssh'
+include_recipe 'nscd'
 
-package "libnss-ldap" do
+package 'libnss-ldap' do
   action :upgrade
 end
 
-package "libpam-ldap" do
+package 'libpam-ldap' do
   action :upgrade
 end
 
-template "/etc/ldap.conf" do
-  source "ldap.conf.erb"
+template '/etc/ldap.conf' do
+  source 'ldap.conf.erb'
   mode 00644
-  owner "root"
-  group "root"
+  owner 'root'
+  group 'root'
 end
 
 template "#{node['openldap']['dir']}/ldap.conf" do
-  source "ldap-ldap.conf.erb"
+  source 'ldap-ldap.conf.erb'
   mode 00644
-  owner "root"
-  group "root"
+  owner 'root'
+  group 'root'
 end
 
-cookbook_file "/etc/nsswitch.conf" do
-  source "nsswitch.conf"
+cookbook_file '/etc/nsswitch.conf' do
+  source 'nsswitch.conf'
   mode 00644
-  owner "root"
-  group "root"
-  notifies :run, "execute[nscd-clear-passwd]", :immediately
-  notifies :run, "execute[nscd-clear-group]", :immediately
-  notifies :restart, "service[nscd]", :immediately
+  owner 'root'
+  group 'root'
+  notifies :run, 'execute[nscd-clear-passwd]', :immediately
+  notifies :run, 'execute[nscd-clear-group]', :immediately
+  notifies :restart, 'service[nscd]', :immediately
 end
 
-%w{ account auth password session }.each do |pam|
+%w(account auth password session).each do |pam|
   cookbook_file "/etc/pam.d/common-#{pam}" do
     source "common-#{pam}"
     mode 00644
-    owner "root"
-    group "root"
-    notifies :restart, "service[ssh]", :delayed
+    owner 'root'
+    group 'root'
+    notifies :restart, 'service[ssh]', :delayed
   end
 end
 
-template "/etc/security/login_access.conf" do
-  source "login_access.conf.erb"
+template '/etc/security/login_access.conf' do
+  source 'login_access.conf.erb'
   mode 00644
-  owner "root"
-  group "root"
+  owner 'root'
+  group 'root'
 end
