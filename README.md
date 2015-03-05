@@ -7,6 +7,7 @@ Requirements
 ------------
 ### Platform
 - Ubuntu 10.04+
+- Debian
 
 ### Cookbooks
 - openssh
@@ -16,7 +17,7 @@ Requirements
 
 Attributes
 ----------
-Be aware of the attributes used by this cookbook and adjust the defaults for your environment where required, in `attributes/openldap.rb`.
+Be aware of the attributes used by this cookbook and adjust the defaults for your environment where required, in `attributes/default.rb`.
 
 ### Client node attributes
 
