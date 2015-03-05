@@ -26,4 +26,3 @@ directory node['openldap']['ssl_dir'] do
   owner 'root'
   group 'root'
 end
-
