@@ -18,7 +18,7 @@
 #
 include_recipe 'openldap::client'
 
-package "#{node['openldap']['packages']['bdb']}" do
+package node['openldap']['packages']['bdb'] do
   action node['openldap']['package_install_action']
 end
 
