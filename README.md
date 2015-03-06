@@ -27,6 +27,7 @@ Be aware of the attributes used by this cookbook and adjust the defaults for you
 
 ### Client node attributes
 
+- `openldap['server_uri']` - the URI of the LDAP server
 - `openldap['basedn']` - basedn
 - `openldap['server']` - the LDAP server fully qualified domain name, default `'ldap'.node['domain']`.
 - `openldap['tls_enabled']` - specifies whether TLS will be used at all. Setting this to fals will result in your credentials being sent in clear-text.
