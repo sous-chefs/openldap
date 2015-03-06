@@ -16,6 +16,7 @@ platforms:
 suites:
 - name: server
   run_list:
+    - recipe[openldap-test::default]
     - recipe[openldap::server]
     - recipe[openldap::auth]
     - recipe[minitest-handler]
@@ -25,6 +26,10 @@ suites:
       basedn: "dc=example, dc=com"
       server: "ldap.example.com"
       preseed_dir: "/tmp/does_not_exist"
+      ssl_cert_source_cookbook: "openldap-test"
+      ssl_cert_source_path: "ldap.example.com.pem"
+      ssl_key_source_cookbook: "openldap-test"
+      ssl_key_source_path: "ldap.example.com.key"
 - name: unmanaged_ssl
   run_list:
     - recipe[openldap-test::ssl]

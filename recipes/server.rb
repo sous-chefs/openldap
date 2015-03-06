@@ -55,13 +55,16 @@ end
 
 if node['openldap']['tls_enabled'] && node['openldap']['manage_ssl']
   cookbook_file node['openldap']['ssl_cert'] do
-    source "ssl/#{node['openldap']['server']}_cert.pem"
+    source node['openldap']['ssl_cert_source_path']
+    cookbook node['openldap']['ssl_cert_source_cookbook']
     mode '0644'
     owner 'root'
     group 'root'
   end
+
   cookbook_file node['openldap']['ssl_key'] do
-    source "ssl/#{node['openldap']['server']}.pem"
+    source node['openldap']['ssl_key_source_path']
+    cookbook node['openldap']['ssl_key_source_cookbook']
     mode '0644'
     owner 'root'
     group 'root'

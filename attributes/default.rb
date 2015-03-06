@@ -60,6 +60,10 @@ default['openldap']['ssl_dir'] = "#{openldap['dir']}/ssl"
 default['openldap']['cafile']  = nil
 default['openldap']['ssl_cert'] = "#{openldap['ssl_dir']}/#{openldap['server']}_cert.pem"
 default['openldap']['ssl_key'] = "#{openldap['ssl_dir']}/#{openldap['server']}.pem"
+default['openldap']['ssl_cert_source_cookbook'] = 'openldap'
+default['openldap']['ssl_cert_source_path'] = "ssl/#{node['openldap']['server']}_cert.pem"
+default['openldap']['ssl_key_source_cookbook'] = 'openldap'
+default['openldap']['ssl_key_source_path'] = "ssl/#{node['openldap']['server']}.pem"
 
 default['openldap']['slapd_type'] = nil
 

@@ -43,8 +43,10 @@ Be aware of the attributes used by this cookbook and adjust the defaults for you
    If set to `false`, you will need to provide your SSL certificates **prior** to this recipe being run. Be sure to set `openldap['ssl_cert']` and `openldap['ssl_key']` appropriately.
 - `openldap['ssl_cert']` - The full path to your SSL certificate.
 - `openldap['ssl_key']` - The full path to your SSL key.
-- `openldap['cacert']` - Your certificate authority's certificate (or intermediate authorities), if needed.
-- `openldap['loglevel']` - The server log level.  Defaults to 0
+- `openldap['ssl_cert_source_cookbook']` - The cookbook to find the ssl cert.  Defaults to this cookbook
+- `openldap['ssl_cert_source_path']` - The path in the cookbook to find the ssl cert file.
+- `openldap['ssl_key_source_cookbook']` - The cookbook to find the ssl key.  Defaults to this cookbook
+- `openldap['ssl_key_source_path']` - The path in the cookbook to find the ssl key file.
 
 ### Apache configuration attributes
 
