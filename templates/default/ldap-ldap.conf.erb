@@ -9,7 +9,7 @@
 
 BASE <%= node['openldap']['basedn'] %>
 TLS_REQCERT never
-#URI    ldap://ldap.example.com ldap://ldap-master.example.com:666
+URI ldap://<%= node['openldap']['server'] %>/
 
 #SIZELIMIT      12
 #TIMELIMIT      15
