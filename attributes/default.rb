@@ -20,7 +20,6 @@ default['openldap']['basedn'] = 'dc=localdomain'
 default['openldap']['server'] = 'ldap.localdomain'
 default['openldap']['server_uri'] = "ldap://#{node['openldap']['server']}/"
 default['openldap']['tls_enabled'] = true
-default['openldap']['pam_password'] = 'md5'
 
 default['openldap']['passwd_ou'] = 'people'
 default['openldap']['shadow_ou'] = 'people'
