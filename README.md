@@ -48,6 +48,7 @@ Be aware of the attributes used by this cookbook and adjust the defaults for you
 - `openldap['ssl_cert_source_path']` - The path in the cookbook to find the ssl cert file.
 - `openldap['ssl_key_source_cookbook']` - The cookbook to find the ssl key.  Defaults to this cookbook
 - `openldap['ssl_key_source_path']` - The path in the cookbook to find the ssl key file.
+- `openldap['cafile']` - Your certificate authority's certificate (or intermediate authorities), if needed.
 
 ### Apache configuration attributes
 
@@ -160,7 +161,7 @@ Use https://github.com/atomic-penguin/cookbook-certificate cookbook for advanced
 Be sure to update the certificate locations in the templates as required. We suggest copying this cookbook to the site-cookbooks for such modifications, so you can still pull from our master for updates, and then merge your changes in.
 
 However, if `openldap['manage_ssl']` is `false`, then you will need to place the SSL certificates on the client file system **prior** to this cookbook being run. This provides you the flexibility to provide the same set of SSL certificates for multiple uses as well as in one place across your environment, but you will need to manage them.
-- Set `openldap['ssl-cert']`, `openldap['ssl_key']`, and `openldap['cacert']` appropriately.
+- Set `openldap['ssl_cert']`, `openldap['ssl_key']`, and `openldap['cafile']` appropriately.
 - Ensure that that user openldap can access these files. Watch out for apparmor and SELinux if you are placing your SSL certificates in a non-default location.
 
 ### New Directory
