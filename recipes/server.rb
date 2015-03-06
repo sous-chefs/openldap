@@ -18,12 +18,12 @@
 #
 include_recipe 'openldap::client'
 
-case node['platform_family']
-when 'debian'
-  package "#{node['openldap']['packages']['bdb']}" do
-    action node['openldap']['package_install_action']
-  end
+package "#{node['openldap']['packages']['bdb']}" do
+  action node['openldap']['package_install_action']
+end
 
+# the debian package needs a preseed file in order to silently install
+if node['platform_family'] == 'debian'
   directory node['openldap']['preseed_dir'] do
     action :create
     recursive true
@@ -38,19 +38,11 @@ when 'debian'
     owner 'root'
     group 'root'
   end
+end
 
-  package 'slapd' do
-    response_file 'slapd.seed'
-    action node['openldap']['package_install_action']
-  end
-else
-  package "#{node['openldap']['packages']['bdb']}" do
-    action node['openldap']['package_install_action']
-  end
-
-  package 'slapd' do
-    action node['openldap']['package_install_action']
-  end
+package 'slapd' do
+  response_file 'slapd.seed' if node['platform_family'] == 'debian'
+  action node['openldap']['package_install_action']
 end
 
 if node['openldap']['tls_enabled'] && node['openldap']['manage_ssl']
