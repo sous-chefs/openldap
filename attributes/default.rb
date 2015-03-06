@@ -94,8 +94,11 @@ when 'debian'
   else
     default['openldap']['packages']['bdb'] = 'db-util'
   end
+  default['openldap']['packages']['client_pkg'] = 'ldap-utils'
 when 'rhel'
   default['openldap']['packages']['bdb'] = 'db-utils'
+  default['openldap']['packages']['client_pkg'] = 'openldap-clients'
 else
   default['openldap']['packages']['bdb'] = 'db-utils'
+  default['openldap']['packages']['client_pkg'] = 'ldap-utils'
 end

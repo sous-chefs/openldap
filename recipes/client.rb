@@ -17,7 +17,7 @@
 # limitations under the License.
 #
 
-package 'ldap-utils' do
+package node['openldap']['packages']['client_pkg'] do
   action node['openldap']['package_install_action']
 end
 
