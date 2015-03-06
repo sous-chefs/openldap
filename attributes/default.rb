@@ -85,10 +85,17 @@ end
 
 default['openldap']['package_install_action'] = :install
 
-if node['platform'] == 'ubuntu' && node['platform_version'].to_f >= 14.04
-  default['openldap']['packages']['bdb'] = 'db5.3-util'
-elsif node['platform'] == 'ubuntu'
-  default['openldap']['packages']['bdb'] = 'db4.8-util'
+case node['platform_family']
+when 'debian'
+  # precise and up and wheezy and up stopped putting the version name in the db-util package.
+  # this is required to keep support for lucid
+  if node['platform'] == 'ubuntu' && node['platform_version'].to_i < 12
+    default['openldap']['packages']['bdb'] = 'db4.8-util'
+  else
+    default['openldap']['packages']['bdb'] = 'db-util'
+  end
+when 'rhel'
+  default['openldap']['packages']['bdb'] = 'db-utils'
 else
-  default['openldap']['packages']['bdb'] = 'db4.2-util'
+  default['openldap']['packages']['bdb'] = 'db-utils'
 end
