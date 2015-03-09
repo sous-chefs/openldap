@@ -37,6 +37,7 @@ Be aware of the attributes used by this cookbook and adjust the defaults for you
 ### Server node attributes
 
 - `openldap['schemas']` - Array of ldap schema file names to load
+- `openldap['modules']` - Array of slapd modules names to load
 - `openldap['slapd_type']` - master | slave
 - `openldap['slapd_rid']` - unique integer ID, required if type is slave.
 - `openldap['slapd_master']` - hostname of slapd master, attempts to search for slapd_type master.

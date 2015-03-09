@@ -34,7 +34,9 @@ loglevel        <%= node['openldap']['loglevel'] %>
 <% unless node['platform'] == "centos" -%>
 # Where the dynamically loaded modules are stored
 modulepath	<%= node['openldap']['module_dir'] %>
-moduleload	back_hdb
+<% node['openldap']['modules'].sort.each do |mod| -%>
+moduleload  <%= mod %>
+<% end -%>
 <% if node['openldap']['slapd_type'] == "master" -%>
 moduleload  syncprov
 <% end -%>

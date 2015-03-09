@@ -33,6 +33,7 @@ end
 
 default['openldap']['loglevel'] = 0
 default['openldap']['schemas'] = %w(core.schema cosine.schema nis.schema inetorgperson.schema)
+default['openldap']['modules'] = %w(back_hdb)
 
 default['openldap']['rootpw'] = nil
 
