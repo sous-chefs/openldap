@@ -17,6 +17,7 @@
 #
 
 default['openldap']['basedn'] = 'dc=localdomain'
+default['openldap']['cn'] = 'admin'
 default['openldap']['server'] = 'ldap.localdomain'
 default['openldap']['server_uri'] = "ldap://#{node['openldap']['server']}/"
 default['openldap']['tls_enabled'] = true
