@@ -58,7 +58,7 @@ Sets up the system for using openldap for user authentication.
 
 ### default
 
-Empty recipe, you may want client.
+Empty placeholder recipe.
 
 ### client
 
