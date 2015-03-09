@@ -2,6 +2,14 @@ openldap Cookbok CHANGELOG
 ==========================
 This file is used to list changes made in each version of the openldap cookbook.
 
+UNRELEASED
+----------
+- Resolve the one and only Food Critic warning
+- Remove legacy LDAP Apache2 attributes that aren't used in this cookbook or in the Apache2 cookbook
+- Add an attribute for schemas to enable in the slapd config
+- Add an attribute for the modules to load in the slapd config
+- Make the cn used an attribute
+
 2.0.0 (2015-03-06)
 ------------------
 - Added URI to the client config so clients can communicate with the LDAP server
