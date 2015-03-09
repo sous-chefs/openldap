@@ -50,18 +50,6 @@ Be aware of the attributes used by this cookbook and adjust the defaults for you
 - `openldap['ssl_key_source_path']` - The path in the cookbook to find the ssl key file.
 - `openldap['cafile']` - Your certificate authority's certificate (or intermediate authorities), if needed.
 
-### Apache configuration attributes
-
-Attributes useful for Apache authentication with LDAP.
-
-COOK-128 - set automatically based on openldap['server'] and openldap['basedn'] if those attributes are set. openldap['auth_bindpw'] remains nil by default as a default value is not easily predicted.
-
-- `openldap['auth_type']` - determine whether binddn and bindpw are required (openldap no, ad yes)
-- `openldap['auth_url']` - AuthLDAPURL
-- `openldap['auth_binddn']` - AuthLDAPBindDN
-- `openldap['auth_bindpw']` - AuthLDAPBindPassword
-
-
 Recipes
 -------
 ### auth

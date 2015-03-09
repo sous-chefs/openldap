@@ -73,16 +73,7 @@ if node['openldap']['slapd_type'] == 'slave'
   default['openldap']['slapd_rid']    = 102
 end
 
-# Auth settings for Apache
-if node['openldap']['basedn'] && node['openldap']['server']
-  default['openldap']['auth_type']   = 'openldap'
-  default['openldap']['auth_binddn'] = "ou=people,#{openldap['basedn']}"
-  default['openldap']['auth_bindpw'] = nil
-  default['openldap']['auth_url']    = "ldap://#{openldap['server']}/#{openldap['auth_binddn']}?uid?sub?(objectClass=*)"
-end
-
 # package settings
-
 default['openldap']['package_install_action'] = :install
 
 case node['platform_family']
