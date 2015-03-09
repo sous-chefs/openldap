@@ -32,6 +32,7 @@ unless node['domain'].nil? || node['domain'].split('.').count < 2
 end
 
 default['openldap']['loglevel'] = 0
+default['openldap']['schemas'] = %w(core.schema cosine.schema nis.schema inetorgperson.schema)
 
 default['openldap']['rootpw'] = nil
 

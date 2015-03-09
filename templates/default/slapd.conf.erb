@@ -17,10 +17,9 @@ TLSCACertificateFile   <%= node['openldap']['cafile'] %>
 <% end -%>
 
 # Schema and objectClass definitions
-include         <%= node['openldap']['dir'] %>/schema/core.schema
-include         <%= node['openldap']['dir'] %>/schema/cosine.schema
-include         <%= node['openldap']['dir'] %>/schema/nis.schema
-include         <%= node['openldap']['dir'] %>/schema/inetorgperson.schema
+<% node['openldap']['schemas'].sort.each do |schema| -%>
+include         <%= node['openldap']['dir'] %>/schema/<%= schema %>
+<% end -%>
 
 # Where the pid file is put. The init.d script
 # will not stop the server if you change this.
