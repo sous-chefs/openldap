@@ -44,14 +44,20 @@ when 'rhel'
   default['openldap']['dir']        = '/etc/openldap'
   default['openldap']['run_dir']    = '/var/run/openldap'
   default['openldap']['module_dir'] = '/usr/lib64/openldap'
+  default['openldap']['system_acct'] = 'ldap'
+  default['openldap']['system_group'] = 'ldap'
 when 'debian'
   default['openldap']['dir']        = '/etc/ldap'
   default['openldap']['run_dir']    = '/var/run/slapd'
   default['openldap']['module_dir'] = '/usr/lib/ldap'
+  default['openldap']['system_acct'] = 'openldap'
+  default['openldap']['system_group'] = 'openldap'
 else
   default['openldap']['dir']        = '/etc/ldap'
   default['openldap']['run_dir']    = '/var/run/slapd'
   default['openldap']['module_dir'] = '/usr/lib/ldap'
+  default['openldap']['system_acct'] = 'openldap'
+  default['openldap']['system_group'] = 'openldap'
 end
 
 default['openldap']['preseed_dir'] = '/var/cache/local/preseeding'
@@ -89,10 +95,16 @@ when 'debian'
     default['openldap']['packages']['bdb'] = 'db-util'
   end
   default['openldap']['packages']['client_pkg'] = 'ldap-utils'
+  default['openldap']['packages']['server_pkg'] = 'slapd'
+  default['openldap']['packages']['auth_pkgs'] = %w(libnss-ldap libpam-ldap)
 when 'rhel'
   default['openldap']['packages']['bdb'] = 'db-utils'
   default['openldap']['packages']['client_pkg'] = 'openldap-clients'
+  default['openldap']['packages']['srv_pkg'] = 'openldap-servers'
+  default['openldap']['packages']['auth_pkgs'] = %w(nss-pam-ldapd)
 else
   default['openldap']['packages']['bdb'] = 'db-utils'
   default['openldap']['packages']['client_pkg'] = 'ldap-utils'
+  default['openldap']['packages']['srv_pkg'] = 'slapd'
+  default['openldap']['packages']['auth_pkgs'] = %w(libnss-ldap libpam-ldap)
 end
