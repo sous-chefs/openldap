@@ -21,12 +21,10 @@ include_recipe 'openldap::client'
 include_recipe 'openssh'
 include_recipe 'nscd'
 
-package 'libnss-ldap' do
-  action node['openldap']['package_install_action']
-end
-
-package 'libpam-ldap' do
-  action node['openldap']['package_install_action']
+node['openldap']['packages']['auth_pkgs'].each do |pkg|
+  package pkg do
+    action node['openldap']['package_install_action']
+  end
 end
 
 template '/etc/ldap.conf' do

@@ -40,7 +40,7 @@ if node['platform_family'] == 'debian'
   end
 end
 
-package 'slapd' do
+package node['openldap']['packages']['srv_pkg'] do
   response_file 'slapd.seed' if node['platform_family'] == 'debian'
   action node['openldap']['package_install_action']
 end
@@ -73,14 +73,14 @@ if node['platform_family'] == 'debian'
 
   directory "#{node['openldap']['dir']}/slapd.d" do
     recursive true
-    owner 'openldap'
-    group 'openldap'
+    owner node['openldap']['system_user']
+    group node['openldap']['system_group']
     action :create
   end
 
   execute 'slapd-config-convert' do
     command "slaptest -f #{node['openldap']['dir']}/slapd.conf -F #{node['openldap']['dir']}/slapd.d/"
-    user 'openldap'
+    user node['openldap']['system_user']
     action :nothing
     notifies :start, 'service[slapd]', :immediately
   end
@@ -88,8 +88,8 @@ if node['platform_family'] == 'debian'
   template "#{node['openldap']['dir']}/slapd.conf" do
     source 'slapd.conf.erb'
     mode '0640'
-    owner 'openldap'
-    group 'openldap'
+    owner node['openldap']['system_user']
+    group node['openldap']['system_group']
     notifies :stop, 'service[slapd]', :immediately
     notifies :run, 'execute[slapd-config-convert]'
   end
@@ -97,8 +97,8 @@ else
   template "#{node['openldap']['dir']}/slapd.conf" do
     source 'slapd.conf.erb'
     mode '0640'
-    owner 'openldap'
-    group 'openldap'
+    owner node['openldap']['system_user']
+    group node['openldap']['system_group']
     notifies :restart, 'service[slapd]'
   end
 end
