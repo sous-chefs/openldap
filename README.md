@@ -170,7 +170,7 @@ Set this by default in the attributes file, or on the node's entry in the webui.
 License & Authors
 -----------------
 - Author:: Joshua Timberman (<joshua@chef.io>)
-- Author:: Tim Smith (tim@cozy.co>)
+- Author:: Tim Smith (<tim@cozy.co>)
 
 ```text
 Copyright:: 2008-2015, Chef Software, Inc
