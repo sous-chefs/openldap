@@ -95,7 +95,7 @@ when 'debian'
     default['openldap']['packages']['bdb'] = 'db-util'
   end
   default['openldap']['packages']['client_pkg'] = 'ldap-utils'
-  default['openldap']['packages']['server_pkg'] = 'slapd'
+  default['openldap']['packages']['srv_pkg'] = 'slapd'
   default['openldap']['packages']['auth_pkgs'] = %w(libnss-ldap libpam-ldap)
 when 'rhel'
   default['openldap']['packages']['bdb'] = 'db-utils'
