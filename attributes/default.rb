@@ -34,7 +34,15 @@ end
 
 default['openldap']['loglevel'] = 0
 default['openldap']['schemas'] = %w(core.schema cosine.schema nis.schema inetorgperson.schema)
-default['openldap']['modules'] = %w(back_hdb)
+
+case node['platform_family']
+when 'freebsd'
+  default['openldap']['modules'] = %w(back_mdb)
+  default['openldap']['database'] = 'mdb'
+else
+  default['openldap']['modules'] = %w(back_hdb)
+  default['openldap']['database'] = 'hdb'
+end
 
 default['openldap']['rootpw'] = nil
 
@@ -43,19 +51,29 @@ case node['platform_family']
 when 'rhel'
   default['openldap']['dir']        = '/etc/openldap'
   default['openldap']['run_dir']    = '/var/run/openldap'
+  default['openldap']['db_dir']    = '/var/lib/ldap'
   default['openldap']['module_dir'] = '/usr/lib64/openldap'
   default['openldap']['system_acct'] = 'ldap'
   default['openldap']['system_group'] = 'ldap'
 when 'debian'
   default['openldap']['dir']        = '/etc/ldap'
   default['openldap']['run_dir']    = '/var/run/slapd'
+  default['openldap']['db_dir']    = '/var/lib/ldap'
   default['openldap']['module_dir'] = '/usr/lib/ldap'
   default['openldap']['system_acct'] = 'openldap'
   default['openldap']['system_group'] = 'openldap'
+when 'freebsd'
+  default['openldap']['dir']        = '/usr/local/etc/openldap'
+  default['openldap']['run_dir']    = '/var/run/openldap'
+  default['openldap']['db_dir']    = '/var/db/openldap-data'
+  default['openldap']['module_dir'] = '/usr/local/libexec/openldap'
+  default['openldap']['system_acct'] = 'ldap'
+  default['openldap']['system_group'] = 'ldap'
 else
   default['openldap']['dir']        = '/etc/ldap'
   default['openldap']['run_dir']    = '/var/run/slapd'
   default['openldap']['module_dir'] = '/usr/lib/ldap'
+  default['openldap']['db_dir']    = '/var/lib/ldap'
   default['openldap']['system_acct'] = 'openldap'
   default['openldap']['system_group'] = 'openldap'
 end
@@ -102,6 +120,11 @@ when 'rhel'
   default['openldap']['packages']['client_pkg'] = 'openldap-clients'
   default['openldap']['packages']['srv_pkg'] = 'openldap-servers'
   default['openldap']['packages']['auth_pkgs'] = %w(nss-pam-ldapd)
+when 'freebsd'
+  default['openldap']['packages']['bdb'] = 'libdbi'
+  default['openldap']['packages']['client_pkg'] = 'openldap-client'
+  default['openldap']['packages']['srv_pkg'] = 'openldap-server'
+  default['openldap']['packages']['auth_pkgs'] = %w(pam_ldap)
 else
   default['openldap']['packages']['bdb'] = 'db-utils'
   default['openldap']['packages']['client_pkg'] = 'ldap-utils'

@@ -53,18 +53,19 @@ tool-threads 1
 # Specific Backend Directives for hdb:
 # Backend specific directives apply to this backend until another
 # 'backend' directive occurs
-backend		hdb
+backend		<%= node['openldap']['database'] %>
 
 #####
 # Database
 #####
-database        hdb
+database        <%= node['openldap']['database'] %>
 suffix          "<%= node['openldap']['basedn'] %>"
 rootdn          "cn=<%= node['openldap']['cn'] %>,<%= node['openldap']['basedn'] %>"
 rootpw          <%= node['openldap']['rootpw'] %>
-directory       "/var/lib/ldap"
+directory       "<%= node['openldap']['db_dir'] %>"
 lastmod         on
 
+<% if node['openldap']['database'] == 'hdb' -%>
 dbconfig set_cachesize 0 31457280 0
 
 # Number of objects that can be locked at the same time.
@@ -73,6 +74,7 @@ dbconfig set_lk_max_objects 1500
 dbconfig set_lk_max_locks 1500
 # Number of lockers
 dbconfig set_lk_max_lockers 1500
+<% end -%>
 
 ##
 # Indexes
