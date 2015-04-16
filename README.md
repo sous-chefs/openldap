@@ -9,6 +9,7 @@ Requirements
 - Ubuntu 10.04+
 - Debian
 - FreeBSD 10
+- RHEL and derivitives
 
 ### Chef
 Chef version 0.10.10+ (with Ohai 0.6.12+) is required.
@@ -17,6 +18,7 @@ Chef version 0.10.10+ (with Ohai 0.6.12+) is required.
 - openssh
 - nscd
 - openssl (for slave recipe)
+- freebsd
 
 
 Attributes
