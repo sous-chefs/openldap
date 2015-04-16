@@ -18,8 +18,10 @@
 #
 include_recipe 'openldap::client'
 
-package node['openldap']['packages']['bdb'] do
-  action node['openldap']['package_install_action']
+if node['platform_family'] != 'freebsd'
+  package node['openldap']['packages']['bdb'] do
+    action node['openldap']['package_install_action']
+  end
 end
 
 # the debian package needs a preseed file in order to silently install
@@ -29,14 +31,14 @@ if node['platform_family'] == 'debian'
     recursive true
     mode '0700'
     owner 'root'
-    group 'root'
+    group node['root_group']
   end
 
   cookbook_file "#{node['openldap']['preseed_dir']}/slapd.seed" do
     source 'slapd.seed'
     mode '0600'
     owner 'root'
-    group 'root'
+    group node['root_group']
   end
 end
 
@@ -51,7 +53,7 @@ if node['openldap']['tls_enabled'] && node['openldap']['manage_ssl']
     cookbook node['openldap']['ssl_cert_source_cookbook']
     mode '0644'
     owner 'root'
-    group 'root'
+    group node['root_group']
   end
 
   cookbook_file node['openldap']['ssl_key'] do
@@ -59,7 +61,7 @@ if node['openldap']['tls_enabled'] && node['openldap']['manage_ssl']
     cookbook node['openldap']['ssl_key_source_cookbook']
     mode '0644'
     owner 'root'
-    group 'root'
+    group node['root_group']
   end
 end
 
@@ -67,7 +69,7 @@ if node['platform_family'] == 'debian'
   template '/etc/default/slapd' do
     source 'default_slapd.erb'
     owner 'root'
-    group 'root'
+    group node['root_group']
     mode '0644'
   end
 
