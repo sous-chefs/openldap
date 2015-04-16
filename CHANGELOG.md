@@ -2,6 +2,13 @@ openldap Cookbok CHANGELOG
 ==========================
 This file is used to list changes made in each version of the openldap cookbook.
 
+v2.2.0 (2015-04-16)
+-------------------
+- Added support for FreeBSD
+- Improved support for RHEL platforms
+- Removed the attributes from the metadata.rb file since they were outdated
+
+
 v2.1.0 (2015-03-10)
 -------------------
 - Resolve the one and only Food Critic warning
