@@ -94,6 +94,10 @@ default['openldap']['ssl_key_source_path'] = "ssl/#{node['openldap']['server']}.
 
 default['openldap']['slapd_type'] = nil
 
+# hash for defining additional config options in wrapper cookbooks
+# see readme for usage information
+default['openldap']['additional_config'] = {}
+
 if node['openldap']['slapd_type'] == 'slave'
   default['openldap']['slapd_master'] = node['openldap']['server']
   default['openldap']['slapd_replpw'] = nil

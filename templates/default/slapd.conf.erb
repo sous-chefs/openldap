@@ -104,6 +104,21 @@ syncrepl rid=<%= node['openldap']['slapd_rid'] %>
   starttls=yes
   credentials="<%= node['openldap']['slapd_replpw'] %>"
 <% end -%>
+
+<% node['openldap']['additional_config'].each do |key, value| -%>
+<%   case value -%>
+<%   when nil -%>
+<%= key %>
+<%   when Array -%>
+<%= key %>
+<%     value.each do |v| -%>
+  <%= v %>
+<%     end -%>
+<%   when String, Integer -%>
+<%=    key %> <%= value %>
+<%   end -%>
+<% end -%>
+
 # The userPassword by default can be changed
 # by the entry owning it if they are authenticated.
 # Others should not be able to see it, except the
