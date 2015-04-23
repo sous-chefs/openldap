@@ -18,8 +18,6 @@
 #
 
 include_recipe 'openldap::client'
-include_recipe 'openssh'
-include_recipe 'nscd'
 
 node['openldap']['packages']['auth_pkgs'].each do |pkg|
   package pkg do
@@ -46,9 +44,11 @@ cookbook_file '/etc/nsswitch.conf' do
   mode '0644'
   owner 'root'
   group 'root'
-  notifies :run, 'execute[nscd-clear-passwd]', :immediately
-  notifies :run, 'execute[nscd-clear-group]', :immediately
-  notifies :restart, 'service[nscd]', :immediately
+  if node.recipes.include?('nscd::default')
+    notifies :run, 'execute[nscd-clear-passwd]', :immediately
+    notifies :run, 'execute[nscd-clear-group]', :immediately
+    notifies :restart, 'service[nscd]', :immediately
+  end
 end
 
 %w(account auth password session).each do |pam|
@@ -57,7 +57,7 @@ end
     mode '0644'
     owner 'root'
     group 'root'
-    notifies :restart, 'service[ssh]', :delayed
+    notifies :restart, 'service[ssh]', :delayed if node.recipes.include?('openssh::default')
   end
 end
 

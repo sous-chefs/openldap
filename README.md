@@ -15,11 +15,10 @@ Requirements
 Chef version 0.10.10+ (with Ohai 0.6.12+) is required.
 
 ### Cookbooks
-- openssh
-- nscd
 - openssl (for slave recipe)
 - freebsd
 
+Note:  The openldap::auth recipe will restart sshd and nscd if the openssh or nscd recipes are included in the runlist
 
 Attributes
 ----------
