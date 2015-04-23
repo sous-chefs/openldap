@@ -143,19 +143,9 @@ Certificates created by the Rakefile are self signed. If you have a purchased CA
 
 We provide two methods of managing SSL certificates, based off of `openldap['manage_ssl']`.
 
-If `openldap['manage_ssl']` is `true`, then this cookbook manage your certificates itself, and will expect all certificates, intermediate certificates, and keys to be in the same file as defined in `openldap['ssl_cert']`.
+If `openldap['manage_ssl']` is `true`, then this cookbook manage your certificates itself, and will expect all certificates, intermediate certificates, and keys to be in the same file as defined in `openldap['ssl_cert']`.  To prevent forking this cookbook you can provide the cookbook that contains the cert files using the `openldap['ssl_cert_source_cookbook'] ` and `openldap['ssl_key_source_cookbook']` attributes.  By default they expect the files to exist within this cookbook.
 
-Use https://github.com/atomic-penguin/cookbook-certificate cookbook for advanced certificate deployment or use wrapper cookbook with following code to source ssl files from the wrapper cookbook folder structure:
-
-    r = resources("cookbook_file[#{node['openldap']['ssl_cert']}]")
-    r.cookbook('NAME OF YOUR WRAPPER COOKBOK')
-
-    r = resources("cookbook_file[#{node['openldap']['ssl_key']}]")
-    r.cookbook('NAME OF YOUR WRAPPER COOKBOK')
-
-Be sure to update the certificate locations in the templates as required. We suggest copying this cookbook to the site-cookbooks for such modifications, so you can still pull from our master for updates, and then merge your changes in.
-
-However, if `openldap['manage_ssl']` is `false`, then you will need to place the SSL certificates on the client file system **prior** to this cookbook being run. This provides you the flexibility to provide the same set of SSL certificates for multiple uses as well as in one place across your environment, but you will need to manage them.
+If `openldap['manage_ssl']` is `false`, then you will need to place the SSL certificates on the client file system **prior** to this cookbook being run. This provides you the flexibility to provide the same set of SSL certificates for multiple uses as well as in one place across your environment, but you will need to manage them.
 - Set `openldap['ssl_cert']`, `openldap['ssl_key']`, and `openldap['cafile']` appropriately.
 - Ensure that that user openldap can access these files. Watch out for apparmor and SELinux if you are placing your SSL certificates in a non-default location.
 
