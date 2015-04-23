@@ -3,10 +3,10 @@
 #
 
 host <%= node['openldap']['server'] %>
-port 389
 bind_policy soft
 
 ldap_version 3
+port <%= node['openldap']['port'] %>
 
 # Where to find data
 base <%= node['openldap']['basedn'] %>
