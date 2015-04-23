@@ -94,47 +94,9 @@ On client systems,
 include_recipe "openldap::auth"
 ```
 
-This will get the required packages and configuration for client systems. This will be required on server systems as well, so this is a good candidate for inclusion in a base role.
+This will install the required packages and configuration for client systems. This is required on openldap server installs as well, so this is a good candidate for inclusion in a base role or cookbook.
 
-On server systems, if there's only one LDAP server, then use the `openldap::server` recipe. If replication is required, use the `openldap::master` and `openldap::slave` recipes instead.
-
-When initially installing a brand new LDAP master server on Ubuntu 8.10, the configuration directory may need to be removed and recreated before slapd will start successfully. Doing this programmatically may cause other issues, so fix the directory manually :-).
-
-    $ sudo slaptest -F /etc/ldap/slapd.d
-    str2entry: invalid value for attributeType objectClass #1 (syntax 1.3.6.1.4.1.1466.115.121.1.38)
-    => ldif_enum_tree: failed to read entry for /etc/ldap/slapd.d/cn=config/olcDatabase={1}bdb.ldif
-    slaptest: bad configuration directory!
-
-For some reason slapd isn't getting started even though the service resource is notified to start, so start it manually.
-Solution is to simply remove the configuration:
-
-    $ sudo rm -rf /etc/ldap/slapd.d/ /etc/ldap/slapd.conf
-    $ sudo chef-client
-    $ sudo /etc/init.d/slapd start
-
-Or in your wrapper cookbook rewind with ubuntu related fix:
-
-    #Fix the wrong content of slapd.d dir on ubuntu 12.04
-    chef_gem "chef-rewind"
-    require 'chef/rewind'
-    case node['platform']
-    when 'ubuntu'
-        rewind "package[slapd]" do
-            response_file "slapd.seed"
-            action :upgrade
-            notifies :run, "execute[fix-ubuntu-slapdd]", :immediately
-        end
-    end
-    #Removes slapd.d/cn=config and slapd.conf deployed from distribution. They will be re-created during the openldap recipe cooking.
-    execute "fix-ubuntu-slapdd" do
-        cmd =  "   test -d #{node['openldap']['dir']}/slapd.d && rm -rf #{node['openldap']['dir']}/slapd.d/cn=config"
-        cmd << " ; test -d #{node['openldap']['dir']}/slapd.conf && rm -rf #{node['openldap']['dir']}/slapd.conf"
-        cmd << " ; touch #{node['openldap']['dir']}/.fix-ubuntu-slapdd.done"
-        command cmd
-        ignore_failure true
-        action :nothing
-        not_if { ::File.exists?("#{node['openldap']['dir']}/.fix-ubuntu-slapdd.done") }
-    end
+On server systems, if there's only on LDAP server, then use the `openldap::server` recipe. If replication is required, use the `openldap::master` and `openldap::slave` recipes instead.
 
 
 ### A note about certificates
