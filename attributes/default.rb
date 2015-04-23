@@ -33,7 +33,7 @@ unless node['domain'].nil? || node['domain'].split('.').count < 2
   default['openldap']['server'] = "ldap.#{node['domain']}"
 end
 
-default['openldap']['loglevel'] = 0
+default['openldap']['loglevel'] = 'sync config'
 default['openldap']['schemas'] = %w(core.schema cosine.schema nis.schema inetorgperson.schema)
 
 case node['platform_family']
