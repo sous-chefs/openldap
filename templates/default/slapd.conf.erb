@@ -42,8 +42,6 @@ moduleload  syncprov
 <% end -%>
 <% end -%>
 
-# The maximum number of entries that is returned for a search operation
-sizelimit 500
 
 # The tool-threads parameter sets the actual amount of cpu's that is used
 # for indexing.
@@ -105,7 +103,7 @@ syncrepl rid=<%= node['openldap']['slapd_rid'] %>
   credentials="<%= node['openldap']['slapd_replpw'] %>"
 <% end -%>
 
-<% node['openldap']['additional_config'].each do |key, value| -%>
+<% node['openldap']['server_config_hash'].each do |key, value| -%>
 <%   case value -%>
 <%   when nil -%>
 <%= key %>

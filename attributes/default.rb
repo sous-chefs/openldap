@@ -95,9 +95,16 @@ default['openldap']['ssl_key_source_path'] = "ssl/#{node['openldap']['server']}.
 
 default['openldap']['slapd_type'] = nil
 
-# hash for defining additional config options in wrapper cookbooks
+# These the config hashes are dynamically parsed into the slapd.config and ldap.config files
+# You can add to the hashes in wrapper cookbooks to add your own config options via wrapper cokbooks
 # see readme for usage information
-default['openldap']['additional_config'] = {}
+
+# The maximum number of entries that is returned for a search operation
+default['openldap']['server_config_hash']['sizelimit'] = 500
+
+default['openldap']['client_config_hash']['ldap_version'] = 3
+default['openldap']['client_config_hash']['bind_policy'] = 'soft'
+default['openldap']['client_config_hash']['pam_password'] = openldap['pam_password']
 
 if node['openldap']['slapd_type'] == 'slave'
   default['openldap']['slapd_master'] = node['openldap']['server']

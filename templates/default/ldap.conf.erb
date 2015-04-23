@@ -3,9 +3,6 @@
 #
 
 host <%= node['openldap']['server'] %>
-bind_policy soft
-
-ldap_version 3
 port <%= node['openldap']['port'] %>
 
 # Where to find data
@@ -26,4 +23,16 @@ tls_checkpeer no
 <% end -%>
 <% end -%>
 
-pam_password <%= node['openldap']['pam_password'] %>
+<% node['openldap']['client_config_hash'].each do |key, value| -%>
+<%   case value -%>
+<%   when nil -%>
+<%= key %>
+<%   when Array -%>
+<%= key %>
+<%     value.each do |v| -%>
+  <%= v %>
+<%     end -%>
+<%   when String, Integer -%>
+<%=    key %> <%= value %>
+<%   end -%>
+<% end -%>
