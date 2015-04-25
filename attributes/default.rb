@@ -2,6 +2,7 @@
 # Attributes:: openldap
 #
 # Copyright 2008-2015, Chef Software, Inc.
+# Copyright 2015, Tim Smith <tim@cozy.co>
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -33,19 +34,57 @@ unless node['domain'].nil? || node['domain'].split('.').count < 2
   default['openldap']['server'] = "ldap.#{node['domain']}"
 end
 
+default['openldap']['rootpw'] = nil
+default['openldap']['preseed_dir'] = '/var/cache/local/preseeding'
+default['openldap']['pam_password'] = 'md5'
 default['openldap']['loglevel'] = 'sync config'
 default['openldap']['schemas'] = %w(core.schema cosine.schema nis.schema inetorgperson.schema)
 
-case node['platform_family']
-when 'freebsd'
-  default['openldap']['modules'] = %w(back_mdb)
-  default['openldap']['database'] = 'mdb'
-else
-  default['openldap']['modules'] = %w(back_hdb)
-  default['openldap']['database'] = 'hdb'
+# dynamically generated pam.d files
+# additional attributes added here will be added to the common-account, common-auth, common-password, and common-session files
+default['openldap']['pam_hash']['account']['sufficient'] = %w(pam_unix.so)
+default['openldap']['pam_hash']['account']['[default=bad success=ok user_unknown=ignore]'] = %w(pam_ldap.so)
+default['openldap']['pam_hash']['auth']['sufficient'] = ['pam_unix.so likeauth nullok_secure', 'pam_ldap.so use_first_pass']
+default['openldap']['pam_hash']['auth']['required'] = ['pam_group.so use_first_pass', 'pam_deny.so', 'pam_warn.so']
+default['openldap']['pam_hash']['password']['sufficient'] = ['pam_unix.so nullok obscure min=8 max=8 md5', 'pam_ldap.so']
+default['openldap']['pam_hash']['session']['required'] = %w(pam_unix.so pam_mkhomedir.so skel=/etc/skel/ pam_ldap.so)
+
+default['openldap']['manage_ssl'] = false
+default['openldap']['tls_checkpeer'] = false
+default['openldap']['ssl_dir'] = "#{openldap['dir']}/ssl"
+default['openldap']['cafile']  = nil
+default['openldap']['ssl_cert'] = "#{openldap['ssl_dir']}/#{openldap['server']}_cert.pem"
+default['openldap']['ssl_key'] = "#{openldap['ssl_dir']}/#{openldap['server']}.pem"
+default['openldap']['ssl_cert_source_cookbook'] = 'openldap'
+default['openldap']['ssl_cert_source_path'] = "ssl/#{node['openldap']['server']}_cert.pem"
+default['openldap']['ssl_key_source_cookbook'] = 'openldap'
+default['openldap']['ssl_key_source_path'] = "ssl/#{node['openldap']['server']}.pem"
+
+default['openldap']['slapd_type'] = nil
+
+if node['openldap']['slapd_type'] == 'slave'
+  default['openldap']['slapd_master'] = node['openldap']['server']
+  default['openldap']['slapd_replpw'] = nil
+  default['openldap']['slapd_rid']    = 102
 end
 
-default['openldap']['rootpw'] = nil
+# These the config hashes are dynamically parsed into the slapd.config and ldap.config files
+# You can add to the hashes in wrapper cookbooks to add your own config options via wrapper cokbooks
+# see readme for usage information
+
+# The maximum number of entries that is returned for a search operation
+default['openldap']['server_config_hash']['sizelimit'] = 500
+
+default['openldap']['client_config_hash']['ldap_version'] = 3
+default['openldap']['client_config_hash']['bind_policy'] = 'soft'
+default['openldap']['client_config_hash']['pam_password'] = openldap['pam_password']
+
+# package settings
+default['openldap']['package_install_action'] = :install
+
+#
+# per platform settings
+#
 
 # File and directory locations for openldap.
 case node['platform_family']
@@ -79,42 +118,17 @@ else
   default['openldap']['system_group'] = 'openldap'
 end
 
-default['openldap']['preseed_dir'] = '/var/cache/local/preseeding'
-default['openldap']['tls_checkpeer'] = false
-default['openldap']['pam_password'] = 'md5'
-
-default['openldap']['manage_ssl'] = false
-default['openldap']['ssl_dir'] = "#{openldap['dir']}/ssl"
-default['openldap']['cafile']  = nil
-default['openldap']['ssl_cert'] = "#{openldap['ssl_dir']}/#{openldap['server']}_cert.pem"
-default['openldap']['ssl_key'] = "#{openldap['ssl_dir']}/#{openldap['server']}.pem"
-default['openldap']['ssl_cert_source_cookbook'] = 'openldap'
-default['openldap']['ssl_cert_source_path'] = "ssl/#{node['openldap']['server']}_cert.pem"
-default['openldap']['ssl_key_source_cookbook'] = 'openldap'
-default['openldap']['ssl_key_source_path'] = "ssl/#{node['openldap']['server']}.pem"
-
-default['openldap']['slapd_type'] = nil
-
-# These the config hashes are dynamically parsed into the slapd.config and ldap.config files
-# You can add to the hashes in wrapper cookbooks to add your own config options via wrapper cokbooks
-# see readme for usage information
-
-# The maximum number of entries that is returned for a search operation
-default['openldap']['server_config_hash']['sizelimit'] = 500
-
-default['openldap']['client_config_hash']['ldap_version'] = 3
-default['openldap']['client_config_hash']['bind_policy'] = 'soft'
-default['openldap']['client_config_hash']['pam_password'] = openldap['pam_password']
-
-if node['openldap']['slapd_type'] == 'slave'
-  default['openldap']['slapd_master'] = node['openldap']['server']
-  default['openldap']['slapd_replpw'] = nil
-  default['openldap']['slapd_rid']    = 102
+# backing database
+case node['platform_family']
+when 'freebsd'
+  default['openldap']['modules'] = %w(back_mdb)
+  default['openldap']['database'] = 'mdb'
+else
+  default['openldap']['modules'] = %w(back_hdb)
+  default['openldap']['database'] = 'hdb'
 end
 
-# package settings
-default['openldap']['package_install_action'] = :install
-
+# packages
 case node['platform_family']
 when 'debian'
   # precise and up and wheezy and up stopped putting the version name in the db-util package.

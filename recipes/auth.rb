@@ -3,6 +3,7 @@
 # Recipe:: auth
 #
 # Copyright 2008-2015, Chef Software, Inc.
+# Copyright 2015, Tim Smith <tim@cozy.co>
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -51,12 +52,16 @@ cookbook_file '/etc/nsswitch.conf' do
   end
 end
 
-%w(account auth password session).each do |pam|
-  cookbook_file "/etc/pam.d/common-#{pam}" do
-    source "common-#{pam}"
+node['openldap']['pam_hash'].each_pair do |file, directives|
+  template "/etc/pam.d/common-#{file}" do
+    source 'common-pamd.erb'
     mode '0644'
     owner 'root'
     group 'root'
+    variables(
+      :directives => directives,
+      :file => file
+    )
     notifies :restart, 'service[ssh]', :delayed if node.recipes.include?('openssh::default')
   end
 end
