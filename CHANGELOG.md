@@ -2,6 +2,14 @@ openldap Cookbok CHANGELOG
 ==========================
 This file is used to list changes made in each version of the openldap cookbook.
 
+Unreleased
+----
+
+This version has several major breaking changes that you will need to be aware of.
+- This auth recipe no longer includes the nscd and openssh cookbooks.  This gives users more control over how they setup their environment. If you want these you'll need to include them yourself in a base role.  If they're included in the node's runlist the appropriate nscd/sshd restarts will still occur as pam / nsswitch configs are updated
+- pam.d files are no longer cookbook files and are instead generated via a hash which allows as many or as few files to be managed as you wish.  See the readme for more information
+- A client config and server config hash have been added to add arbitrary files to the ldap.config and slapd.config files.  This eliminates much of the need for forking this cookbook to meet your environment's needs.  See the readme for detailed information on how these hashes are converted to ldap configs.
+
 v2.2.0 (2015-04-16)
 -------------------
 - Added support for FreeBSD
