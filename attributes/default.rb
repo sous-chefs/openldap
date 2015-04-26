@@ -128,7 +128,7 @@ when 'debian'
   default['openldap']['packages']['srv_pkg'] = 'slapd'
   default['openldap']['packages']['auth_pkgs'] = %w(libnss-ldap libpam-ldap)
 when 'rhel'
-  default['openldap']['packages']['bdb'] = 'db-utils'
+  default['openldap']['packages']['bdb'] = 'db4-utils'
   default['openldap']['packages']['client_pkg'] = 'openldap-clients'
   default['openldap']['packages']['srv_pkg'] = 'openldap-servers'
   default['openldap']['packages']['auth_pkgs'] = %w(nss-pam-ldapd)
