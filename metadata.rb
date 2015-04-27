@@ -90,6 +90,41 @@ attribute 'openldap/manage_ssl',
           required: 'optional',
           default: 'false'
 
+attribute 'openldap/ssl_cert',
+          display_name: 'OpenLDAP SSL Certificate',
+          description: 'The full path to your SSL certificate.',
+          required: 'optional'
+
+attribute 'openldap/ssl_key',
+          display_name: 'OpenLDAP SSL Key',
+          description: 'The full path to your SSL key.',
+          required: 'optional'
+
+attribute 'openldap/ssl_cert_source_cookbook',
+          display_name: 'OpenLDAP SSL Certificate Source Cookbook',
+          description: 'The cookbook to find the ssl cert. Defaults to this cookbook.',
+          required: 'optional'
+
+attribute 'openldap/ssl_cert_source_path',
+          display_name: 'OpenLDAP SSL Certificate Source Path',
+          description: 'The path in the cookbook to find the ssl cert file.',
+          required: 'optional'
+
+attribute 'openldap/ssl_key_source_cookbook',
+          display_name: 'OpenLDAP SSL Key Source Cookbook',
+          description: 'The cookbook to find the ssl key. Defaults to this cookbook.',
+          required: 'optional'
+
+attribute 'openldap/ssl_key_source_path',
+          display_name: 'OpenLDAP SSL Key Source Path',
+          description: 'The path in the cookbook to find the ssl key file.',
+          required: 'optional'
+
+attribute 'openldap/cafile',
+          display_name: 'OpenLDAP CA File',
+          description: "Your certificate authority's certificate (or intermediate authorities), if needed.",
+          required: 'optional'
+
 attribute 'openldap/rootpw',
           display_name: 'OpenLDAP Root DN Password',
           description: 'The root DN password',
