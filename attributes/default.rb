@@ -127,7 +127,7 @@ default['openldap']['pam_hash']['account']['[default=bad success=ok user_unknown
 default['openldap']['pam_hash']['auth']['sufficient'] = ['pam_unix.so likeauth nullok_secure', 'pam_ldap.so use_first_pass']
 default['openldap']['pam_hash']['auth']['required'] = ['pam_group.so use_first_pass', 'pam_deny.so', 'pam_warn.so']
 default['openldap']['pam_hash']['password']['sufficient'] = ['pam_unix.so nullok obscure min=8 max=8 md5', 'pam_ldap.so']
-default['openldap']['pam_hash']['session']['required'] = %w(pam_unix.so pam_mkhomedir.so skel=/etc/skel/ pam_ldap.so)
+default['openldap']['pam_hash']['session']['required'] = ['pam_unix.so', 'pam_mkhomedir.so skel=/etc/skel/', 'pam_ldap.so']
 
 default['openldap']['manage_ssl'] = false
 default['openldap']['tls_checkpeer'] = false
