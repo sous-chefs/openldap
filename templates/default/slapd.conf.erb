@@ -33,19 +33,18 @@ loglevel        <%= node['openldap']['loglevel'] %>
 
 <% unless node['platform'] == "centos" -%>
 # Where the dynamically loaded modules are stored
-modulepath	<%= node['openldap']['module_dir'] %>
+modulepath       <%= node['openldap']['module_dir'] %>
 <% node['openldap']['modules'].sort.each do |mod| -%>
-moduleload  <%= mod %>
+moduleload       <%= mod %>
 <% end -%>
 <% if node['openldap']['slapd_type'] == "master" -%>
-moduleload  syncprov
+moduleload       syncprov
 <% end -%>
 <% end -%>
-
 
 # The tool-threads parameter sets the actual amount of cpu's that is used
 # for indexing.
-tool-threads 1
+tool-threads     1
 
 #######################################################################
 # Specific Backend Directives for hdb:
