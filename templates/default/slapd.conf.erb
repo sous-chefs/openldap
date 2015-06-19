@@ -97,8 +97,8 @@ syncrepl rid=<%= node['openldap']['slapd_rid'] %>
   scope=sub
   schemachecking=off
   bindmethod=simple
-  binddn="cn=syncrole,<%= node['openldap']['basedn'] %>"
-  starttls=yes
+  binddn="<%= node['openldap']['syncrepl_dn'] %>"
+  starttls=<%= node['openldap']['syncrepl_use_tls'] %>
   credentials="<%= node['openldap']['slapd_replpw'] %>"
 <% end -%>
 
@@ -123,7 +123,7 @@ syncrepl rid=<%= node['openldap']['slapd_rid'] %>
 # These access lines apply to database #1 only
 access to attrs=userPassword,shadowLastChange
         by group.exact="cn=administrators,<%= node['openldap']['basedn'] %>" write
-        by dn="cn=syncrole,<%= node['openldap']['basedn'] %>" read
+        by dn="<%= node['openldap']['syncrepl_dn'] %>" read
         by anonymous auth
         by self write
         by * none
@@ -143,5 +143,5 @@ access to dn.base="" by * read
 # can read everything.
 access to *
         by group.exact="cn=administrators,<%= node['openldap']['basedn'] %>" write
-        by dn="cn=syncrole,<%= node['openldap']['basedn'] %>" read
+        by dn="<%= node['openldap']['syncrepl_dn'] %>" read
         by * read

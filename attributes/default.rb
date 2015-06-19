@@ -142,11 +142,12 @@ default['openldap']['ssl_key_source_path'] = "ssl/#{node['openldap']['server']}.
 
 default['openldap']['slapd_type'] = nil
 
-if node['openldap']['slapd_type'] == 'slave'
-  default['openldap']['slapd_master'] = node['openldap']['server']
-  default['openldap']['slapd_replpw'] = nil
-  default['openldap']['slapd_rid']    = 102
-end
+# syncrepl slave syncing attributes
+default['openldap']['slapd_master']      = node['openldap']['server']
+default['openldap']['slapd_replpw']      = nil
+default['openldap']['slapd_rid']         = 102
+default['openldap']['syncrepl_use_tls']  = 'no' # yes or no
+default['openldap']['syncrepl_dn']       = "cn=syncrole,#{node['openldap']['basedn']}"
 
 # These the config hashes are dynamically parsed into the slapd.config and ldap.config files
 # You can add to the hashes in wrapper cookbooks to add your own config options via wrapper cokbooks
