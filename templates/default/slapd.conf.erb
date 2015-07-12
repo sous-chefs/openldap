@@ -90,10 +90,10 @@ syncprov-sessionlog 100
 <% if node['openldap']['slapd_type'] == "slave" -%>
 syncrepl rid=<%= node['openldap']['slapd_rid'] %>
   provider=ldap://<%= node['openldap']['slapd_master'] %>:389
-  type=refreshAndPersist
-  interval=01:00:00:00
+  type=<%= node['openldap']['syncrepl_type'] %>
+  interval=<%= node['openldap']['syncrepl_interval'] %>
   searchbase="<%= node['openldap']['basedn'] %>"
-  filter="(objectClass=*)"
+  filter="<%= node['openldap']['syncrepl_filter'] %>"
   scope=sub
   schemachecking=off
   bindmethod=simple

@@ -44,6 +44,8 @@ Be aware of the attributes used by this cookbook and adjust the defaults for you
 - `openldap['slapd_type']` - master | slave
 - `openldap['slapd_rid']` - unique integer ID, required if type is slave.
 - `openldap['slapd_master']` - hostname of slapd master, attempts to search for slapd_type master.
+- `openldap['syncrepl_filter']` - The search filter to use in the replication
+- `openldap['syncrepl_interval']` - The interval for the sync.  Defaults to 1 day
 - `openldap['database']` - Preferred database backend, defaults to HDB or MDB (for FreeBSD).
 - `openldap['manage_ssl']` - Whether or not this cookbook manages your SSL certificates.
    If set to `true`, this cookbook will expect your SSL certificates to be in files/default/ssl and will configure slapd appropriately.
