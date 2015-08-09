@@ -1,5 +1,5 @@
 # Cookbook Name:: openldap
-# Attributes:: openldap
+# Attributes:: default
 #
 # Copyright 2008-2015, Chef Software, Inc.
 # Copyright 2015, Tim Smith <tim@cozy.co>
@@ -24,29 +24,29 @@
 # File and directory locations for openldap.
 case node['platform_family']
 when 'rhel'
-  default['openldap']['dir']        = '/etc/openldap'
-  default['openldap']['run_dir']    = '/var/run/openldap'
+  default['openldap']['dir'] = '/etc/openldap'
+  default['openldap']['run_dir'] = '/var/run/openldap'
   default['openldap']['db_dir'] = '/var/lib/ldap'
   default['openldap']['module_dir'] = '/usr/lib64/openldap'
   default['openldap']['system_acct'] = 'ldap'
   default['openldap']['system_group'] = 'ldap'
 when 'debian'
-  default['openldap']['dir']        = '/etc/ldap'
-  default['openldap']['run_dir']    = '/var/run/slapd'
+  default['openldap']['dir'] = '/etc/ldap'
+  default['openldap']['run_dir'] = '/var/run/slapd'
   default['openldap']['db_dir'] = '/var/lib/ldap'
   default['openldap']['module_dir'] = '/usr/lib/ldap'
   default['openldap']['system_acct'] = 'openldap'
   default['openldap']['system_group'] = 'openldap'
 when 'freebsd'
-  default['openldap']['dir']        = '/usr/local/etc/openldap'
-  default['openldap']['run_dir']    = '/var/run/openldap'
+  default['openldap']['dir'] = '/usr/local/etc/openldap'
+  default['openldap']['run_dir'] = '/var/run/openldap'
   default['openldap']['db_dir'] = '/var/db/openldap-data'
   default['openldap']['module_dir'] = '/usr/local/libexec/openldap'
   default['openldap']['system_acct'] = 'ldap'
   default['openldap']['system_group'] = 'ldap'
 else
-  default['openldap']['dir']        = '/etc/ldap'
-  default['openldap']['run_dir']    = '/var/run/slapd'
+  default['openldap']['dir'] = '/etc/ldap'
+  default['openldap']['run_dir'] = '/var/run/slapd'
   default['openldap']['module_dir'] = '/usr/lib/ldap'
   default['openldap']['db_dir'] = '/var/lib/ldap'
   default['openldap']['system_acct'] = 'openldap'
@@ -143,14 +143,14 @@ default['openldap']['ssl_key_source_path'] = "ssl/#{node['openldap']['server']}.
 default['openldap']['slapd_type'] = nil
 
 # syncrepl slave syncing attributes
-default['openldap']['slapd_master']       = node['openldap']['server']
-default['openldap']['slapd_replpw']       = nil
-default['openldap']['slapd_rid']          = 102
-default['openldap']['syncrepl_interval']  = '01:00:00:00'
-default['openldap']['syncrepl_type']      = 'refreshAndPersist'
-default['openldap']['syncrepl_filter']    = '(objectClass=*)'
-default['openldap']['syncrepl_use_tls']   = 'no' # yes or no
-default['openldap']['syncrepl_dn']        = "cn=syncrole,#{node['openldap']['basedn']}"
+default['openldap']['slapd_master'] = node['openldap']['server']
+default['openldap']['slapd_replpw'] = nil
+default['openldap']['slapd_rid'] = 102
+default['openldap']['syncrepl_interval'] = '01:00:00:00'
+default['openldap']['syncrepl_type'] = 'refreshAndPersist'
+default['openldap']['syncrepl_filter'] = '(objectClass=*)'
+default['openldap']['syncrepl_use_tls'] = 'no' # yes or no
+default['openldap']['syncrepl_dn'] = "cn=syncrole,#{node['openldap']['basedn']}"
 
 # These the config hashes are dynamically parsed into the slapd.config and ldap.config files
 # You can add to the hashes in wrapper cookbooks to add your own config options via wrapper cokbooks
