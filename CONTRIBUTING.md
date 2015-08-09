@@ -91,7 +91,7 @@ to them.
 ### More information
 
 Additional help with git is available on the
-[Working with Git](http://wiki.opscode.com/display/chef/Working+with+Git)
+[Working with Git](http://wiki.chef.io/display/chef/Working+with+Git)
 wiki page.
 
 ## Functional and Unit Tests
@@ -102,7 +102,7 @@ It uses Serverspec or Bats to perform integration tests after the node
 has been converged.
 
 Test kitchen should run completely without exception using the default
-[baseboxes provided by Chef](https://github.com/opscode/bento).
+[baseboxes provided by Chef](https://github.com/chef/bento).
 Because Test Kitchen creates VirtualBox machines and runs through
 every configuration in the Kitchenfile, it may take some time for
 these tests to complete.
@@ -156,19 +156,19 @@ and announced on the [Chef Blog](http://www.chef.io/blog).
 These resources will help you learn more about Chef and connect to
 other members of the Chef community:
 
-* [chef](http://lists.opscode.com/sympa/info/chef) and
-  [chef-dev](http://lists.opscode.com/sympa/info/chef-dev) mailing
+* [chef](http://lists.chef.io/sympa/info/chef) and
+  [chef-dev](http://lists.chef.io/sympa/info/chef-dev) mailing
   lists
 * #chef and #chef-hacking IRC channels on irc.freenode.net
-* [Community Cookbook site](http://community.opscode.com)
-* [Chef wiki](http://wiki.opscode.com/display/chef)
+* [Community Cookbook site](http://community.chef.io)
+* [Chef wiki](http://wiki.chef.io/display/chef)
 * Chef, Inc [product page](http://www.chef.io/chef)
 
 ## Cookbook Contribution Do's and Don't's
 
 Please do include tests for your contribution. If you need help, ask
-on the [chef-dev mailing list](http://lists.opscode.com/sympa/info/chef-dev)
-or the [#chef-hacking IRC channel](http://community.opscode.com/chat/chef-hacking).
+on the [chef-dev mailing list](http://lists.chef.io/sympa/info/chef-dev)
+or the [#chef-hacking IRC channel](http://community.chef.io/chat/chef-hacking).
 Not all platforms that a cookbook supports may be supported by Test
 Kitchen. Please provide evidence of testing your contribution if it
 isn't trivial so we don't have to duplicate effort in testing. Chef
@@ -192,5 +192,5 @@ cycle information above.
 
 Please do not update the CHANGELOG.md for a new version. Not all
 changes to a cookbook may be merged and released in the same versions.
-Opscode will update the CHANGELOG.md when releasing a new version of
+Chef Software will update the CHANGELOG.md when releasing a new version of
 the cookbook.
