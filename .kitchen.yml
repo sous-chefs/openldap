@@ -1,5 +1,9 @@
+---
 driver:
   name: vagrant
+
+provisioner:
+  name: chef_zero
 driver_config:
     require_chef_omnibus: latest
 
