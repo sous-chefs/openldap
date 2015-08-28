@@ -129,3 +129,8 @@ attribute 'openldap/rootpw',
           display_name: 'OpenLDAP Root DN Password',
           description: 'The root DN password',
           required: 'required'
+
+attribute 'openldap/nss_base',
+          display_name: 'nss_base config',
+          description: 'nss_base configuration for pam_ldap',
+          required: 'optional'

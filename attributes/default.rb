@@ -104,10 +104,11 @@ default['openldap']['port'] = 389
 default['openldap']['server_uri'] = "ldap://#{openldap['server']}/"
 default['openldap']['tls_enabled'] = true
 
-default['openldap']['passwd_ou'] = 'people'
-default['openldap']['shadow_ou'] = 'people'
-default['openldap']['group_ou'] = 'groups'
-default['openldap']['automount_ou'] = 'automount'
+# The NSS filters here determine what users and groups the machine knows about
+default['openldap']['nss_base']['passwd'] = ["ou=people,#{node['openldap']['basedn']}"]
+default['openldap']['nss_base']['shadow'] = ["ou=people,#{node['openldap']['basedn']}"]
+default['openldap']['nss_base']['group'] = ["ou=groups,#{node['openldap']['basedn']}"]
+default['openldap']['nss_base']['automount'] = ["ou=automount,#{node['openldap']['basedn']}"]
 
 unless node['domain'].nil? || node['domain'].split('.').count < 2
   default['openldap']['basedn'] = "dc=#{node['domain'].split('.').join(',dc=')}"

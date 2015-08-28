@@ -8,10 +8,12 @@ port <%= node['openldap']['port'] %>
 # Where to find data
 base <%= node['openldap']['basedn'] %>
 scope sub
-nss_base_passwd ou=<%= node['openldap']['passwd_ou'] %>,<%= node['openldap']['basedn'] %>
-nss_base_shadow ou=<%= node['openldap']['shadow_ou'] %>,<%= node['openldap']['basedn'] %>
-nss_base_group ou=<%= node['openldap']['group_ou'] %>,<%= node['openldap']['basedn'] %>
-nss_base_automount ou=<%= node['openldap']['automount_ou'] %>,<%= node['openldap']['basedn'] %>
+
+<% node['openldap']['nss_base'].each do |key, values| %>
+<% values.each do |value| %>
+nss_base_<%= key %> <%= value %>
+<% end %>
+<% end %>
 
 <% if node['openldap']['tls_enabled'] -%>
 # TLS Options
