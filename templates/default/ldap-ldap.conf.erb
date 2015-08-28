@@ -8,9 +8,28 @@
 # This file should be world readable but not world writable.
 
 BASE <%= node['openldap']['basedn'] %>
-TLS_REQCERT never
 URI <%= node['openldap']['server_uri'] %>
 
-#SIZELIMIT      12
-#TIMELIMIT      15
-#DEREF          never
+<% if node['openldap']['tls_enabled'] -%>
+# TLS Options
+ssl start_tls
+<% if node['openldap']['tls_checkpeer'] -%>
+tls_checkpeer yes
+<% else -%>
+tls_checkpeer no
+<% end -%>
+<% end -%>
+
+<% node['openldap']['client_config_hash'].each do |key, value| -%>
+<%   case value -%>
+<%   when nil -%>
+<%= key %>
+<%   when Array -%>
+<%= key %>
+<%     value.each do |v| -%>
+  <%= v %>
+<%     end -%>
+<%   when String, Integer -%>
+<%=    key %> <%= value %>
+<%   end -%>
+<% end -%>
