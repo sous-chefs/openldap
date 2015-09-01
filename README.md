@@ -132,7 +132,7 @@ License & Authors
 -----------------
 ```
 - Author:: Joshua Timberman (<joshua@chef.io>)
-- Author:: Tim Smith (<tim@cozy.co>)
+- Author:: Tim Smith (<tsmith@chef.io>)
 
 Copyright:: 2008-2015, Chef Software, Inc
 
