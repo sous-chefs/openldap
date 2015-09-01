@@ -16,7 +16,7 @@ Requirements
 - RHEL and derivitives
 
 ### Chef
-Chef version 0.10.10+ (with Ohai 0.6.12+) is required.
+Chef 11+
 
 ### Cookbooks
 - openssl (for slave recipe)
