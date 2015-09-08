@@ -1,7 +1,7 @@
 openldap Cookbook
 =================
 
-[![Build Status](https://travis-ci.org/opscode-cookbooks/openldap.svg?branch=master)](http://travis-ci.org/opscode-cookbooks/openldap)
+[![Build Status](https://travis-ci.org/chef-cookbooks/openldap.svg?branch=master)](http://travis-ci.org/chef-cookbooks/openldap)
 [![Cookbook Version](https://img.shields.io/cookbook/v/openldap.svg)](https://supermarket.chef.io/cookbooks/openldap)
 
 Configures a server to be an OpenLDAP master, OpenLDAP replication slave, or OpenLDAP client.
