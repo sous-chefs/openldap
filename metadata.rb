@@ -20,6 +20,9 @@ end
 depends 'openssl'
 depends 'freebsd'
 
+source_url 'https://github.com/chef-cookbooks/openldap' if respond_to?(:source_url)
+issues_url 'https://github.com/chef-cookbooks/openldap/issues' if respond_to?(:issues_url)
+
 attribute 'openldap/server_uri',
           display_name: 'OpenLDAP Server URI',
           description: 'The URI of the LDAP server.',
