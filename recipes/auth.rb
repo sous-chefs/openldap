@@ -59,8 +59,8 @@ node['openldap']['pam_hash'].each_pair do |file, directives|
     owner 'root'
     group 'root'
     variables(
-      :directives => directives,
-      :file => file
+      directives: directives,
+      file: file
     )
     notifies :restart, 'service[ssh]', :delayed if node.recipes.include?('openssh::default')
   end
