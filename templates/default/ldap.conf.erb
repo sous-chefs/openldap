@@ -22,6 +22,9 @@ tls_checkpeer yes
 <% else -%>
 tls_checkpeer no
 <% end -%>
+<% if node['openldap']['tls_cacertfile'] -%>
+tls_cacertfile <%= node['openldap']['tls_cacertfile'] %>
+<% end -%>
 <% end -%>
 
 <% node['openldap']['client_config_hash'].each do |key, value| -%>
