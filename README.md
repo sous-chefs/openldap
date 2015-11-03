@@ -9,16 +9,16 @@ Configures a server to be an OpenLDAP master, OpenLDAP replication slave, or Ope
 
 Requirements
 ------------
-### Platform
+#### Platforms
 - Ubuntu 10.04+
 - Debian
 - FreeBSD 10
 - RHEL and derivitives
 
-### Chef
-Chef 11+
+#### Chef
+- Chef 11+
 
-### Cookbooks
+#### Cookbooks
 - openssl (for slave recipe)
 - freebsd
 
@@ -130,12 +130,12 @@ Set this by default in the attributes file, or on the node's entry in the webui.
 
 License & Authors
 -----------------
+
+**Author:** Cookbook Engineering Team (<cookbooks@chef.io>)
+
+**Copyright:** 2008-2015, Chef Software, Inc.
+
 ```
-- Author:: Joshua Timberman (<joshua@chef.io>)
-- Author:: Tim Smith (<tsmith@chef.io>)
-
-Copyright:: 2008-2015, Chef Software, Inc
-
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
