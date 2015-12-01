@@ -59,7 +59,12 @@ when 'freebsd'
   default['openldap']['modules'] = %w(back_mdb)
   default['openldap']['database'] = 'mdb'
 else
-  default['openldap']['modules'] = %w(back_hdb)
+  if node['platform'] == 'centos'
+    default['openldap']['modules'] = []
+  else
+    default['openldap']['modules'] = %w(back_hdb)
+  end
+
   default['openldap']['database'] = 'hdb'
 end
 
@@ -120,6 +125,11 @@ default['openldap']['preseed_dir'] = '/var/cache/local/preseeding'
 default['openldap']['pam_password'] = 'md5'
 default['openldap']['loglevel'] = 'sync config'
 default['openldap']['schemas'] = %w(core.schema cosine.schema nis.schema inetorgperson.schema)
+default['openldap']['ppolicy'] = false
+default['openldap']['ppolicy_hash_cleartext'] = true
+default['openldap']['ppolicy_use_lockout'] = true
+default['openldap']['auditlog'] = nil
+default['openldap']['auditlog_file'] = '/var/log/openldap/audit.log'
 
 # dynamically generated pam.d files
 # additional attributes added here will be added to the common-account, common-auth, common-password, and common-session files

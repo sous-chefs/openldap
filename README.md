@@ -45,6 +45,11 @@ Be aware of the attributes used by this cookbook and adjust the defaults for you
 
 - `openldap['schemas']` - Array of ldap schema file names to load
 - `openldap['modules']` - Array of slapd modules names to load
+- `openldap['ppolicy']` - Set this to true to enable the password policy overlay. Defaults to false
+- `openldap['ppolicy_hash_cleartext']` - If the password policy overlay is enabled, set ppolicy_hash_cleartext. Defaults to true
+- `openldap['ppolicy_use_lockout']` - If the password policy overlay is enabled, set ppolicy_use_lockout. Defaults to true
+- `openldap['auditlog']` - Set this to true to enable the audit log overlay. Defaults to false
+- `openldap['auditlog_file']` - If the audit log overlay is enabled, this configures the file to write to. Defaults to /var/log/openldap/audit.log (note - the directory this is in must be writable by the ldap user)
 - `openldap['slapd_type']` - master | slave
 - `openldap['slapd_rid']` - unique integer ID, required if type is slave.
 - `openldap['slapd_master']` - hostname of slapd master, attempts to search for slapd_type master.
