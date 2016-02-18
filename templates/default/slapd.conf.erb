@@ -31,14 +31,11 @@ argsfile        <%= node['openldap']['run_dir'] %>/slapd.args
 # Read slapd.conf(5) for possible values
 loglevel        <%= node['openldap']['loglevel'] %>
 
-<% unless node['platform'] == "centos" -%>
+<% unless node['openldap']['modules'].empty? -%>
 # Where the dynamically loaded modules are stored
 modulepath       <%= node['openldap']['module_dir'] %>
 <% node['openldap']['modules'].sort.each do |mod| -%>
 moduleload       <%= mod %>
-<% end -%>
-<% if node['openldap']['slapd_type'] == "master" -%>
-moduleload       syncprov
 <% end -%>
 <% end -%>
 
@@ -114,6 +111,24 @@ syncrepl rid=<%= node['openldap']['slapd_rid'] %>
 <%   when String, Integer -%>
 <%=    key %> <%= value %>
 <%   end -%>
+<% end -%>
+
+<% if node['openldap']['ppolicy'] -%>
+### Load password overlay
+overlay ppolicy
+ppolicy_default "cn=passwordDefault,ou=Policies,<%= node['openldap']['basedn'] %>"
+<% if node['openldap']['ppolicy_hash_cleartext'] -%>
+ppolicy_hash_cleartext
+<% end -%>
+<% if node['openldap']['ppolicy_use_lockout'] -%>
+ppolicy_use_lockout
+<% end -%>
+<% end -%>
+
+<% if node['openldap']['auditlog'] -%>
+### Load audit log overlay
+overlay auditlog
+auditlog <%= node['openldap']['auditlog_file'] %>
 <% end -%>
 
 # The userPassword by default can be changed
