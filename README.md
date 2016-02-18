@@ -60,6 +60,7 @@ Be aware of the attributes used by this cookbook and adjust the defaults for you
 - `openldap['ssl_cert_source_path']` - The path in the cookbook to find the ssl cert file.
 - `openldap['ssl_key_source_cookbook']` - The cookbook to find the ssl key.  Defaults to this cookbook
 - `openldap['ssl_key_source_path']` - The path in the cookbook to find the ssl key file.
+- `openldap['ssl_ciphersuite']` - The OpenSSL cipher suite specification to use. Defaults to none (use system default)
 - `openldap['cafile']` - Your certificate authority's certificate (or intermediate authorities), if needed.
 
 Recipes

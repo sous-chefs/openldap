@@ -14,6 +14,9 @@ TLSCertificateKeyFile  <%= node['openldap']['ssl_key'] %>
 <% if node['openldap']['cafile'] -%>
 TLSCACertificateFile   <%= node['openldap']['cafile'] %>
 <% end -%>
+<% if node['openldap']['ssl_ciphersuite'] -%>
+TLSCipherSuite         <%= node['openldap']['ssl_ciphersuite'] %>
+<% end -%>
 <% end -%>
 
 # Schema and objectClass definitions
