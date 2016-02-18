@@ -2,6 +2,8 @@ AllCops:
   Exclude:
     - vendor/**/*
     - Guardfile
+    - files/default/test/**/*
+    - Rakefile
 
 AlignParameters:
   Enabled: false
