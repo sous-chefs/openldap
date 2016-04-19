@@ -45,7 +45,7 @@ cookbook_file '/etc/nsswitch.conf' do
   mode '0644'
   owner 'root'
   group 'root'
-  if node.recipes.include?('nscd::default')
+  if node['recipes'].include?('nscd::default')
     notifies :run, 'execute[nscd-clear-passwd]', :immediately
     notifies :run, 'execute[nscd-clear-group]', :immediately
     notifies :restart, 'service[nscd]', :immediately
@@ -62,7 +62,7 @@ node['openldap']['pam_hash'].each_pair do |file, directives|
       directives: directives,
       file: file
     )
-    notifies :restart, 'service[ssh]', :delayed if node.recipes.include?('openssh::default')
+    notifies :restart, 'service[ssh]', :delayed if node['recipes'].include?('openssh::default')
   end
 end
 

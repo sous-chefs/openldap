@@ -19,10 +19,9 @@
 #
 include_recipe 'openldap::client'
 
-if node['platform_family'] != 'freebsd'
-  package node['openldap']['packages']['bdb'] do
-    action node['openldap']['package_install_action']
-  end
+package node['openldap']['packages']['bdb'] do
+  action node['openldap']['package_install_action']
+  only_if { node['platform_family'] != 'freebsd' }
 end
 
 # the debian package needs a preseed file in order to silently install
