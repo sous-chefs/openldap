@@ -96,7 +96,6 @@ if %w(debian rhel).contains?(node['platform_family'])
     notifies :stop, 'service[slapd]', :immediately
     notifies :run, 'execute[slapd-config-convert]'
   end
-  
 else
   template "#{node['openldap']['dir']}/slapd.conf" do
     source 'slapd.conf.erb'
