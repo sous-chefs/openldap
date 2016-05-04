@@ -65,12 +65,13 @@ if node['openldap']['tls_enabled'] && node['openldap']['manage_ssl']
   end
 end
 
-if node['platform_family'] == 'debian'
+if %w(debian rhel).include?(node['platform_family'])
   template '/etc/default/slapd' do
     source 'default_slapd.erb'
     owner 'root'
     group node['root_group']
     mode '0644'
+    only_if { node['platform_family'] == 'debian' }
   end
 
   directory "#{node['openldap']['dir']}/slapd.d" do
