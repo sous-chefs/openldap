@@ -75,22 +75,26 @@ when 'debian'
                                            end
   default['openldap']['packages']['client_pkg'] = 'ldap-utils'
   default['openldap']['packages']['srv_pkg'] = 'slapd'
-  default['openldap']['packages']['auth_pkgs'] = %w(libnss-ldap libpam-ldap)
+  default['openldap']['packages']['nss'] = 'libnss-ldap'
+  default['openldap']['packages']['auth_pkgs'] = %w(libpam-ldap)
 when 'rhel'
   default['openldap']['packages']['bdb'] = 'db4-utils'
   default['openldap']['packages']['client_pkg'] = 'openldap-clients'
   default['openldap']['packages']['srv_pkg'] = 'openldap-servers'
+  default['openldap']['packages']['nss'] = %w(nss-pam-ldapd)
   default['openldap']['packages']['auth_pkgs'] = %w(nss-pam-ldapd)
 when 'freebsd'
   default['openldap']['packages']['bdb'] = 'libdbi'
   default['openldap']['packages']['client_pkg'] = 'openldap-client'
   default['openldap']['packages']['srv_pkg'] = 'openldap-server'
+  default['openldap']['packages']['nss'] = 'openldap-client'
   default['openldap']['packages']['auth_pkgs'] = %w(pam_ldap)
 else
   default['openldap']['packages']['bdb'] = 'db-utils'
   default['openldap']['packages']['client_pkg'] = 'ldap-utils'
   default['openldap']['packages']['srv_pkg'] = 'slapd'
-  default['openldap']['packages']['auth_pkgs'] = %w(libnss-ldap libpam-ldap)
+  default['openldap']['packages']['nss'] = 'libnss-ldap'
+  default['openldap']['packages']['auth_pkgs'] = %w(libpam-ldap)
 end
 
 #

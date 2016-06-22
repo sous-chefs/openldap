@@ -69,3 +69,18 @@ suites:
      shadow_ou: ninjas
      group_ou: pirates
      automount_ou: barge
+- name: nss_test
+  run_list:
+  - recipe[openldap::nss]
+  attributes:
+    openldap:
+      server_uri: 'ldap://ldap.example.com'
+      basedn: "dc=example, dc=com"
+      nss_base:
+        passwd:
+          - "ou=people, dc=example, dc=com"
+        shadow:
+          - "ou=people, dc=example, dc=com"
+        group:
+          - "ou=group, dc=example, dc=com"
+      tls_enabled: false
