@@ -19,31 +19,29 @@
 #
 
 include_recipe 'openldap::client'
-include_recipe 'openldap::nss'
 
-node['openldap']['packages']['auth_pkgs'].each do |pkg|
-  package pkg do
-    action node['openldap']['package_install_action']
-  end
-end
-
-node['openldap']['pam_hash'].each_pair do |file, directives|
-  template "/etc/pam.d/common-#{file}" do
-    source 'common-pamd.erb'
-    mode '0644'
-    owner 'root'
-    group 'root'
-    variables(
-      directives: directives,
-      file: file
-    )
-    notifies :restart, 'service[ssh]', :delayed if node['recipes'].include?('openssh::default')
-  end
-end
-
-template '/etc/security/login_access.conf' do
-  source 'login_access.conf.erb'
+template '/etc/ldap.conf' do
+  source 'ldap.conf.erb'
   mode '0644'
   owner 'root'
   group 'root'
+end
+
+template "#{node['openldap']['dir']}/ldap.conf" do
+  source 'ldap-ldap.conf.erb'
+  mode '0644'
+  owner 'root'
+  group 'root'
+end
+
+cookbook_file '/etc/nsswitch.conf' do
+  source 'nsswitch.conf'
+  mode '0644'
+  owner 'root'
+  group 'root'
+  if node['recipes'].include?('nscd::default')
+    notifies :run, 'execute[nscd-clear-passwd]', :immediately
+    notifies :run, 'execute[nscd-clear-group]', :immediately
+    notifies :restart, 'service[nscd]', :immediately
+  end
 end
