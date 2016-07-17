@@ -1,33 +1,10 @@
-AllCops:
+# cookstyle todo
+#
+Lint/AmbiguousRegexpLiteral:
   Exclude:
-    - vendor/**/*
-    - Guardfile
-    - files/default/test/**/*
-    - Rakefile
+    - 'files/default/test/auth_test.rb'
 
-AlignParameters:
-  Enabled: false
-ClassLength:
-  Enabled: false
-CyclomaticComplexity:
-  Enabled: false
-Documentation:
-  Enabled: false
-Encoding:
-  Enabled: false
-Style/FileName:
-  Enabled: false
-LineLength:
-  Enabled: false
-MethodLength:
-  Enabled: false
-Metrics/AbcSize:
-  Enabled: false
-PerceivedComplexity:
-  Enabled: false
-Style/SpaceBeforeFirstArg:
-  Enabled: false
-Style/ClassAndModuleChildren:
-  Enabled: false
-Style/FileName:
-  Enabled: false
+# Configuration parameters: AllowedVariables.
+Style/GlobalVars:
+  Exclude:
+    - 'Rakefile'

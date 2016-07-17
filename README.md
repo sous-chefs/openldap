@@ -10,10 +10,10 @@ Configures a server to be an OpenLDAP master, OpenLDAP replication slave, or Ope
 Requirements
 ------------
 #### Platforms
-- Ubuntu 10.04+
+- Ubuntu 12.04+
 - Debian
 - FreeBSD 10
-- RHEL and derivitives
+- RHEL and derivatives
 
 #### Chef
 - Chef 11+
@@ -133,7 +133,7 @@ License & Authors
 
 **Author:** Cookbook Engineering Team (<cookbooks@chef.io>)
 
-**Copyright:** 2008-2015, Chef Software, Inc.
+**Copyright:** 2008-2016, Chef Software, Inc.
 
 ```
 Licensed under the Apache License, Version 2.0 (the "License");
