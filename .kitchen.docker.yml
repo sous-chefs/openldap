@@ -95,6 +95,7 @@ platforms:
     pid_one_command: /bin/systemd
     intermediate_instructions:
       - RUN zypper --non-interactive install aaa_base perl-Getopt-Long-Descriptive
+
 suites:
 - name: server
   run_list:
