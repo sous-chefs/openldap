@@ -1,3 +1,0 @@
-cookbook "openldap" do
-  runtimes []
-end
