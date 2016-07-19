@@ -2,8 +2,8 @@
 # Cookbook Name:: openldap
 # Recipe:: default
 #
-# Copyright 2008-2015, Chef Software, Inc.
-# Copyright 2015, Tim Smith <tim@cozy.co>
+# Copyright 2008-2016, Chef Software, Inc.
+# Copyright 2015-2016, Tim Smith <tim@cozy.co>
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -17,3 +17,5 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+
+Chef::Log.warn('The default openldap recipe does nothing. See the readme for information on using the openldap cookbook')
