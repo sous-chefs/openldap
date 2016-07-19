@@ -4,7 +4,7 @@ describe 'default recipe on Ubuntu 14.04' do
   let(:chef_run) do
     ChefSpec::ServerRunner.new do |node|
       node.automatic[:lsb][:codename] = 'trusty'
-    end.converge('openldap::default')
+    end.converge('openldap::server')
   end
 
   it 'converges successfully' do
