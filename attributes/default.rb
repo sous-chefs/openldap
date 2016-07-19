@@ -2,7 +2,6 @@
 # Attributes:: default
 #
 # Copyright 2008-2015, Chef Software, Inc.
-# Copyright 2015-2016, Tim Smith <tsmith@chef.io>
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -75,22 +74,18 @@ when 'debian'
                                            end
   default['openldap']['packages']['client_pkg'] = 'ldap-utils'
   default['openldap']['packages']['srv_pkg'] = 'slapd'
-  default['openldap']['packages']['auth_pkgs'] = %w(libnss-ldap libpam-ldap)
 when 'rhel'
   default['openldap']['packages']['bdb'] = 'db4-utils'
   default['openldap']['packages']['client_pkg'] = 'openldap-clients'
   default['openldap']['packages']['srv_pkg'] = 'openldap-servers'
-  default['openldap']['packages']['auth_pkgs'] = %w(nss-pam-ldapd)
 when 'freebsd'
   default['openldap']['packages']['bdb'] = 'libdbi'
   default['openldap']['packages']['client_pkg'] = 'openldap-client'
   default['openldap']['packages']['srv_pkg'] = 'openldap-server'
-  default['openldap']['packages']['auth_pkgs'] = %w(pam_ldap)
 else
   default['openldap']['packages']['bdb'] = 'db-utils'
   default['openldap']['packages']['client_pkg'] = 'ldap-utils'
   default['openldap']['packages']['srv_pkg'] = 'slapd'
-  default['openldap']['packages']['auth_pkgs'] = %w(libnss-ldap libpam-ldap)
 end
 
 #
@@ -100,15 +95,7 @@ end
 default['openldap']['basedn'] = 'dc=localdomain'
 default['openldap']['cn'] = 'admin'
 default['openldap']['server'] = 'ldap.localdomain'
-default['openldap']['port'] = 389
-default['openldap']['server_uri'] = "ldap://#{openldap['server']}/"
 default['openldap']['tls_enabled'] = true
-
-# The NSS filters here determine what users and groups the machine knows about
-default['openldap']['nss_base']['passwd'] = ["ou=people,#{node['openldap']['basedn']}"]
-default['openldap']['nss_base']['shadow'] = ["ou=people,#{node['openldap']['basedn']}"]
-default['openldap']['nss_base']['group'] = ["ou=groups,#{node['openldap']['basedn']}"]
-default['openldap']['nss_base']['automount'] = ["ou=automount,#{node['openldap']['basedn']}"]
 
 unless node['domain'].nil? || node['domain'].split('.').count < 2
   default['openldap']['basedn'] = "dc=#{node['domain'].split('.').join(',dc=')}"
@@ -117,18 +104,8 @@ end
 
 default['openldap']['rootpw'] = nil
 default['openldap']['preseed_dir'] = '/var/cache/local/preseeding'
-default['openldap']['pam_password'] = 'md5'
 default['openldap']['loglevel'] = 'sync config'
 default['openldap']['schemas'] = %w(core.schema cosine.schema nis.schema inetorgperson.schema)
-
-# dynamically generated pam.d files
-# additional attributes added here will be added to the common-account, common-auth, common-password, and common-session files
-default['openldap']['pam_hash']['account']['sufficient'] = %w(pam_unix.so)
-default['openldap']['pam_hash']['account']['[default=bad success=ok user_unknown=ignore]'] = %w(pam_ldap.so)
-default['openldap']['pam_hash']['auth']['sufficient'] = ['pam_unix.so likeauth nullok_secure', 'pam_ldap.so use_first_pass']
-default['openldap']['pam_hash']['auth']['required'] = ['pam_group.so use_first_pass', 'pam_deny.so', 'pam_warn.so']
-default['openldap']['pam_hash']['password']['sufficient'] = ['pam_unix.so nullok obscure min=8 max=8 md5', 'pam_ldap.so']
-default['openldap']['pam_hash']['session']['required'] = ['pam_unix.so', 'pam_mkhomedir.so skel=/etc/skel/', 'pam_ldap.so']
 
 default['openldap']['manage_ssl'] = false
 default['openldap']['tls_checkpeer'] = false
@@ -159,10 +136,6 @@ default['openldap']['syncrepl_dn'] = "cn=syncrole,#{node['openldap']['basedn']}"
 
 # The maximum number of entries that is returned for a search operation
 default['openldap']['server_config_hash']['sizelimit'] = 500
-
-default['openldap']['client_config_hash']['ldap_version'] = 3
-default['openldap']['client_config_hash']['bind_policy'] = 'soft'
-default['openldap']['client_config_hash']['pam_password'] = openldap['pam_password']
 
 # package settings
 default['openldap']['package_install_action'] = :install
