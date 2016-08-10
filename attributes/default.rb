@@ -75,9 +75,15 @@ when 'debian'
   default['openldap']['packages']['client_pkg'] = 'ldap-utils'
   default['openldap']['packages']['srv_pkg'] = 'slapd'
 when 'rhel'
-  default['openldap']['packages']['bdb'] = 'db4-utils'
-  default['openldap']['packages']['client_pkg'] = 'openldap-clients'
-  default['openldap']['packages']['srv_pkg'] = 'openldap-servers'
+  if node['platform'] == 'centos' && node['platform_version'].to_i >= 7
+    default['openldap']['packages']['bdb'] = 'libdb-devel'
+    default['openldap']['packages']['client_pkg'] = 'openldap-clients'
+    default['openldap']['packages']['srv_pkg'] = 'openldap-servers'
+  else
+    default['openldap']['packages']['bdb'] = 'db4-utils'
+    default['openldap']['packages']['client_pkg'] = 'openldap-clients'
+    default['openldap']['packages']['srv_pkg'] = 'openldap-servers'
+  end
 when 'freebsd'
   default['openldap']['packages']['bdb'] = 'libdbi'
   default['openldap']['packages']['client_pkg'] = 'openldap-client'
