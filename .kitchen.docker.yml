@@ -101,8 +101,6 @@ suites:
   run_list:
     - recipe[openldap-test::default]
     - recipe[openldap::server]
-    - recipe[openldap::auth]
-    - recipe[minitest-handler]
   attributes:
     openldap:
       rootpw: "{SSHA}6BjlvtSbVCL88li8IorkqMSofkLio58/" # secretsauce
@@ -117,8 +115,6 @@ suites:
   run_list:
     - recipe[openldap-test::ssl]
     - recipe[openldap::server]
-    - recipe[openldap::auth]
-    - recipe[minitest-handler]
   attributes:
     openldap:
       rootpw: "{SSHA}6BjlvtSbVCL88li8IorkqMSofkLio58/" # secretsauce
@@ -134,8 +130,6 @@ suites:
 - name: tls_disabled
   run_list:
   - recipe[openldap::server]
-  - recipe[openldap::auth]
-  - recipe[minitest-handler]
   attributes:
    openldap:
      server: localhost
