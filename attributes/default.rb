@@ -72,19 +72,19 @@ when 'debian'
                                            else
                                              'db-util'
                                            end
-  default['openldap']['packages']['client_pkg'] = 'ldap-utils'
   default['openldap']['packages']['srv_pkg'] = 'slapd'
 when 'rhel'
-  default['openldap']['packages']['bdb'] = 'db4-utils'
-  default['openldap']['packages']['client_pkg'] = 'openldap-clients'
+  default['openldap']['packages']['bdb'] = if node['platform_version'].to_i >= 7
+                                             'compat-db47'
+                                           else
+                                             'db4-utils'
+                                           end
   default['openldap']['packages']['srv_pkg'] = 'openldap-servers'
 when 'freebsd'
   default['openldap']['packages']['bdb'] = 'libdbi'
-  default['openldap']['packages']['client_pkg'] = 'openldap-client'
   default['openldap']['packages']['srv_pkg'] = 'openldap-server'
 else
   default['openldap']['packages']['bdb'] = 'db-utils'
-  default['openldap']['packages']['client_pkg'] = 'ldap-utils'
   default['openldap']['packages']['srv_pkg'] = 'slapd'
 end
 
