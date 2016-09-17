@@ -16,7 +16,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-include_recipe 'openldap::client'
 
 package node['openldap']['packages']['bdb'] do
   action node['openldap']['package_install_action']

@@ -54,10 +54,6 @@ Configures a server to be an OpenLDAP master or replication slave. Also includes
 
 Empty placeholder recipe.
 
-### client
-
-Install the openldap client packages.
-
 ### server
 
 Set up openldap to be a slapd server. Use this if your environment would only have a single slapd server.
