@@ -55,23 +55,6 @@ else
   default['openldap']['database'] = 'hdb'
 end
 
-# packages
-case node['platform_family']
-when 'debian'
-  default['openldap']['packages']['bdb'] = 'db-util'
-  default['openldap']['packages']['srv_pkg'] = %w( slapd ldap-utils )
-when 'rhel'
-  default['openldap']['packages']['bdb'] = if node['platform_version'].to_i >= 7
-                                             'compat-db47'
-                                           else
-                                             'db4-utils'
-                                           end
-  default['openldap']['packages']['srv_pkg'] = 'openldap-servers'
-when 'freebsd'
-  default['openldap']['packages']['bdb'] = 'libdbi'
-  default['openldap']['packages']['srv_pkg'] = 'openldap-server'
-end
-
 # package settings
 default['openldap']['package_install_action'] = :install
 

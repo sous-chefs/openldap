@@ -17,32 +17,8 @@
 # limitations under the License.
 #
 
-package node['openldap']['packages']['bdb'] do
-  action node['openldap']['package_install_action']
-  only_if { node['platform_family'] != 'freebsd' }
-end
-
-# the debian package needs a preseed file in order to silently install
-if node['platform_family'] == 'debian'
-  directory node['openldap']['preseed_dir'] do
-    action :create
-    recursive true
-    mode '0700'
-    owner 'root'
-    group node['root_group']
-  end
-
-  cookbook_file "#{node['openldap']['preseed_dir']}/slapd.seed" do
-    source 'slapd.seed'
-    mode '0600'
-    owner 'root'
-    group node['root_group']
-  end
-end
-
-package node['openldap']['packages']['srv_pkg'] do
-  response_file 'slapd.seed' if node['platform_family'] == 'debian'
-  action node['openldap']['package_install_action']
+openldap_install 'Install packages' do
+  package_action node['openldap']['package_install_action']
 end
 
 if node['openldap']['tls_enabled'] && node['openldap']['manage_ssl']
