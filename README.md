@@ -19,7 +19,7 @@ Configures a server to be an OpenLDAP master or replication slave. Also includes
 
 ### Cookbooks
 
-- openssl (for slave recipe)
+- none
 
 ## Attributes
 
@@ -63,7 +63,7 @@ Sets the `node['openldap']['slapd_type']` to master and then includes the `openl
 
 ### slave
 
-Sets the `node['openldap']['slapd_type']` to slave, then includes the `openldap::server` recipe. If the node is running chef-solo, then the `node['openldap']['slapd_replpw']` and `node['openldap']['slapd_master']` attributes must be set in the JSON attributes file passed to `chef-solo`.
+Sets the `node['openldap']['slapd_type']` to slave, then includes the `openldap::server` recipe. The `node['openldap']['slapd_replpw']` and `node['openldap']['slapd_master']` attributes must be set as well so the server has something to replicate from.
 
 ## Usage
 

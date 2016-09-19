@@ -7,15 +7,13 @@ long_description  IO.read(File.join(File.dirname(__FILE__), 'README.md'))
 version           '2.2.1'
 
 recipe            'openldap',         'Empty, use one of the other recipes'
-recipe            'openldap::server', 'Set up openldap to be a slapd server'
-recipe            'openldap::slave',  'Uses search to set replication slave attributes'
-recipe            'openldap::master', 'Use on nodes that should be a slapd master'
+recipe            'openldap::server', 'Set up openldap to be a standalone server'
+recipe            'openldap::master', 'Sets up openldap as a replication master'
+recipe            'openldap::slave',  'Sets up openldap to replicate to a specified master'
 
 %w(ubuntu debian freebsd redhat centos amazon scientific oracle).each do |os|
   supports os
 end
-
-depends 'openssl'
 
 source_url 'https://github.com/chef-cookbooks/openldap'
 issues_url 'https://github.com/chef-cookbooks/openldap/issues'

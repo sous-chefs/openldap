@@ -19,13 +19,4 @@
 
 node.default['openldap']['slapd_type'] = 'slave'
 
-if Chef::Config[:solo]
-  Chef::Log.warn("To use #{cookbook_name}::#{recipe_name} with solo, set attributes node['openldap']['slapd_replpw'] and node['openldap']['slapd_master'].")
-else
-  ::Chef::Recipe.send(:include, Opscode::OpenSSL::Password)
-  node.default['openldap']['slapd_replpw'] = secure_password
-  node.default['openldap']['slapd_master'] = search(:node, 'openldap_slapd_type:master').map { |n| n['openldap']['server'] }.first
-  node.save
-end
-
 include_recipe 'openldap::server'
