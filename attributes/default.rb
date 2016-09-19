@@ -43,13 +43,6 @@ when 'freebsd'
   default['openldap']['module_dir'] = '/usr/local/libexec/openldap'
   default['openldap']['system_acct'] = 'ldap'
   default['openldap']['system_group'] = 'ldap'
-else
-  default['openldap']['dir'] = '/etc/ldap'
-  default['openldap']['run_dir'] = '/var/run/slapd'
-  default['openldap']['module_dir'] = '/usr/lib/ldap'
-  default['openldap']['db_dir'] = '/var/lib/ldap'
-  default['openldap']['system_acct'] = 'openldap'
-  default['openldap']['system_group'] = 'openldap'
 end
 
 # backing database
@@ -83,10 +76,10 @@ when 'rhel'
 when 'freebsd'
   default['openldap']['packages']['bdb'] = 'libdbi'
   default['openldap']['packages']['srv_pkg'] = 'openldap-server'
-else
-  default['openldap']['packages']['bdb'] = 'db-utils'
-  default['openldap']['packages']['srv_pkg'] = 'slapd'
 end
+
+# package settings
+default['openldap']['package_install_action'] = :install
 
 #
 # openldap configuration attributes (generally overwritten by the user)
@@ -136,6 +129,3 @@ default['openldap']['syncrepl_dn'] = "cn=syncrole,#{node['openldap']['basedn']}"
 
 # The maximum number of entries that is returned for a search operation
 default['openldap']['server_config_hash']['sizelimit'] = 500
-
-# package settings
-default['openldap']['package_install_action'] = :install
