@@ -58,13 +58,7 @@ end
 # packages
 case node['platform_family']
 when 'debian'
-  # precise and up and wheezy and up stopped putting the version name in the db-util package.
-  # this is required to keep support for lucid
-  default['openldap']['packages']['bdb'] = if node['platform'] == 'ubuntu' && node['platform_version'].to_i < 12
-                                             'db4.8-util'
-                                           else
-                                             'db-util'
-                                           end
+  default['openldap']['packages']['bdb'] = 'db-util'
   default['openldap']['packages']['srv_pkg'] = %w( slapd ldap-utils )
 when 'rhel'
   default['openldap']['packages']['bdb'] = if node['platform_version'].to_i >= 7
