@@ -7,6 +7,14 @@ describe 'server recipe on ubuntu 16.04' do
   it 'converges successfully' do
     expect { :chef_run }.to_not raise_error
   end
+
+  it 'installs the openldap server packages' do
+    expect(chef_run).to install_package(%w( slapd ldap-utils ))
+  end
+
+  it 'installs the dbd package' do
+    expect(chef_run).to install_package('db-util')
+  end
 end
 
 describe 'server recipe on centos 6' do
@@ -15,6 +23,14 @@ describe 'server recipe on centos 6' do
 
   it 'converges successfully' do
     expect { :chef_run }.to_not raise_error
+  end
+
+  it 'installs the openldap server package' do
+    expect(chef_run).to install_package('openldap-servers')
+  end
+
+  it 'installs the dbd package' do
+    expect(chef_run).to install_package('compat-db47')
   end
 end
 
@@ -25,6 +41,14 @@ describe 'server recipe on centos 7' do
   it 'converges successfully' do
     expect { :chef_run }.to_not raise_error
   end
+
+  it 'installs the openldap server package' do
+    expect(chef_run).to install_package('openldap-servers')
+  end
+
+  it 'installs the dbd package' do
+    expect(chef_run).to install_package('db4-utils')
+  end
 end
 
 describe 'server recipe on freebsd 10' do
@@ -33,5 +57,13 @@ describe 'server recipe on freebsd 10' do
 
   it 'converges successfully' do
     expect { :chef_run }.to_not raise_error
+  end
+
+  it 'installs the openldap server package' do
+    expect(chef_run).to install_package('openldap-server')
+  end
+
+  it 'does not install the dbd package' do
+    expect(chef_run).to_not install_package('libdbi')
   end
 end
