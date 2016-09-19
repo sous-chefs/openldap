@@ -65,7 +65,7 @@ when 'debian'
                                            else
                                              'db-util'
                                            end
-  default['openldap']['packages']['srv_pkg'] = 'slapd'
+  default['openldap']['packages']['srv_pkg'] = %w( slapd ldap-utils )
 when 'rhel'
   default['openldap']['packages']['bdb'] = if node['platform_version'].to_i >= 7
                                              'compat-db47'
