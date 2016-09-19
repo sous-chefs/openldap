@@ -49,26 +49,17 @@ if node['openldap']['tls_enabled'] && node['openldap']['manage_ssl']
   cookbook_file node['openldap']['ssl_cert'] do
     source node['openldap']['ssl_cert_source_path']
     cookbook node['openldap']['ssl_cert_source_cookbook']
-    mode '0644'
-    owner 'root'
-    group node['root_group']
   end
 
   cookbook_file node['openldap']['ssl_key'] do
     source node['openldap']['ssl_key_source_path']
     cookbook node['openldap']['ssl_key_source_cookbook']
-    mode '0644'
-    owner 'root'
-    group node['root_group']
   end
 end
 
 if node['platform_family'] == 'debian'
   template '/etc/default/slapd' do
     source 'default_slapd.erb'
-    owner 'root'
-    group node['root_group']
-    mode '0644'
   end
 
   directory "#{node['openldap']['dir']}/slapd.d" do
