@@ -20,7 +20,6 @@ Configures a server to be an OpenLDAP master or replication slave. Also includes
 ### Cookbooks
 
 - openssl (for slave recipe)
-- freebsd
 
 ## Attributes
 

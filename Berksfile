@@ -6,4 +6,5 @@ group :integration do
   cookbook 'apt'
   cookbook 'openldap-test', path: './test/cookbooks/openldap-test'
   cookbook 'hostsfile'
+  cookbook 'freebsd'
 end

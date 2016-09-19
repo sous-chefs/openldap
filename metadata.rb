@@ -16,7 +16,6 @@ recipe            'openldap::master', 'Use on nodes that should be a slapd maste
 end
 
 depends 'openssl'
-depends 'freebsd'
 
 source_url 'https://github.com/chef-cookbooks/openldap'
 issues_url 'https://github.com/chef-cookbooks/openldap/issues'
