@@ -36,6 +36,7 @@ when 'debian'
   default['openldap']['module_dir'] = '/usr/lib/ldap'
   default['openldap']['system_acct'] = 'openldap'
   default['openldap']['system_group'] = 'openldap'
+  default['openldap']['enable_ldaps'] = false
 when 'freebsd'
   default['openldap']['dir'] = '/usr/local/etc/openldap'
   default['openldap']['run_dir'] = '/var/run/openldap'
