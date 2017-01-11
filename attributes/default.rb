@@ -79,10 +79,10 @@ default['openldap']['schemas'] = %w(core.schema cosine.schema nis.schema inetorg
 
 default['openldap']['manage_ssl'] = false
 default['openldap']['tls_checkpeer'] = false
-default['openldap']['ssl_dir'] = "#{openldap['dir']}/ssl"
+default['openldap']['ssl_dir'] = "#{node['openldap']['dir']}/ssl"
 default['openldap']['cafile']  = nil
-default['openldap']['ssl_cert'] = "#{openldap['ssl_dir']}/#{openldap['server']}_cert.pem"
-default['openldap']['ssl_key'] = "#{openldap['ssl_dir']}/#{openldap['server']}.pem"
+default['openldap']['ssl_cert'] = "#{node['openldap']['ssl_dir']}/#{node['openldap']['server']}_cert.pem"
+default['openldap']['ssl_key'] = "#{node['openldap']['ssl_dir']}/#{node['openldap']['server']}.pem"
 default['openldap']['ssl_cert_source_cookbook'] = 'openldap'
 default['openldap']['ssl_cert_source_path'] = "ssl/#{node['openldap']['server']}_cert.pem"
 default['openldap']['ssl_key_source_cookbook'] = 'openldap'
