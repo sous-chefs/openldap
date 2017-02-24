@@ -22,7 +22,6 @@ env:
   matrix:
   - INSTANCE=server-centos-6
   - INSTANCE=server-centos-7
-  - INSTANCE=server-ubuntu-1204
   - INSTANCE=server-ubuntu-1404
   - INSTANCE=server-ubuntu-1604
 
