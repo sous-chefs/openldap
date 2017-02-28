@@ -3,6 +3,7 @@ driver:
 
 provisioner:
   name: chef_zero
+  deprecations_as_errors: true
 
 platforms:
   - name: centos-6.8
@@ -12,13 +13,13 @@ platforms:
   - name: debian-8.6
     run_list: apt::default
   - name: fedora-25
-  - name: opensuse-13.2
   - name: ubuntu-14.04
     run_list: apt::default
   - name: ubuntu-16.04
     run_list: apt::default
-  - name: freebsd-9.3
   - name: freebsd-10.3
+    run_list: freebsd::pkgng
+  - name: freebsd-11.0
     run_list: freebsd::pkgng
 
 suites:
