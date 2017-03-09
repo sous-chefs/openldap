@@ -17,7 +17,7 @@ describe 'server recipe on ubuntu 16.04' do
   end
 end
 
-describe 'server recipe on centos 6' do
+describe 'server recipe on centos 7' do
   let(:runner) { ChefSpec::ServerRunner.new(platform: 'centos', version: '7.2.1511', step_into: ['openldap_install']) }
   let(:chef_run) { runner.converge('openldap::server') }
 
@@ -34,7 +34,7 @@ describe 'server recipe on centos 6' do
   end
 end
 
-describe 'server recipe on centos 7' do
+describe 'server recipe on centos 6' do
   let(:runner) { ChefSpec::ServerRunner.new(platform: 'centos', version: '6.8', step_into: ['openldap_install']) }
   let(:chef_run) { runner.converge('openldap::server') }
 
