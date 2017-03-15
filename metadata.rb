@@ -8,7 +8,7 @@ version           '3.0.0'
 
 recipe            'openldap::default', 'Install and configure OpenLDAP'
 
-%w(ubuntu debian freebsd redhat centos opensuse).each do |os|
+%w(ubuntu debian freebsd redhat centos scientific oracle opensuse).each do |os|
   supports os
 end
 

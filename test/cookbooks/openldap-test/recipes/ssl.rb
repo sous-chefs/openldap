@@ -1,5 +1,3 @@
-include_recipe 'openldap-test::default'
-
 ssl_dir = "#{node['openldap']['dir']}/ssl"
 node.default['openldap']['tls_cert'] = "#{ssl_dir}/#{node['openldap']['server']}.crt"
 node.default['openldap']['tls_key'] = "#{ssl_dir}/#{node['openldap']['server']}.key"
@@ -33,3 +31,5 @@ node['certs'].each do |c|
     mode '644'
   end
 end
+
+include_recipe 'openldap::default'

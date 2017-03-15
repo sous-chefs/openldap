@@ -80,11 +80,9 @@ suites:
 - name: default
   run_list:
   - recipe[openldap-test::default]
-  - recipe[openldap::default]
 - name: tls_enabled
   run_list:
     - recipe[openldap-test::ssl]
-    - recipe[openldap::default]
   attributes:
     openldap:
       tls_enabled: true
