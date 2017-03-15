@@ -1,11 +1,25 @@
+include_recipe 'openldap-test::default'
+
+ssl_dir = "#{node['openldap']['dir']}/ssl"
+node.default['openldap']['tls_cert'] = "#{ssl_dir}/#{node['openldap']['server']}.crt"
+node.default['openldap']['tls_key'] = "#{ssl_dir}/#{node['openldap']['server']}.key"
+node.default['openldap']['tls_cafile'] = "#{ssl_dir}/#{node['openldap']['server']}.pem"
+
+node.default[:certs] = ["#{ssl_dir}/#{node['openldap']['server']}.crt",
+                        "#{ssl_dir}/#{node['openldap']['server']}.key",
+                        "#{ssl_dir}/#{node['openldap']['server']}.pem"]
+
 hostsfile_entry '127.0.1.1' do
-  hostname 'ldap.example.com'
+  hostname node['openldap']['server']
   action :append
 end
 
-directory node['openldap']['ssl_dir'] do
-  owner 'root'
-  group 'root'
+directory node['openldap']['dir'] do
+  mode '755'
+  action :create
+end
+
+directory ssl_dir do
   mode '755'
   action :create
 end

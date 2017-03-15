@@ -17,4 +17,37 @@
 # limitations under the License.
 #
 
-Chef::Log.warn('The default openldap::default recipe does nothing. See the readme for information on using the openldap cookbook')
+openldap_install 'Install packages' do
+  package_action node['openldap']['package_install_action']
+end
+
+case node['platform_family']
+when 'debian'
+  template '/etc/default/slapd' do
+    source 'default_slapd.erb'
+  end
+when 'rhel'
+  template '/etc/sysconfig/slapd' do
+    source 'sysconfig_slapd.erb'
+  end
+when 'suse'
+  template '/etc/sysconfig/openldap' do
+    source 'sysconfig_openldap.erb'
+  end
+when 'freebsd'
+  template '/etc/rc.conf.d/slapd' do
+    source 'rc_slapd.erb'
+  end
+end
+
+template "#{node['openldap']['dir']}/slapd.conf" do
+  source 'slapd.conf.erb'
+  mode '0640'
+  owner node['openldap']['system_acct']
+  group node['openldap']['system_group']
+  notifies :restart, 'service[slapd]', :immediately
+end
+
+service 'slapd' do
+  action [:enable, :start]
+end
