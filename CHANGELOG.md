@@ -2,12 +2,17 @@
 
 This file is used to list changes made in each version of the openldap cookbook.
 
-## UNRELEASED
+## v3.0.0 (2016-03-16)
 
 This version has several major breaking changes that you will need to be aware of.
 
+- cn=config via slapd.d never worked and thus the 'support' has been removed - it may return but it will be a new feature
 - All auth logic has been removed from this cookbook. This cookbook now only configures the server side of openldap. We highly recommend configuring LDAP auth using our sssd_ldap cookbook, which functions much better than the previous PAM config.
 - A config hash have been added to add arbitrary files to the ldap.config and slapd.config files. This eliminates much of the need for forking this cookbook to meet your environment's needs. See the readme for detailed information on how these hashes are converted to ldap configs.
+- Many attributes are no longer present or have had name/value changes
+- There is now only one recipe and it is `default`
+- Properly supporting all platforms listed as supported
+- Adoption of `provider` and `consumer` terminology
 
 ### Other Changes
 
@@ -17,14 +22,14 @@ This version has several major breaking changes that you will need to be aware o
 - Don't manage ssl out of the box.
 - Remove a duplicate ERB that wasn't called anywhere
 - Rearrange the attributes file to make more sense
-- Updates to the slave setup with syncrepl to make it actually work
+- Updates to the provider setup with syncrepl to make it actually work
 - Add new attributes to provide better control of replication
 - Add unit and lint testing in Travis CI
 - Add basic convergence Chefspec
 - TLS config fixes, use uri over host+port, include client_config_hash in both config files
 - Add new supermarket metadata
 - Add chef_version metadata
-- Resolve all cookstyle warnings and use our standard Rakefile for all testing
+- Resolve all cookstyle warnings
 - Add maintainers files
 - Fix recipe is expecting an attribute named "system_user", but attributes are configured to provide "system_acct".
 - Add TLSCipherSuite to slapd.conf
