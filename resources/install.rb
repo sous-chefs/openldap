@@ -1,13 +1,16 @@
 property :package_action, Symbol, default: :install
 
 action :install do
-  package db_package do
-    action new_resource.package_action
-    only_if { node['platform_family'] != 'freebsd' }
+  if db_package
+    package db_package do
+      action new_resource.package_action
+    end
   end
 
   # the debian package needs a preseed file in order to silently install
   if node['platform_family'] == 'debian'
+    package 'ldap-utils'
+
     directory node['openldap']['preseed_dir'] do
       action :create
       recursive true
@@ -23,6 +26,10 @@ action :install do
       owner 'root'
       group node['root_group']
     end
+
+    dpkg_autostart server_package do
+      allow false
+    end
   end
 
   package server_package do
@@ -35,11 +42,13 @@ action_class do
   def server_package
     case node['platform_family']
     when 'debian'
-      %w( slapd ldap-utils )
-    when 'rhel'
+      'slapd'
+    when 'rhel', 'fedora'
       'openldap-servers'
     when 'freebsd'
       'openldap-server'
+    when 'suse'
+      'openldap2'
     end
   end
 

@@ -27,7 +27,11 @@ SLAPD_PIDFILE=
 # sockets.
 # Example usage:
 # SLAPD_SERVICES="ldap://127.0.0.1:389/ ldaps:/// ldapi:///"
+<% if node['openldap']['ldaps_enabled'] -%>
+SLAPD_SERVICES="ldap:/// ldapi:/// ldaps:///"
+<% else -%>
 SLAPD_SERVICES="ldap:/// ldapi:///"
+<% end -%>
 
 # If SLAPD_NO_START is set, the init script will not start or restart
 # slapd (but stop will still work).  Uncomment this if you are

@@ -77,45 +77,12 @@ platforms:
       - RUN zypper --non-interactive install aaa_base perl-Getopt-Long-Descriptive which net-tools
 
 suites:
-- name: server
+- name: default
   run_list:
-    - recipe[openldap-test::default]
-    - recipe[openldap::server]
-  attributes:
-    openldap:
-      rootpw: "{SSHA}6BjlvtSbVCL88li8IorkqMSofkLio58/" # secretsauce
-      basedn: "dc=example, dc=com"
-      server: "ldap.example.com"
-      preseed_dir: "/tmp/does_not_exist"
-      ssl_cert_source_cookbook: "openldap-test"
-      ssl_cert_source_path: "ldap.example.com.pem"
-      ssl_key_source_cookbook: "openldap-test"
-      ssl_key_source_path: "ldap.example.com.key"
-- name: unmanaged_ssl
+  - recipe[openldap-test::default]
+- name: tls_enabled
   run_list:
     - recipe[openldap-test::ssl]
-    - recipe[openldap::server]
   attributes:
     openldap:
-      rootpw: "{SSHA}6BjlvtSbVCL88li8IorkqMSofkLio58/" # secretsauce
-      basedn: "dc=example, dc=com"
-      server: "ldap.example.com"
-      manage_ssl: false
-      tls_checkpeer: true
-      pam_password: sha
-      ssl_dir: "/etc/ldap/ssl"
-      ssl_cert: "/etc/ldap/ssl/ldap.example.com.pem"
-      ssl_key: "/etc/ldap/ssl/ldap.example.com.pem"
-      cafile: "/etc/ldap/ssl/ldap.example.com.pem"
-- name: tls_disabled
-  run_list:
-  - recipe[openldap::server]
-  attributes:
-   openldap:
-     server: localhost
-     rootpw: "{SSHA}6BjlvtSbVCL88li8IorkqMSofkLio58/" # secretsauce
-     tls_enabled: false
-     passwd_ou: peeps
-     shadow_ou: ninjas
-     group_ou: pirates
-     automount_ou: barge
+      tls_enabled: true

@@ -22,9 +22,13 @@
 
 # File and directory locations for openldap.
 case node['platform_family']
-when 'rhel'
+when 'rhel', 'fedora', 'suse'
   default['openldap']['dir'] = '/etc/openldap'
-  default['openldap']['run_dir'] = '/var/run/openldap'
+  default['openldap']['run_dir'] = if node['platform_family'] == 'suse'
+                                     '/run/slapd'
+                                   else
+                                     '/var/run/openldap'
+                                   end
   default['openldap']['db_dir'] = '/var/lib/ldap'
   default['openldap']['module_dir'] = '/usr/lib64/openldap'
   default['openldap']['system_acct'] = 'ldap'
@@ -59,13 +63,12 @@ end
 default['openldap']['package_install_action'] = :install
 
 #
-# openldap configuration attributes (generally overwritten by the user)
+# openldap configuration (generally overwritten by the user)
 #
 
 default['openldap']['basedn'] = 'dc=localdomain'
 default['openldap']['cn'] = 'admin'
 default['openldap']['server'] = 'ldap.localdomain'
-default['openldap']['tls_enabled'] = true
 
 unless node['domain'].nil? || node['domain'].split('.').count < 2
   default['openldap']['basedn'] = "dc=#{node['domain'].split('.').join(',dc=')}"
@@ -77,32 +80,28 @@ default['openldap']['preseed_dir'] = '/var/cache/local/preseeding'
 default['openldap']['loglevel'] = 'sync config'
 default['openldap']['schemas'] = %w(core.schema cosine.schema nis.schema inetorgperson.schema)
 
-default['openldap']['manage_ssl'] = false
-default['openldap']['tls_checkpeer'] = false
-default['openldap']['ssl_dir'] = "#{node['openldap']['dir']}/ssl"
-default['openldap']['cafile']  = nil
-default['openldap']['ssl_cert'] = "#{node['openldap']['ssl_dir']}/#{node['openldap']['server']}_cert.pem"
-default['openldap']['ssl_key'] = "#{node['openldap']['ssl_dir']}/#{node['openldap']['server']}.pem"
-default['openldap']['ssl_cert_source_cookbook'] = 'openldap'
-default['openldap']['ssl_cert_source_path'] = "ssl/#{node['openldap']['server']}_cert.pem"
-default['openldap']['ssl_key_source_cookbook'] = 'openldap'
-default['openldap']['ssl_key_source_path'] = "ssl/#{node['openldap']['server']}.pem"
+# TLS/SSL
+default['openldap']['ldaps_enabled'] = false
+default['openldap']['tls_enabled'] = false
+default['openldap']['tls_cert'] = nil
+default['openldap']['tls_key'] = nil
+default['openldap']['tls_cafile'] = nil
+default['openldap']['tls_ciphersuite'] = nil
 
+# syncrepl
 default['openldap']['slapd_type'] = nil
-
-# syncrepl slave syncing attributes
-default['openldap']['slapd_master'] = node['openldap']['server']
+default['openldap']['slapd_provider'] = nil
 default['openldap']['slapd_replpw'] = nil
 default['openldap']['slapd_rid'] = 102
 default['openldap']['syncrepl_interval'] = '01:00:00:00'
 default['openldap']['syncrepl_type'] = 'refreshAndPersist'
 default['openldap']['syncrepl_filter'] = '(objectClass=*)'
 default['openldap']['syncrepl_use_tls'] = 'no' # yes or no
-default['openldap']['syncrepl_dn'] = "cn=syncrole,#{node['openldap']['basedn']}"
+# syncrepl_cn affects provider and consumer
+default['openldap']['syncrepl_cn'] = 'cn=syncrole'
 
-# These the config hashes are dynamically parsed into the slapd.config and ldap.config files
-# You can add to the hashes in wrapper cookbooks to add your own config options via wrapper cokbooks
-# see readme for usage information
+# The server_config_hash hash is parsed directly into the slapd.conf file
+# You can add to the hashes in wrapper cookbooks to add your own config options
 
 # The maximum number of entries that is returned for a search operation
 default['openldap']['server_config_hash']['sizelimit'] = 500

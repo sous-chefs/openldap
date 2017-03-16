@@ -1,1 +1,1 @@
-# this exists only so kitchen can grab the .pem file
+include_recipe 'openldap::default'

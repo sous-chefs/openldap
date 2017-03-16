@@ -2,18 +2,17 @@ name              'openldap'
 maintainer        'Chef Software, Inc.'
 maintainer_email  'cookbooks@chef.io'
 license           'Apache 2.0'
-description       'Configures a server to be an OpenLDAP master, replication slave or client for auth'
+description       'Installs and configures OpenLDAP (slapd)'
 long_description  IO.read(File.join(File.dirname(__FILE__), 'README.md'))
-version           '2.2.1'
+version           '3.0.0'
 
-recipe            'openldap',         'Empty, use one of the other recipes'
-recipe            'openldap::server', 'Set up openldap to be a standalone server'
-recipe            'openldap::master', 'Sets up openldap as a replication master'
-recipe            'openldap::slave',  'Sets up openldap to replicate to a specified master'
+recipe            'openldap::default', 'Install and configure OpenLDAP'
 
-%w(ubuntu debian freebsd redhat centos amazon scientific oracle).each do |os|
+%w(ubuntu debian freebsd redhat centos scientific oracle opensuse).each do |os|
   supports os
 end
+
+depends 'dpkg_autostart'
 
 source_url 'https://github.com/chef-cookbooks/openldap'
 issues_url 'https://github.com/chef-cookbooks/openldap/issues'

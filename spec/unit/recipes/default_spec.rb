@@ -1,15 +1,19 @@
 require 'spec_helper'
 
-describe 'server recipe on ubuntu 16.04' do
+describe 'default recipe on ubuntu 16.04' do
   let(:runner) { ChefSpec::ServerRunner.new(platform: 'ubuntu', version: '16.04', step_into: ['openldap_install']) }
-  let(:chef_run) { runner.converge('openldap::server') }
+  let(:chef_run) { runner.converge('openldap::default') }
 
   it 'converges successfully' do
     expect { :chef_run }.to_not raise_error
   end
 
   it 'installs the openldap server packages' do
-    expect(chef_run).to install_package(%w( slapd ldap-utils ))
+    expect(chef_run).to install_package('slapd')
+  end
+
+  it 'installs the ldap-utils' do
+    expect(chef_run).to install_package('ldap-utils')
   end
 
   it 'installs the dbd package' do
@@ -17,9 +21,9 @@ describe 'server recipe on ubuntu 16.04' do
   end
 end
 
-describe 'server recipe on centos 7' do
+describe 'default recipe on centos 7' do
   let(:runner) { ChefSpec::ServerRunner.new(platform: 'centos', version: '7.2.1511', step_into: ['openldap_install']) }
-  let(:chef_run) { runner.converge('openldap::server') }
+  let(:chef_run) { runner.converge('openldap::default') }
 
   it 'converges successfully' do
     expect { :chef_run }.to_not raise_error
@@ -34,9 +38,9 @@ describe 'server recipe on centos 7' do
   end
 end
 
-describe 'server recipe on centos 6' do
+describe 'default recipe on centos 6' do
   let(:runner) { ChefSpec::ServerRunner.new(platform: 'centos', version: '6.8', step_into: ['openldap_install']) }
-  let(:chef_run) { runner.converge('openldap::server') }
+  let(:chef_run) { runner.converge('openldap::default') }
 
   it 'converges successfully' do
     expect { :chef_run }.to_not raise_error
@@ -51,9 +55,9 @@ describe 'server recipe on centos 6' do
   end
 end
 
-describe 'server recipe on freebsd 10' do
-  let(:runner) { ChefSpec::ServerRunner.new(platform: 'freebsd', version: '10.3', step_into: ['openldap_install']) }
-  let(:chef_run) { runner.converge('openldap::server') }
+describe 'default recipe on freebsd 11' do
+  let(:runner) { ChefSpec::ServerRunner.new(platform: 'freebsd', version: '11.0', step_into: ['openldap_install']) }
+  let(:chef_run) { runner.converge('openldap::default') }
 
   it 'converges successfully' do
     expect { :chef_run }.to_not raise_error
@@ -64,6 +68,6 @@ describe 'server recipe on freebsd 10' do
   end
 
   it 'does not install the dbd package' do
-    expect(chef_run).to_not install_package('libdbi')
+    expect(chef_run).to install_package('libdbi')
   end
 end
