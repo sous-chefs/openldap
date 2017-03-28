@@ -14,7 +14,7 @@ action :install do
     directory node['openldap']['preseed_dir'] do
       action :create
       recursive true
-      mode '0700'
+      mode '0755'
       owner 'root'
       group node['root_group']
     end
