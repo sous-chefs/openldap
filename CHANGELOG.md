@@ -2,6 +2,9 @@
 
 This file is used to list changes made in each version of the openldap cookbook.
 
+## v3.0.2 (2017-03-27)
+- Change `/var/cache/local/preseeding` resource configuration to be mode '0755'
+
 ## v3.0.1 (2017-03-27)
 - Update metadata to improve search query on supermarket for ldap.
 - Standardize license string in metadata.
