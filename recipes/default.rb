@@ -27,8 +27,14 @@ when 'debian'
     source 'default_slapd.erb'
   end
 when 'rhel'
-  template '/etc/sysconfig/slapd' do
-    source 'sysconfig_slapd.erb'
+  if node['platform_version'].to_i >= 7 && !platform?('amazon')
+    template '/etc/sysconfig/slapd' do
+      source 'sysconfig_slapd.erb'
+    end
+  else
+    template '/etc/sysconfig/ldap' do
+      source 'sysconfig_slapd.erb'
+    end
   end
 when 'suse'
   template '/etc/sysconfig/openldap' do

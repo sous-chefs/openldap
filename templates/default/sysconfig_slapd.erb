@@ -14,9 +14,12 @@ SLAPD_URLS="ldapi:/// ldap:/// ldaps:///"
 SLAPD_URLS="ldapi:/// ldap:///"
 <% end -%>
 
-
 # Any custom options
-#SLAPD_OPTIONS=""
+<% if node['platform'] == "centos"  or node['platform'] == "amazon" -%>
+SLAPD_OPTIONS="-f /etc/openldap/slapd.conf"
+<% else %>
+SLAPD_OPTIONS=""
+<% end -%>
 
 # Keytab location for GSSAPI Kerberos authentication
 #KRB5_KTNAME="FILE:/etc/openldap/ldap.keytab"
