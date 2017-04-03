@@ -33,7 +33,7 @@ when 'rhel'
     end
   else
     template '/etc/sysconfig/ldap' do
-      source 'sysconfig_slapd.erb'
+      source 'sysconfig_ldap.erb'
     end
   end
 when 'suse'
