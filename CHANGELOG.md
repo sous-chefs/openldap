@@ -2,6 +2,12 @@
 
 This file is used to list changes made in each version of the openldap cookbook.
 
+## [v3.0.3](https://github.com/chef-cookbooks/openldap/tree/v3.0.3) (2017-04-04)
+[Full Changelog](https://github.com/chef-cookbooks/openldap/compare/v3.0.2...v3.0.3)
+
+- Break rhelish 6 and 7 sysconfig templates out separately [\#89](https://github.com/chef-cookbooks/openldap/pull/89) ([cheeseplus](https://github.com/cheeseplus))
+- Fixing CentOS and Amazon Linux support [\#88](https://github.com/chef-cookbooks/openldap/pull/88) ([jpooler](https://github.com/jpooler))
+
 ## v3.0.2 (2017-03-27)
 - Change `/var/cache/local/preseeding` resource configuration to be mode '0755'
 
