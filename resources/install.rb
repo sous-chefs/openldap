@@ -38,7 +38,7 @@ action :install do
   end
 end
 
-action_class do
+action_class.class_eval do
   def server_package
     case node['platform_family']
     when 'debian'

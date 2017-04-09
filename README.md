@@ -17,7 +17,7 @@ Configures a server to be an OpenLDAP master or replication slave. Also includes
 
 ### Chef
 
-- Chef 12.1+
+- Chef 12.5+
 
 ### Cookbooks
 
@@ -38,8 +38,7 @@ $ slappasswd -s "secretsauce"
 {SSHA}6BjlvtSbVCL88li8IorkqMSofkLio58/
 ```
 
-Set this via a node/role/env attribute or in a wrapper cookbook with an encrypted data_bag. OpenLDAP will fail to start
-if this is not set.
+Set this via a node/role/env attribute or in a wrapper cookbook with an encrypted data_bag. OpenLDAP will fail to start if this is not set.
 
 ### Install/Upgrade
 
@@ -52,9 +51,7 @@ if this is not set.
 
 ### TLS/SSL
 
-If `openldap['ldaps_enabled']` or `openldap['tls_enabled']` are set, then `openldap['tls_cert']`
-and `openldap['tls_key']` must also be set and the files must exist prior to execution. Depending
-on the certificates, `openldap['tls_cafile']` may also need to be set. See the test cookbook for an example.
+If `openldap['ldaps_enabled']` or `openldap['tls_enabled']` are set, then `openldap['tls_cert']` and `openldap['tls_key']` must also be set and the files must exist prior to execution. Depending on the certificates, `openldap['tls_cafile']` may also need to be set. See the test cookbook for an example.
 
 - `openldap['ldaps_enabled']` - listen on LDAPS (636) true | false (default)
 - `openldap['tls_enabled']` - true | false (default)
