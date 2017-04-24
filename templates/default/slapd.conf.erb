@@ -116,7 +116,7 @@ syncrepl rid=<%= node['openldap']['slapd_rid'] %>
 <%   when Array -%>
 <%= key %>
 <%     value.each do |v| -%>
-  <%= v %>
+<%= v %>
 <%     end -%>
 <%   when String, Integer -%>
 <%=    key %> <%= value %>
