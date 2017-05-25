@@ -153,6 +153,6 @@ access to dn.base="" by * read
 access to *
         by group.exact="cn=administrators,<%= node['openldap']['basedn'] %>" write
 <% if node['openldap']['slapd_type'] == "provider" -%>
-        by by dn="<%= node['openldap']['syncrepl_cn'] %>,<%= node['openldap']['basedn'] %>" read
+        by dn="<%= node['openldap']['syncrepl_cn'] %>,<%= node['openldap']['basedn'] %>" read
 <% end -%>
         by * read
