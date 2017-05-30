@@ -2,6 +2,10 @@
 
 This file is used to list changes made in each version of the openldap cookbook.
 
+## 3.1.0 (2017-05-30)
+
+- Remove class_eval usage and require Chef 12.7+
+
 ## [v3.0.3](https://github.com/chef-cookbooks/openldap/tree/v3.0.3) (2017-04-04)
 [Full Changelog](https://github.com/chef-cookbooks/openldap/compare/v3.0.2...v3.0.3)
 
