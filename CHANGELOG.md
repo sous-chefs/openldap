@@ -2,6 +2,10 @@
 
 This file is used to list changes made in each version of the openldap cookbook.
 
+## 3.1.1 (2017-06-14)
+
+- remove extra by, invalid syntax that breaks non-admin read
+
 ## 3.1.0 (2017-05-30)
 
 - Remove class_eval usage and require Chef 12.7+
