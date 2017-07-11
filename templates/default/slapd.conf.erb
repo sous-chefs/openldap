@@ -104,7 +104,7 @@ syncrepl rid=<%= node['openldap']['slapd_rid'] %>
   scope=sub
   schemachecking=off
   bindmethod=simple
-  binddn="<%= node['openldap']['syncrepl_cn'] %>,<%= node['openldap']['basedn'] %>" read"
+  binddn="<%= node['openldap']['syncrepl_cn'] %>,<%= node['openldap']['basedn'] %>"
   starttls=<%= node['openldap']['syncrepl_use_tls'] %>
   credentials="<%= node['openldap']['slapd_replpw'] %>"
 <% end -%>
