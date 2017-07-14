@@ -4,29 +4,44 @@ driver:
 provisioner:
   name: chef_zero
   deprecations_as_errors: true
-  require_chef_omnibus: latest
 
 verifier:
   name: inspec
 
 platforms:
+  - name: amazon-linux
+    driver_config:
+      box: mvbcoding/awslinux
   - name: centos-6.9
   - name: centos-7.3
   - name: debian-7.11
   - name: debian-8.8
+  - name: debian-9.0
   - name: fedora-25
   - name: ubuntu-14.04
   - name: ubuntu-16.04
   - name: freebsd-10.3
   - name: freebsd-11.0
-
+  
 suites:
 - name: default
   run_list:
-  - recipe[openldap-test::default]
+    - recipe[openldap-test::default]
 - name: tls_enabled
   run_list:
     - recipe[openldap-test::ssl]
   attributes:
     openldap:
       tls_enabled: true
+- name: type_provider
+  run_list:
+    - recipe[openldap-test::default]
+  attributes:
+    openldap:
+      slapd_type: 'provider'
+- name: type_consumer
+  run_list:
+    - recipe[openldap-test::default]
+  attributes:
+    openldap:
+      slapd_type: 'consumer'
