@@ -57,6 +57,10 @@ when 'freebsd'
 else
   default['openldap']['modules'] = %w(back_hdb)
   default['openldap']['database'] = 'hdb'
+  default['openldap']['dbconfig']['set_cachesize'] = '0 31457280 0'
+  default['openldap']['dbconfig']['set_lk_max_objects'] = '1500'
+  default['openldap']['dbconfig']['set_lk_max_locks'] = '1500'
+  default['openldap']['dbconfig']['set_lk_max_lockers'] = '1500'
 end
 
 # package settings
