@@ -79,10 +79,22 @@ platforms:
 suites:
 - name: default
   run_list:
-  - recipe[openldap-test::default]
+    - recipe[openldap-test::default]
 - name: tls_enabled
   run_list:
     - recipe[openldap-test::ssl]
   attributes:
     openldap:
       tls_enabled: true
+- name: type_provider
+  run_list:
+    - recipe[openldap-test::default]
+  attributes:
+    openldap:
+      slapd_type: 'provider'
+- name: type_consumer
+  run_list:
+    - recipe[openldap-test::default]
+  attributes:
+    openldap:
+      slapd_type: 'consumer'
