@@ -2,6 +2,11 @@
 
 This file is used to list changes made in each version of the openldap cookbook.
 
+## 3.1.2 (2017-07-27)
+
+- fixed slapd.conf file syntax
+- parameterize dbconfig settings
+
 ## 3.1.1 (2017-06-14)
 
 - remove extra by, invalid syntax that breaks non-admin read
