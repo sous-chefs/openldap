@@ -101,6 +101,13 @@ default['openldap']['syncrepl_interval'] = '01:00:00:00'
 default['openldap']['syncrepl_type'] = 'refreshAndPersist'
 default['openldap']['syncrepl_filter'] = '(objectClass=*)'
 default['openldap']['syncrepl_use_tls'] = 'no' # yes or no
+default['openldap']['syncrepl_uri'] = 'ldap'
+default['openldap']['syncrepl_port'] = '389'
+default['openldap']['syncrepl_options'] = {
+  'scope' => 'sub',
+  'schemachecking' => 'off',
+  'bindmethod' => 'simple'
+}
 # syncrepl_cn affects provider and consumer
 default['openldap']['syncrepl_cn'] = 'cn=syncrole'
 

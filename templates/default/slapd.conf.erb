@@ -93,17 +93,17 @@ syncprov-sessionlog 100
 <% if node['openldap']['slapd_type'] == "consumer" -%>
 syncrepl rid=<%= node['openldap']['slapd_rid'] %>
 <% if node['openldap']['slapd_provider'] -%>
-  provider=ldap://<%= node['openldap']['slapd_provider'] %>:389
+  provider=<%= node['openldap']['syncrepl_uri'] %>://<%= node['openldap']['slapd_provider'] %>:<%= node['openldap']['syncrepl_port'] %>
 <% else %>
-  provider=ldap://<%= node['openldap']['server'] %>:389
+  provider=<%= node['openldap']['syncrepl_uri'] %>://<%= node['openldap']['server'] %>:<%= node['openldap']['syncrepl_port'] %>
 <% end -%>
   type=<%= node['openldap']['syncrepl_type'] %>
   interval=<%= node['openldap']['syncrepl_interval'] %>
   searchbase="<%= node['openldap']['basedn'] %>"
   filter="<%= node['openldap']['syncrepl_filter'] %>"
-  scope=sub
-  schemachecking=off
-  bindmethod=simple
+<% node['openldap']['syncrepl_options'].each do |key, value| -%>
+  <%= key %>=<%= value %>
+<% end -%>
   binddn="<%= node['openldap']['syncrepl_cn'] %>,<%= node['openldap']['basedn'] %>"
   starttls=<%= node['openldap']['syncrepl_use_tls'] %>
   credentials="<%= node['openldap']['slapd_replpw'] %>"
