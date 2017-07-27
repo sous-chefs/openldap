@@ -46,6 +46,11 @@ when 'freebsd'
   end
 end
 
+##  Set syncrepl_config dynamic values here
+node.default['openldap']['syncrepl_config']['searchbase'] = "\"#{node['openldap']['basedn']}\""
+node.default['openldap']['syncrepl_config']['binddn'] = "\"#{node['openldap']['syncrepl_cn']},#{node['openldap']['basedn']}\""
+node.default['openldap']['syncrepl_config']['credentials'] = "\"#{node['openldap']['slapd_replpw']}\""
+
 template "#{node['openldap']['dir']}/slapd.conf" do
   source 'slapd.conf.erb'
   mode '0640'

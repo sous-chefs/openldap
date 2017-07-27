@@ -97,16 +97,9 @@ syncrepl rid=<%= node['openldap']['slapd_rid'] %>
 <% else %>
   provider=<%= node['openldap']['syncrepl_uri'] %>://<%= node['openldap']['server'] %>:<%= node['openldap']['syncrepl_port'] %>
 <% end -%>
-  type=<%= node['openldap']['syncrepl_type'] %>
-  interval=<%= node['openldap']['syncrepl_interval'] %>
-  searchbase="<%= node['openldap']['basedn'] %>"
-  filter="<%= node['openldap']['syncrepl_filter'] %>"
-<% node['openldap']['syncrepl_options'].each do |key, value| -%>
+<% node['openldap']['syncrepl_config'].each do |key, value| -%>
   <%= key %>=<%= value %>
 <% end -%>
-  binddn="<%= node['openldap']['syncrepl_cn'] %>,<%= node['openldap']['basedn'] %>"
-  starttls=<%= node['openldap']['syncrepl_use_tls'] %>
-  credentials="<%= node['openldap']['slapd_replpw'] %>"
 <% end -%>
 
 <% node['openldap']['server_config_hash'].each do |key, value| -%>

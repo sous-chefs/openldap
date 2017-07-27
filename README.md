@@ -68,10 +68,10 @@ Attributes related to replication (syncrepl). Only used if a provider or consume
 - `openldap['slapd_provider']` - hostname of slapd provider
 - `openldap['slapd_replpw']` - replication password
 - `openldap['slapd_rid']` - unique integer ID, required if type is consumer
-- `openldap['syncrepl_interval']` - interval for the sync. Defaults to 1 day
-- `openldap['syncrepl_type']` - defaults to 'refreshAndPersist'
-- `openldap['syncrepl_filter']` - search filter to use in the replication
-- `openldap['syncrepl_use_tls']` - `yes | no (default)`
+- `openldap['syncrepl_config']['interval']` - interval for the sync. Defaults to 1 day
+- `openldap['syncrepl_config']['type']` - defaults to 'refreshAndPersist'
+- `openldap['syncrepl_config']['filter']` - search filter to use in the replication
+- `openldap['syncrepl_config']['starttls']` - `yes | no (default)`
 - `openldap['syncrepl_cn']` - the CN (only) of the user to use as binddn as consumer
 
 ## Recipes
