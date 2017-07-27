@@ -66,14 +66,14 @@ directory       "<%= node['openldap']['db_dir'] %>"
 lastmod         on
 
 <% if node['openldap']['database'] == 'hdb' -%>
-dbconfig set_cachesize 0 31457280 0
+dbconfig set_cachesize <%= node['openldap']['dbconfig']['set_cachesize'] %>
 
 # Number of objects that can be locked at the same time.
-dbconfig set_lk_max_objects 1500
+dbconfig set_lk_max_objects <%= node['openldap']['dbconfig']['set_lk_max_objects'] %>
 # Number of locks (both requested and granted)
-dbconfig set_lk_max_locks 1500
+dbconfig set_lk_max_locks <%= node['openldap']['dbconfig']['set_lk_max_locks'] %>
 # Number of lockers
-dbconfig set_lk_max_lockers 1500
+dbconfig set_lk_max_lockers <%= node['openldap']['dbconfig']['set_lk_max_lockers'] %>
 <% end -%>
 
 ##
