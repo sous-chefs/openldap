@@ -73,18 +73,21 @@ Attributes related to replication (syncrepl). Only used if a provider or consume
 - `openldap['syncrepl_cn']` - the CN (only) of the user to use as binddn as consumer
 
 The following syncrepl values are set by default, others can be added by setting the appropriate key value
-pair in the `openldap['syncrepl_config]` (See the OpenLDAP Adminstrator Guide):
+pair in the `openldap['syncrepl_*_config]` (See the OpenLDAP Adminstrator Guide):
 
-- `openldap['syncrepl_config']['type']` - defaults to 'refreshAndPersist'
-- `openldap['syncrepl_config']['interval']` - interval for the sync. Defaults to 1 day
-- `openldap['syncrepl_config']['searchbase']` - calculated in recipe
-- `openldap['syncrepl_config']['filter']` - search filter to use in the replication
-- `openldap['syncrepl_config']['scope']` - defaults to 'sub'
-- `openldap['syncrepl_config']['schemachecking']` - defaults to 'off'
-- `openldap['syncrepl_config']['bindmethod']` - defaults to 'simple'
-- `openldap['syncrepl_config']['binddn']` - calculated in recipe
-- `openldap['syncrepl_config']['starttls']` - `yes | no (default)`
-- `openldap['syncrepl_config']['credentials']` - defaults to `openldap['slapd_replpw']`
+- `openldap']['syncrepl_provider_config']['overlay']` - defaults to 'syncprov'
+- `openldap']['syncrepl_provider_config']['syncprov-checkpoint']` - defaults to '100 10'
+- `openldap']['syncrepl_provider_config']['syncprov-sessionlog']` - defaults to '100'
+- `openldap['syncrepl_consumer_config']['type']` - defaults to 'refreshAndPersist'
+- `openldap['syncrepl_consumer_config']['interval']` - interval for the sync. Defaults to 1 day
+- `openldap['syncrepl_consumer_config']['searchbase']` - calculated in recipe
+- `openldap['syncrepl_consumer_config']['filter']` - search filter to use in the replication
+- `openldap['syncrepl_consumer_config']['scope']` - defaults to 'sub'
+- `openldap['syncrepl_consumer_config']['schemachecking']` - defaults to 'off'
+- `openldap['syncrepl_consumer_config']['bindmethod']` - defaults to 'simple'
+- `openldap['syncrepl_consumer_config']['binddn']` - calculated in recipe
+- `openldap['syncrepl_consumer_config']['starttls']` - `yes | no (default)`
+- `openldap['syncrepl_consumer_config']['credentials']` - defaults to `openldap['slapd_replpw']`
 `
 
 ## Recipes

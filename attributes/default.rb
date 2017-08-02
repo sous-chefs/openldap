@@ -103,16 +103,21 @@ default['openldap']['syncrepl_port'] = '389'
 # syncrepl_cn affects provider and consumer
 default['openldap']['syncrepl_cn'] = 'cn=syncrole'
 
-# syncrepl config parameters
-default['openldap']['syncrepl_config']['type'] = 'refreshAndPersist'
-default['openldap']['syncrepl_config']['interval'] = '01:00:00:00'
-default['openldap']['syncrepl_config']['searchbase'] = nil
-default['openldap']['syncrepl_config']['filter'] = '"(objectClass=*)"'
-default['openldap']['syncrepl_config']['scope'] = 'sub'
-default['openldap']['syncrepl_config']['schemachecking'] = 'off'
-default['openldap']['syncrepl_config']['bindmethod'] = 'simple'
-default['openldap']['syncrepl_config']['binddn'] = nil
-default['openldap']['syncrepl_config']['starttls'] = 'no' # yes or no
+# syncrepl provider config parameters
+default['openldap']['syncrepl_provider_config']['overlay'] = 'syncprov'
+default['openldap']['syncrepl_provider_config']['syncprov-checkpoint'] = '100 10'
+default['openldap']['syncrepl_provider_config']['syncprov-sessionlog'] = '100'
+
+# syncrepl consumer config parameters
+default['openldap']['syncrepl_consumer_config']['type'] = 'refreshAndPersist'
+default['openldap']['syncrepl_consumer_config']['interval'] = '01:00:00:00'
+default['openldap']['syncrepl_consumer_config']['searchbase'] = nil
+default['openldap']['syncrepl_consumer_config']['filter'] = '"(objectClass=*)"'
+default['openldap']['syncrepl_consumer_config']['scope'] = 'sub'
+default['openldap']['syncrepl_consumer_config']['schemachecking'] = 'off'
+default['openldap']['syncrepl_consumer_config']['bindmethod'] = 'simple'
+default['openldap']['syncrepl_consumer_config']['binddn'] = nil
+default['openldap']['syncrepl_consumer_config']['starttls'] = 'no' # yes or no
 default['openldap']['syncrepl_config']['credentials'] = nil
 
 # The server_config_hash hash is parsed directly into the slapd.conf file

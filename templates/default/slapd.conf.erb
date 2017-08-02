@@ -86,9 +86,9 @@ index loginShell,homeDirectory pres,eq,approx
 index uidNumber,gidNumber pres,eq
 
 <% if node['openldap']['slapd_type'] == "provider" -%>
-overlay syncprov
-syncprov-checkpoint 100 10
-syncprov-sessionlog 100
+<% node['openldap']['syncrepl_provider_config'].each do |key, value| -%>
+<%= key %> <%= value %>
+<% end -%>
 <% end -%>
 <% if node['openldap']['slapd_type'] == "consumer" -%>
 syncrepl rid=<%= node['openldap']['slapd_rid'] %>
@@ -97,7 +97,7 @@ syncrepl rid=<%= node['openldap']['slapd_rid'] %>
 <% else %>
   provider=<%= node['openldap']['syncrepl_uri'] %>://<%= node['openldap']['server'] %>:<%= node['openldap']['syncrepl_port'] %>
 <% end -%>
-<% node['openldap']['syncrepl_config'].each do |key, value| -%>
+<% node['openldap']['syncrepl_consumer_config'].each do |key, value| -%>
   <%= key %>=<%= value %>
 <% end -%>
 <% end -%>
