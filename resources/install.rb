@@ -19,8 +19,8 @@ action :install do
       group node['root_group']
     end
 
-    cookbook_file "#{node['openldap']['preseed_dir']}/slapd.seed" do
-      source 'slapd.seed'
+    template "#{node['openldap']['preseed_dir']}/slapd.seed" do
+      source 'slapd.seed.erb'
       cookbook 'openldap'
       mode '0600'
       owner 'root'
@@ -33,7 +33,7 @@ action :install do
   end
 
   package server_package do
-    response_file 'slapd.seed' if node['platform_family'] == 'debian'
+    response_file "slapd.seed.erb" if node['platform_family'] == 'debian'
     action new_resource.package_action
   end
 end
