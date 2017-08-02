@@ -71,6 +71,7 @@ default['openldap']['package_install_action'] = :install
 #
 
 default['openldap']['basedn'] = 'dc=localdomain'
+default['openldap']['organization'] = 'dc=localdomain'
 default['openldap']['cn'] = 'admin'
 default['openldap']['server'] = 'ldap.localdomain'
 
@@ -80,6 +81,7 @@ unless node['domain'].nil? || node['domain'].split('.').count < 2
 end
 
 default['openldap']['rootpw'] = nil
+default['openldap']['adminpw'] = nil
 default['openldap']['preseed_dir'] = '/var/cache/local/preseeding'
 default['openldap']['loglevel'] = 'sync config'
 default['openldap']['schemas'] = %w(core.schema cosine.schema nis.schema inetorgperson.schema)
@@ -109,3 +111,4 @@ default['openldap']['syncrepl_cn'] = 'cn=syncrole'
 
 # The maximum number of entries that is returned for a search operation
 default['openldap']['server_config_hash']['sizelimit'] = 500
+
