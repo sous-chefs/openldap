@@ -111,3 +111,4 @@ default['openldap']['syncrepl_cn'] = 'cn=syncrole'
 
 # The maximum number of entries that is returned for a search operation
 default['openldap']['server_config_hash']['sizelimit'] = 500
+
