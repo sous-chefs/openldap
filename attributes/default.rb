@@ -118,7 +118,7 @@ default['openldap']['syncrepl_consumer_config']['schemachecking'] = 'off'
 default['openldap']['syncrepl_consumer_config']['bindmethod'] = 'simple'
 default['openldap']['syncrepl_consumer_config']['binddn'] = nil
 default['openldap']['syncrepl_consumer_config']['starttls'] = 'no' # yes or no
-default['openldap']['syncrepl_config']['credentials'] = nil
+default['openldap']['syncrepl_consumer_config']['credentials'] = nil
 
 # The server_config_hash hash is parsed directly into the slapd.conf file
 # You can add to the hashes in wrapper cookbooks to add your own config options

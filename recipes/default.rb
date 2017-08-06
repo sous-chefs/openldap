@@ -46,7 +46,7 @@ when 'freebsd'
   end
 end
 
-##  Set syncrepl_config dynamic values here
+##  Set syncrepl_consumer_config dynamic values here
 node.default_unless['openldap']['syncrepl_consumer_config']['searchbase'] = "\"#{node['openldap']['basedn']}\""
 node.default_unless['openldap']['syncrepl_consumer_config']['binddn'] = "\"#{node['openldap']['syncrepl_cn']},#{node['openldap']['basedn']}\""
 node.default_unless['openldap']['syncrepl_consumer_config']['credentials'] = "\"#{node['openldap']['slapd_replpw']}\""
