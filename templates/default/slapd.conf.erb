@@ -86,27 +86,20 @@ index loginShell,homeDirectory pres,eq,approx
 index uidNumber,gidNumber pres,eq
 
 <% if node['openldap']['slapd_type'] == "provider" -%>
-overlay syncprov
-syncprov-checkpoint 100 10
-syncprov-sessionlog 100
+<% node['openldap']['syncrepl_provider_config'].each do |key, value| -%>
+<%= key %> <%= value %>
+<% end -%>
 <% end -%>
 <% if node['openldap']['slapd_type'] == "consumer" -%>
 syncrepl rid=<%= node['openldap']['slapd_rid'] %>
 <% if node['openldap']['slapd_provider'] -%>
-  provider=ldap://<%= node['openldap']['slapd_provider'] %>:389
+  provider=<%= node['openldap']['syncrepl_uri'] %>://<%= node['openldap']['slapd_provider'] %>:<%= node['openldap']['syncrepl_port'] %>
 <% else %>
-  provider=ldap://<%= node['openldap']['server'] %>:389
+  provider=<%= node['openldap']['syncrepl_uri'] %>://<%= node['openldap']['server'] %>:<%= node['openldap']['syncrepl_port'] %>
 <% end -%>
-  type=<%= node['openldap']['syncrepl_type'] %>
-  interval=<%= node['openldap']['syncrepl_interval'] %>
-  searchbase="<%= node['openldap']['basedn'] %>"
-  filter="<%= node['openldap']['syncrepl_filter'] %>"
-  scope=sub
-  schemachecking=off
-  bindmethod=simple
-  binddn="<%= node['openldap']['syncrepl_cn'] %>,<%= node['openldap']['basedn'] %>"
-  starttls=<%= node['openldap']['syncrepl_use_tls'] %>
-  credentials="<%= node['openldap']['slapd_replpw'] %>"
+<% node['openldap']['syncrepl_consumer_config'].each do |key, value| -%>
+  <%= key %>=<%= value %>
+<% end -%>
 <% end -%>
 
 <% node['openldap']['server_config_hash'].each do |key, value| -%>
