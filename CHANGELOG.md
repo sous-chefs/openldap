@@ -2,6 +2,11 @@
 
 This file is used to list changes made in each version of the openldap cookbook.
 
+## 4.0.0 (2018-07-18)
+
+- added support in syncrepl for ldaps and config options. This is a breaking change as it changes several of the attributes used to setup syncrepl. If you previously used the syncrepl functionality in this cookbook be sure to check the current attributes to see where changes are necessary before applying this new version of the cookbook.
+- Update ChefSpecs to the latest platform releases
+
 ## 3.1.2 (2017-07-27)
 
 - fixed slapd.conf file syntax
