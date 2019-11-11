@@ -1,7 +1,7 @@
 # Cookbook:: openldap
 # Attributes:: default
 #
-# Copyright:: 2008-2016, Chef Software, Inc.
+# Copyright:: 2008-2019, Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -24,7 +24,7 @@
 case node['platform_family']
 when 'rhel', 'fedora', 'suse'
   default['openldap']['dir'] = '/etc/openldap'
-  default['openldap']['run_dir'] = if node['platform_family'] == 'suse'
+  default['openldap']['run_dir'] = if platform_family?('suse')
                                      '/run/slapd'
                                    else
                                      '/var/run/openldap'

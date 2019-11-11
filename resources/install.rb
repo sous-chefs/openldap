@@ -8,7 +8,7 @@ action :install do
   end
 
   # the debian package needs a preseed file in order to silently install
-  if node['platform_family'] == 'debian'
+  if platform_family?('debian')
     package 'ldap-utils'
 
     directory node['openldap']['preseed_dir'] do
@@ -33,7 +33,7 @@ action :install do
   end
 
   package server_package do
-    response_file 'slapd.seed' if node['platform_family'] == 'debian'
+    response_file 'slapd.seed' if platform_family?('debian')
     action new_resource.package_action
   end
 end
