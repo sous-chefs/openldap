@@ -2,6 +2,7 @@ driver:
   name: dokken
   privileged: true # because Docker and SystemD/Upstart
   chef_version: <%= ENV['CHEF_VERSION'] || 'current' %>
+  chef_license: accept-no-persist
 
 transport:
   name: dokken
@@ -21,7 +22,7 @@ platforms:
     intermediate_instructions:
       - RUN yum -y install lsof which initscripts net-tools sudo wget
 
-- name: debian-8
+- name: debian-9
   driver:
     image: debian:8
     pid_one_command: /bin/systemd
@@ -29,7 +30,7 @@ platforms:
       - RUN /usr/bin/apt-get update
       - RUN /usr/bin/apt-get install apt-transport-https lsb-release procps net-tools -y
 
-- name: debian-9
+- name: debian-10
   driver:
     image: debian:9
     pid_one_command: /bin/systemd
