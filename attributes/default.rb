@@ -50,8 +50,7 @@ when 'freebsd'
 end
 
 # backing database
-case node['platform_family']
-when 'freebsd'
+if platform_family?('freebsd')
   default['openldap']['modules'] = %w(back_mdb)
   default['openldap']['database'] = 'mdb'
 else
