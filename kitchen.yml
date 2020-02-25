@@ -17,11 +17,10 @@ platforms:
   - name: centos-7
   - name: debian-9
   - name: debian-10
-  - name: fedora-29
-  - name: ubuntu-14.04
+  - name: fedora-latest
   - name: ubuntu-16.04
-  - name: freebsd-10
-  - name: freebsd-11
+  - name: ubuntu-18.04
+  - name: freebsd-12
 
 suites:
 - name: default

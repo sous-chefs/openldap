@@ -22,7 +22,7 @@ describe 'default recipe on ubuntu 16.04' do
 end
 
 describe 'default recipe on centos 7' do
-  let(:runner) { ChefSpec::ServerRunner.new(platform: 'centos', version: '7.3.1611', step_into: ['openldap_install']) }
+  let(:runner) { ChefSpec::ServerRunner.new(platform: 'centos', version: '7', step_into: ['openldap_install']) }
   let(:chef_run) { runner.converge('openldap::default') }
 
   it 'converges successfully' do
