@@ -2,6 +2,15 @@
 
 This file is used to list changes made in each version of the openldap cookbook.
 
+## 4.1.0 (2020-02-25)
+
+- Use platform helpers where we can - [@tas50](https://github.com/tas50)
+- Remove legacy metadata that isn't used - [@tas50](https://github.com/tas50)
+- Testing updates and modernization - [@tas50](https://github.com/tas50)
+- Add Github actions testing of style/unit - [@tas50](https://github.com/tas50)
+- Require Chef 12.15+ - [@tas50](https://github.com/tas50)
+- Update platforms we test on and fix ChefSpec deprecation warnings - [@tas50](https://github.com/tas50)
+
 ## 4.0.0 (2018-07-18)
 
 - added support in syncrepl for ldaps and config options. This is a breaking change as it changes several of the attributes used to setup syncrepl. If you previously used the syncrepl functionality in this cookbook be sure to check the current attributes to see where changes are necessary before applying this new version of the cookbook.
