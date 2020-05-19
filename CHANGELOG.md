@@ -2,6 +2,10 @@
 
 This file is used to list changes made in each version of the openldap cookbook.
 
+## Unreleased
+
+- resolved cookstyle error: spec/unit/recipes/default_spec.rb:59:18 warning: `ChefDeprecations/DeprecatedChefSpecPlatform`
+
 ## 4.1.0 (2020-02-25)
 
 - Use platform helpers where we can - [@tas50](https://github.com/tas50)

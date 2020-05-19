@@ -56,7 +56,7 @@ describe 'default recipe on centos 6' do
 end
 
 describe 'default recipe on freebsd 11' do
-  let(:runner) { ChefSpec::ServerRunner.new(platform: 'freebsd', version: '11.0', step_into: ['openldap_install']) }
+  let(:runner) { ChefSpec::ServerRunner.new(platform: 'freebsd', version: '11', step_into: ['openldap_install']) }
   let(:chef_run) { runner.converge('openldap::default') }
 
   it 'converges successfully' do
