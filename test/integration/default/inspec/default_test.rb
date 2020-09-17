@@ -1,5 +1,3 @@
-# # encoding: utf-8
-
 pkg = if os.debian?
         'slapd'
       elsif os.redhat?
