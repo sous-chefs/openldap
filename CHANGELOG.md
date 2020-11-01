@@ -19,6 +19,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - resolved cookstyle error: spec/unit/recipes/default_spec.rb:59:18 warning: `ChefDeprecations/DeprecatedChefSpecPlatform`
 - ChefSpec fixes
 - Yamllint fixes
+- MDL fixes
 
 ## 4.1.0 (2020-02-25)
 
@@ -48,15 +49,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Remove class_eval usage and require Chef 12.7+
 
 ## [v3.0.3](https://github.com/chef-cookbooks/openldap/tree/v3.0.3) (2017-04-04)
+
 [Full Changelog](https://github.com/chef-cookbooks/openldap/compare/v3.0.2...v3.0.3)
 
 - Break rhelish 6 and 7 sysconfig templates out separately [\#89](https://github.com/chef-cookbooks/openldap/pull/89) ([cheeseplus](https://github.com/cheeseplus))
 - Fixing CentOS and Amazon Linux support [\#88](https://github.com/chef-cookbooks/openldap/pull/88) ([jpooler](https://github.com/jpooler))
 
 ## v3.0.2 (2017-03-27)
+
 - Change `/var/cache/local/preseeding` resource configuration to be mode '0755'
 
 ## v3.0.1 (2017-03-27)
+
 - Update metadata to improve search query on supermarket for ldap.
 - Standardize license string in metadata.
 

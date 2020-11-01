@@ -88,7 +88,6 @@ pair in the `openldap['syncrepl_*_config]` (See the OpenLDAP Adminstrator Guide)
 - `openldap['syncrepl_consumer_config']['binddn']` - calculated in recipe
 - `openldap['syncrepl_consumer_config']['starttls']` - `yes | no (default)`
 - `openldap['syncrepl_consumer_config']['credentials']` - defaults to `openldap['slapd_replpw']`
-`
 
 ## Recipes
 
