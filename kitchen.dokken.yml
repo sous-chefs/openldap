@@ -2,17 +2,13 @@ driver:
   name: dokken
   privileged: true  # because Docker and SystemD
   chef_version: <%= ENV['CHEF_VERSION'] || 'current' %>
-  chef_license: accept-no-persist
+  env: [CHEF_LICENSE=accept]
 
 transport:
   name: dokken
 
 provisioner:
   name: dokken
-  deprecations_as_errors: true
-
-verifier:
-  name: inspec
 
 platforms:
   - name: amazonlinux-2
@@ -22,46 +18,50 @@ platforms:
 
   - name: debian-9
     driver:
-      image: debian:8
+      image: dokken/debian-9
       pid_one_command: /bin/systemd
       intermediate_instructions:
         - RUN /usr/bin/apt-get update
-        - RUN /usr/bin/apt-get install apt-transport-https lsb-release procps net-tools -y
 
   - name: debian-10
     driver:
-      image: debian:9
+      image: dokken/debian-10
       pid_one_command: /bin/systemd
       intermediate_instructions:
         - RUN /usr/bin/apt-get update
-        - RUN /usr/bin/apt-get install apt-transport-https lsb-release procps net-tools systemd -y
 
   - name: centos-7
     driver:
-      image: centos:7
-      platform: rhel
+      image: dokken/centos-7
       pid_one_command: /usr/lib/systemd/systemd
-      intermediate_instructions:
-        - RUN yum -y install lsof which systemd-sysv initscripts wget net-tools
 
   - name: fedora-latest
     driver:
-      image: fedora:latest
+      image: dokken/fedora-latest
       pid_one_command: /usr/lib/systemd/systemd
-      intermediate_instructions:
-        - RUN dnf -y install which systemd-sysv initscripts wget net-tools
 
   - name: ubuntu-16.04
     driver:
-      image: ubuntu:16.04
+      image: dokken/ubuntu-16.04
       pid_one_command: /bin/systemd
       intermediate_instructions:
         - RUN /usr/bin/apt-get update
-        - RUN /usr/bin/apt-get install apt-transport-https lsb-release procps net-tools -y
 
-  - name: opensuse-leap
+  - name: ubuntu-18.04
     driver:
-      image: opensuse:leap
+      image: dokken/ubuntu-18.04
       pid_one_command: /bin/systemd
       intermediate_instructions:
-        - RUN zypper --non-interactive install aaa_base perl-Getopt-Long-Descriptive which net-tools systemd-sysvinit
+        - RUN /usr/bin/apt-get update
+
+  - name: ubuntu-20.04
+    driver:
+      image: dokken/ubuntu-20.04
+      pid_one_command: /bin/systemd
+      intermediate_instructions:
+        - RUN /usr/bin/apt-get update
+
+  - name: opensuse-leap-15
+    driver:
+      image: dokken/opensuse-leap-15
+      pid_one_command: /bin/systemd
