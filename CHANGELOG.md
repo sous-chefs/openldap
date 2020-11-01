@@ -18,6 +18,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - resolved cookstyle error: spec/unit/recipes/default_spec.rb:42:18 warning: `ChefDeprecations/DeprecatedChefSpecPlatform`
 - resolved cookstyle error: spec/unit/recipes/default_spec.rb:59:18 warning: `ChefDeprecations/DeprecatedChefSpecPlatform`
 - ChefSpec fixes
+- Yamllint fixes
 
 ## 4.1.0 (2020-02-25)
 

@@ -1,6 +1,6 @@
 driver:
   name: dokken
-  privileged: true # because Docker and SystemD/Upstart
+  privileged: true  # because Docker and SystemD
   chef_version: <%= ENV['CHEF_VERSION'] || 'current' %>
   chef_license: accept-no-persist
 
@@ -15,63 +15,63 @@ verifier:
   name: inspec
 
 platforms:
-- name: amazonlinux
-  driver:
-    image: amazonlinux:latest
-    pid_one_command: /sbin/init
-    intermediate_instructions:
-      - RUN yum -y install lsof which initscripts net-tools sudo wget
+  - name: amazonlinux
+    driver:
+      image: amazonlinux:latest
+      pid_one_command: /sbin/init
+      intermediate_instructions:
+        - RUN yum -y install lsof which initscripts net-tools sudo wget
 
-- name: debian-9
-  driver:
-    image: debian:8
-    pid_one_command: /bin/systemd
-    intermediate_instructions:
-      - RUN /usr/bin/apt-get update
-      - RUN /usr/bin/apt-get install apt-transport-https lsb-release procps net-tools -y
+  - name: debian-9
+    driver:
+      image: debian:8
+      pid_one_command: /bin/systemd
+      intermediate_instructions:
+        - RUN /usr/bin/apt-get update
+        - RUN /usr/bin/apt-get install apt-transport-https lsb-release procps net-tools -y
 
-- name: debian-10
-  driver:
-    image: debian:9
-    pid_one_command: /bin/systemd
-    intermediate_instructions:
-      - RUN /usr/bin/apt-get update
-      - RUN /usr/bin/apt-get install apt-transport-https lsb-release procps net-tools systemd -y
+  - name: debian-10
+    driver:
+      image: debian:9
+      pid_one_command: /bin/systemd
+      intermediate_instructions:
+        - RUN /usr/bin/apt-get update
+        - RUN /usr/bin/apt-get install apt-transport-https lsb-release procps net-tools systemd -y
 
-- name: centos-6
-  driver:
-    image: centos:6
-    platform: rhel
-    pid_one_command: /sbin/init
-    intermediate_instructions:
-      - RUN yum -y install lsof which initscripts net-tools wget net-tools
+  - name: centos-6
+    driver:
+      image: centos:6
+      platform: rhel
+      pid_one_command: /sbin/init
+      intermediate_instructions:
+        - RUN yum -y install lsof which initscripts net-tools wget net-tools
 
-- name: centos-7
-  driver:
-    image: centos:7
-    platform: rhel
-    pid_one_command: /usr/lib/systemd/systemd
-    intermediate_instructions:
-      - RUN yum -y install lsof which systemd-sysv initscripts wget net-tools
+  - name: centos-7
+    driver:
+      image: centos:7
+      platform: rhel
+      pid_one_command: /usr/lib/systemd/systemd
+      intermediate_instructions:
+        - RUN yum -y install lsof which systemd-sysv initscripts wget net-tools
 
-- name: fedora-latest
-  driver:
-    image: fedora:latest
-    pid_one_command: /usr/lib/systemd/systemd
-    intermediate_instructions:
-      - RUN dnf -y install which systemd-sysv initscripts wget net-tools
+  - name: fedora-latest
+    driver:
+      image: fedora:latest
+      pid_one_command: /usr/lib/systemd/systemd
+      intermediate_instructions:
+        - RUN dnf -y install which systemd-sysv initscripts wget net-tools
 
-- name: ubuntu-16.04
-  driver:
-    image: ubuntu:16.04
-    pid_one_command: /bin/systemd
-    intermediate_instructions:
-      - RUN /usr/bin/apt-get update
-      - RUN /usr/bin/apt-get install apt-transport-https lsb-release procps net-tools -y
+  - name: ubuntu-16.04
+    driver:
+      image: ubuntu:16.04
+      pid_one_command: /bin/systemd
+      intermediate_instructions:
+        - RUN /usr/bin/apt-get update
+        - RUN /usr/bin/apt-get install apt-transport-https lsb-release procps net-tools -y
 
-- name: opensuse-leap
-  driver:
-    image: opensuse:leap
-    pid_one_command: /bin/systemd
-    intermediate_instructions:
-      - RUN zypper --non-interactive install aaa_base perl-Getopt-Long-Descriptive which net-tools systemd-sysvinit
+  - name: opensuse-leap
+    driver:
+      image: opensuse:leap
+      pid_one_command: /bin/systemd
+      intermediate_instructions:
+        - RUN zypper --non-interactive install aaa_base perl-Getopt-Long-Descriptive which net-tools systemd-sysvinit
