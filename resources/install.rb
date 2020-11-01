@@ -57,7 +57,7 @@ action_class do
     when 'debian'
       'db-util'
     when 'rhel'
-      node['platform_version'].to_i >= 7 && !platform?('amazon') ? 'compat-db47' : 'db4-utils'
+      'compat-db47'
     when 'freebsd'
       'libdbi'
     end

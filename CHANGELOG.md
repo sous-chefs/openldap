@@ -21,6 +21,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Yamllint fixes
 - MDL fixes
 
+### Removed
+
+- Remove EL6 testing and support
+
 ## 4.1.0 (2020-02-25)
 
 - Use platform helpers where we can - [@tas50](https://github.com/tas50)
