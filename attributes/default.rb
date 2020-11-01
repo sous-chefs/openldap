@@ -22,7 +22,7 @@
 
 # File and directory locations for openldap.
 case node['platform_family']
-when 'rhel', 'fedora', 'suse'
+when 'rhel', 'fedora', 'suse', 'amazon'
   default['openldap']['dir'] = '/etc/openldap'
   default['openldap']['run_dir'] = if platform_family?('suse')
                                      '/run/slapd'

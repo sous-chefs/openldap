@@ -15,12 +15,10 @@ verifier:
   name: inspec
 
 platforms:
-  - name: amazonlinux
+  - name: amazonlinux-2
     driver:
-      image: amazonlinux:latest
-      pid_one_command: /sbin/init
-      intermediate_instructions:
-        - RUN yum -y install lsof which initscripts net-tools sudo wget
+      image: dokken/amazonlinux-2
+      pid_one_command: /usr/lib/systemd/systemd
 
   - name: debian-9
     driver:

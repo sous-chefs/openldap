@@ -43,7 +43,7 @@ action_class do
     case node['platform_family']
     when 'debian'
       'slapd'
-    when 'rhel', 'fedora'
+    when 'rhel', 'fedora', 'amazon'
       'openldap-servers'
     when 'freebsd'
       'openldap-server'
@@ -56,7 +56,7 @@ action_class do
     case node['platform_family']
     when 'debian'
       'db-util'
-    when 'rhel'
+    when 'rhel', 'amazon'
       'compat-db47'
     when 'freebsd'
       'libdbi'
