@@ -34,6 +34,8 @@ platforms:
     driver:
       image: dokken/centos-7
       pid_one_command: /usr/lib/systemd/systemd
+      volumes:
+        - /sys/fs/cgroup:/sys/fs/cgroup
 
   - name: fedora-latest
     driver:
