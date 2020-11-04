@@ -11,7 +11,7 @@ Configures a server to be an OpenLDAP master or replication slave. Also includes
 - Ubuntu
 - Debian
 - FreeBSD
-- RHEL/CentOS
+- RHEL/CentOS ~> 7.0 *NOTE: RHEL 8 [removed support](https://www.redhat.com/en/blog/preparing-identity-management-red-hat-enterprise-linux-8) for openldap*
 - Fedora
 - openSUSE Leap
 
