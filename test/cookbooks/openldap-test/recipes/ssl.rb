@@ -7,11 +7,6 @@ node.default[:certs] = ["#{ssl_dir}/#{node['openldap']['server']}.crt",
                         "#{ssl_dir}/#{node['openldap']['server']}.key",
                         "#{ssl_dir}/#{node['openldap']['server']}.pem"]
 
-hostsfile_entry '127.0.1.1' do
-  hostname node['openldap']['server']
-  action :append
-end
-
 directory node['openldap']['dir'] do
   mode '755'
   action :create

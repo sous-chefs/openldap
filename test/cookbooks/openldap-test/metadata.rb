@@ -6,4 +6,3 @@ description      'Tests various aspects of the OpenLDAP cookbook'
 version          '0.1.0'
 
 depends 'openldap'
-depends 'hostsfile'
