@@ -1,0 +1,6 @@
+---
+name: openldap-tls-enabled
+title: Openldap tls-enabled tests
+supports:
+  - os-family: linux
+  - os-family: bsd

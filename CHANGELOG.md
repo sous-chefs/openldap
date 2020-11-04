@@ -24,6 +24,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add proper support for Amazon Linux
 - Fix CentOS dokken suite testing
 
+### Added
+
+- Additional InSpec tests
+
 ### Removed
 
 - Remove EL6 testing and support

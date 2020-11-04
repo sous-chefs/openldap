@@ -1,0 +1,6 @@
+---
+name: openldap-default
+title: Openldap default tests
+supports:
+  - os-family: linux
+  - os-family: bsd

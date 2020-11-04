@@ -31,15 +31,28 @@ suites:
     attributes:
       openldap:
         tls_enabled: true
+        ldaps_enabled: true
+    verifier:
+      inspec_tests:
+        - name: openldap-default
+          path: test/integration/default
   - name: type_provider
     run_list:
       - recipe[openldap-test::default]
     attributes:
       openldap:
         slapd_type: 'provider'
+    verifier:
+      inspec_tests:
+        - name: openldap-default
+          path: test/integration/default
   - name: type_consumer
     run_list:
       - recipe[openldap-test::default]
     attributes:
       openldap:
         slapd_type: 'consumer'
+    verifier:
+      inspec_tests:
+        - name: openldap-default
+          path: test/integration/default

@@ -1,0 +1,6 @@
+---
+name: openldap-type-consumer
+title: Openldap type-consumer tests
+supports:
+  - os-family: linux
+  - os-family: bsd
