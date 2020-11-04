@@ -24,6 +24,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add proper support for Amazon Linux
 - Fix CentOS dokken suite testing
 - Restart slapd if the default file is updated
+- Enable modulepath for centos
 
 ### Added
 
