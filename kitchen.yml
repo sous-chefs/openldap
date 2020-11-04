@@ -3,17 +3,16 @@ driver:
 
 provisioner:
   name: chef_zero
+  product_name: chef
+  enforce_idempotency: true
+  multiple_converge: 2
   deprecations_as_errors: true
-  chef_license: accept-no-persist
 
 verifier:
   name: inspec
 
 platforms:
-  - name: amazonlinux
-    driver_config:
-      box: mvbcoding/awslinux
-  - name: centos-6
+  - name: amazonlinux-2
   - name: centos-7
   - name: debian-9
   - name: debian-10
@@ -23,24 +22,37 @@ platforms:
   - name: freebsd-12
 
 suites:
-- name: default
-  run_list:
-    - recipe[openldap-test::default]
-- name: tls_enabled
-  run_list:
-    - recipe[openldap-test::ssl]
-  attributes:
-    openldap:
-      tls_enabled: true
-- name: type_provider
-  run_list:
-    - recipe[openldap-test::default]
-  attributes:
-    openldap:
-      slapd_type: 'provider'
-- name: type_consumer
-  run_list:
-    - recipe[openldap-test::default]
-  attributes:
-    openldap:
-      slapd_type: 'consumer'
+  - name: default
+    run_list:
+      - recipe[openldap-test::default]
+  - name: tls_enabled
+    run_list:
+      - recipe[openldap-test::ssl]
+    attributes:
+      openldap:
+        tls_enabled: true
+        ldaps_enabled: true
+    verifier:
+      inspec_tests:
+        - name: openldap-default
+          path: test/integration/default
+  - name: type_provider
+    run_list:
+      - recipe[openldap-test::default]
+    attributes:
+      openldap:
+        slapd_type: 'provider'
+    verifier:
+      inspec_tests:
+        - name: openldap-default
+          path: test/integration/default
+  - name: type_consumer
+    run_list:
+      - recipe[openldap-test::default]
+    attributes:
+      openldap:
+        slapd_type: 'consumer'
+    verifier:
+      inspec_tests:
+        - name: openldap-default
+          path: test/integration/default

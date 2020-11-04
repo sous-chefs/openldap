@@ -1,8 +1,16 @@
 # openldap Cookbook
 
-[![Build Status](https://travis-ci.org/chef-cookbooks/openldap.svg?branch=master)](http://travis-ci.org/chef-cookbooks/openldap) [![Cookbook Version](https://img.shields.io/cookbook/v/openldap.svg)](https://supermarket.chef.io/cookbooks/openldap)
+[![Cookbook Version](https://img.shields.io/cookbook/v/openldap.svg)](https://supermarket.chef.io/cookbooks/openldap)
+[![CI State](https://github.com/sous-chefs/openldap/workflows/ci/badge.svg)](https://github.com/sous-chefs/openldap/actions?query=workflow%3Aci)
+[![OpenCollective](https://opencollective.com/sous-chefs/backers/badge.svg)](#backers)
+[![OpenCollective](https://opencollective.com/sous-chefs/sponsors/badge.svg)](#sponsors)
+[![License](https://img.shields.io/badge/License-Apache%202.0-green.svg)](https://opensource.org/licenses/Apache-2.0)
 
-Configures a server to be an OpenLDAP master or replication slave. Also includes a recipe to install the client libs, but not to setup actual LDAP auth as there are several ways to do this. We recommend looking at our [sssd_ldap cookbook](https://github.com/chef-cookbooks/sssd_ldap)
+Configures a server to be an OpenLDAP provider or replication consumer. Also includes a recipe to install the client libs, but not to setup actual LDAP auth as there are several ways to do this. We recommend looking at the [sssd_ldap cookbook](https://github.com/chef-cookbooks/sssd_ldap).
+
+## Maintainers
+
+This cookbook is maintained by the Sous Chefs. The Sous Chefs are a community of Chef cookbook maintainers working together to maintain important cookbooks. If you’d like to know more please visit [sous-chefs.org](https://sous-chefs.org/) or come chat with us on the Chef Community Slack in [#sous-chefs](https://chefcommunity.slack.com/messages/C2V7B88SF).
 
 ## Requirements
 
@@ -11,13 +19,13 @@ Configures a server to be an OpenLDAP master or replication slave. Also includes
 - Ubuntu
 - Debian
 - FreeBSD
-- RHEL/CentOS
+- RHEL/CentOS ~> 7.0 *NOTE: RHEL 8 [removed support](https://www.redhat.com/en/blog/preparing-identity-management-red-hat-enterprise-linux-8) for openldap*
 - Fedora
 - openSUSE Leap
 
 ### Chef
 
-- Chef 12.7+
+- Chef 12.15+
 
 ### Cookbooks
 
@@ -88,7 +96,6 @@ pair in the `openldap['syncrepl_*_config]` (See the OpenLDAP Adminstrator Guide)
 - `openldap['syncrepl_consumer_config']['binddn']` - calculated in recipe
 - `openldap['syncrepl_consumer_config']['starttls']` - `yes | no (default)`
 - `openldap['syncrepl_consumer_config']['credentials']` - defaults to `openldap['slapd_replpw']`
-`
 
 ## Recipes
 
@@ -96,24 +103,27 @@ pair in the `openldap['syncrepl_*_config]` (See the OpenLDAP Adminstrator Guide)
 
 Install and configure OpenLDAP (slapd).
 
-## Maintainers
+## Contributors
 
-This cookbook is maintained by Chef's Community Cookbook Engineering team. Our goal is to improve cookbook quality and to aid the community in contributing to cookbooks. To learn more about our team, process, and design goals see our [team documentation](https://github.com/chef-cookbooks/community_cookbook_documentation/blob/master/COOKBOOK_TEAM.MD). To learn more about contributing to cookbooks like this see our [contributing documentation](https://github.com/chef-cookbooks/community_cookbook_documentation/blob/master/CONTRIBUTING.MD), or if you have general questions about this cookbook come chat with us in #cookbok-engineering on the [Chef Community Slack](http://community-slack.chef.io/)
+This project exists thanks to all the people who [contribute.](https://opencollective.com/sous-chefs/contributors.svg?width=890&button=false)
 
-## License
+### Backers
 
-**Copyright:** 2008-2017, Chef Software, Inc.
+Thank you to all our backers!
 
-```
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
+![https://opencollective.com/sous-chefs#backers](https://opencollective.com/sous-chefs/backers.svg?width=600&avatarHeight=40)
 
-    http://www.apache.org/licenses/LICENSE-2.0
+### Sponsors
 
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
-```
+Support this project by becoming a sponsor. Your logo will show up here with a link to your website.
+
+![https://opencollective.com/sous-chefs/sponsor/0/website](https://opencollective.com/sous-chefs/sponsor/0/avatar.svg?avatarHeight=100)
+![https://opencollective.com/sous-chefs/sponsor/1/website](https://opencollective.com/sous-chefs/sponsor/1/avatar.svg?avatarHeight=100)
+![https://opencollective.com/sous-chefs/sponsor/2/website](https://opencollective.com/sous-chefs/sponsor/2/avatar.svg?avatarHeight=100)
+![https://opencollective.com/sous-chefs/sponsor/3/website](https://opencollective.com/sous-chefs/sponsor/3/avatar.svg?avatarHeight=100)
+![https://opencollective.com/sous-chefs/sponsor/4/website](https://opencollective.com/sous-chefs/sponsor/4/avatar.svg?avatarHeight=100)
+![https://opencollective.com/sous-chefs/sponsor/5/website](https://opencollective.com/sous-chefs/sponsor/5/avatar.svg?avatarHeight=100)
+![https://opencollective.com/sous-chefs/sponsor/6/website](https://opencollective.com/sous-chefs/sponsor/6/avatar.svg?avatarHeight=100)
+![https://opencollective.com/sous-chefs/sponsor/7/website](https://opencollective.com/sous-chefs/sponsor/7/avatar.svg?avatarHeight=100)
+![https://opencollective.com/sous-chefs/sponsor/8/website](https://opencollective.com/sous-chefs/sponsor/8/avatar.svg?avatarHeight=100)
+![https://opencollective.com/sous-chefs/sponsor/9/website](https://opencollective.com/sous-chefs/sponsor/9/avatar.svg?avatarHeight=100)

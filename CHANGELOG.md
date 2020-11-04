@@ -2,10 +2,41 @@
 
 This file is used to list changes made in each version of the openldap cookbook.
 
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
+and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
 ## Unreleased
+
+### Changed
+
+- Sous Chefs Adoption
+- Update Changelog to Sous Chefs
+- Update to use Sous Chefs GH workflow
+- Update test-kitchen to Sous Chefs
+- Update README to sous-chefs
+- Update metadata.rb to Sous Chefs
+
+### Fixed
 
 - resolved cookstyle error: spec/unit/recipes/default_spec.rb:42:18 warning: `ChefDeprecations/DeprecatedChefSpecPlatform`
 - resolved cookstyle error: spec/unit/recipes/default_spec.rb:59:18 warning: `ChefDeprecations/DeprecatedChefSpecPlatform`
+- ChefSpec fixes
+- Yamllint fixes
+- MDL fixes
+- Add proper support for Amazon Linux
+- Fix CentOS dokken suite testing
+- Restart slapd if the default file is updated
+- Enable modulepath for centos
+- Fix tls for Amazon Linux
+- Fix testing on FreeBSD
+
+### Added
+
+- Additional InSpec tests
+
+### Removed
+
+- Remove EL6 testing and support
 
 ## 4.1.0 (2020-02-25)
 
@@ -35,15 +66,18 @@ This file is used to list changes made in each version of the openldap cookbook.
 - Remove class_eval usage and require Chef 12.7+
 
 ## [v3.0.3](https://github.com/chef-cookbooks/openldap/tree/v3.0.3) (2017-04-04)
+
 [Full Changelog](https://github.com/chef-cookbooks/openldap/compare/v3.0.2...v3.0.3)
 
 - Break rhelish 6 and 7 sysconfig templates out separately [\#89](https://github.com/chef-cookbooks/openldap/pull/89) ([cheeseplus](https://github.com/cheeseplus))
 - Fixing CentOS and Amazon Linux support [\#88](https://github.com/chef-cookbooks/openldap/pull/88) ([jpooler](https://github.com/jpooler))
 
 ## v3.0.2 (2017-03-27)
+
 - Change `/var/cache/local/preseeding` resource configuration to be mode '0755'
 
 ## v3.0.1 (2017-03-27)
+
 - Update metadata to improve search query on supermarket for ldap.
 - Standardize license string in metadata.
 

@@ -43,7 +43,7 @@ action_class do
     case node['platform_family']
     when 'debian'
       'slapd'
-    when 'rhel', 'fedora'
+    when 'rhel', 'fedora', 'amazon'
       'openldap-servers'
     when 'freebsd'
       'openldap-server'
@@ -56,8 +56,8 @@ action_class do
     case node['platform_family']
     when 'debian'
       'db-util'
-    when 'rhel'
-      node['platform_version'].to_i >= 7 && !platform?('amazon') ? 'compat-db47' : 'db4-utils'
+    when 'rhel', 'amazon'
+      'compat-db47'
     when 'freebsd'
       'libdbi'
     end

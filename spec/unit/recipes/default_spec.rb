@@ -1,8 +1,8 @@
 require 'spec_helper'
 
-describe 'default recipe on ubuntu 16.04' do
-  let(:runner) { ChefSpec::ServerRunner.new(platform: 'ubuntu', version: '16.04', step_into: ['openldap_install']) }
-  let(:chef_run) { runner.converge('openldap::default') }
+describe 'default recipe on ubuntu 20.04' do
+  cached(:runner) { ChefSpec::ServerRunner.new(platform: 'ubuntu', version: '20.04', step_into: ['openldap_install']) }
+  cached(:chef_run) { runner.converge('openldap::default') }
 
   it 'converges successfully' do
     expect { :chef_run }.to_not raise_error
@@ -22,8 +22,8 @@ describe 'default recipe on ubuntu 16.04' do
 end
 
 describe 'default recipe on centos 7' do
-  let(:runner) { ChefSpec::ServerRunner.new(platform: 'centos', version: '7', step_into: ['openldap_install']) }
-  let(:chef_run) { runner.converge('openldap::default') }
+  cached(:runner) { ChefSpec::ServerRunner.new(platform: 'centos', version: '7', step_into: ['openldap_install']) }
+  cached(:chef_run) { runner.converge('openldap::default') }
 
   it 'converges successfully' do
     expect { :chef_run }.to_not raise_error
@@ -38,26 +38,9 @@ describe 'default recipe on centos 7' do
   end
 end
 
-describe 'default recipe on centos 6' do
-  let(:runner) { ChefSpec::ServerRunner.new(platform: 'centos', version: '6', step_into: ['openldap_install']) }
-  let(:chef_run) { runner.converge('openldap::default') }
-
-  it 'converges successfully' do
-    expect { :chef_run }.to_not raise_error
-  end
-
-  it 'installs the openldap server package' do
-    expect(chef_run).to install_package('openldap-servers')
-  end
-
-  it 'installs the dbd package' do
-    expect(chef_run).to install_package('db4-utils')
-  end
-end
-
 describe 'default recipe on freebsd 11' do
-  let(:runner) { ChefSpec::ServerRunner.new(platform: 'freebsd', version: '11', step_into: ['openldap_install']) }
-  let(:chef_run) { runner.converge('openldap::default') }
+  cached(:runner) { ChefSpec::ServerRunner.new(platform: 'freebsd', version: '11', step_into: ['openldap_install']) }
+  cached(:chef_run) { runner.converge('openldap::default') }
 
   it 'converges successfully' do
     expect { :chef_run }.to_not raise_error
