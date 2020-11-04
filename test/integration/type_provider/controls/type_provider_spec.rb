@@ -4,7 +4,7 @@ ldap_dir =
     '/etc/ldap'
   when 'redhat', 'amazon', 'fedora', 'suse'
     '/etc/openldap'
-  when 'freebsd'
+  when 'bsd'
     '/usr/local/etc/openldap'
   end
 

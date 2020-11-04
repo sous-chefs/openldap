@@ -21,8 +21,6 @@ node['certs'].each do |c|
   cookbook_file c do
     backup false
     action :create_if_missing
-    owner 'root'
-    group 'root'
     mode '644'
   end
 end

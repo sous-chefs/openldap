@@ -28,6 +28,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Restart slapd if the default file is updated
 - Enable modulepath for centos
 - Fix tls for Amazon Linux
+- Fix testing on FreeBSD
 
 ### Added
 
