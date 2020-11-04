@@ -25,18 +25,22 @@ case node['platform_family']
 when 'debian'
   template '/etc/default/slapd' do
     source 'default_slapd.erb'
+    notifies :restart, 'service[slapd]'
   end
 when 'rhel'
   template '/etc/sysconfig/slapd' do
     source 'sysconfig_slapd.erb'
+    notifies :restart, 'service[slapd]'
   end
 when 'suse'
   template '/etc/sysconfig/openldap' do
     source 'sysconfig_openldap.erb'
+    notifies :restart, 'service[slapd]'
   end
 when 'freebsd'
   template '/etc/rc.conf.d/slapd' do
     source 'rc_slapd.erb'
+    notifies :restart, 'service[slapd]'
   end
 end
 
