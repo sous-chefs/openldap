@@ -27,7 +27,7 @@ when 'debian'
     source 'default_slapd.erb'
     notifies :restart, 'service[slapd]'
   end
-when 'rhel'
+when 'rhel', 'amazon'
   template '/etc/sysconfig/slapd' do
     source 'sysconfig_slapd.erb'
     notifies :restart, 'service[slapd]'
