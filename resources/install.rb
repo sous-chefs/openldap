@@ -32,6 +32,18 @@ action :install do
     end
   end
 
+  # NOTE(ramereth): RHEL 8 doesn't include openldap-servers so we pull from the
+  # OSUOSL which builds the latest Fedora release for EL8
+  if platform_family?('rhel') && node['platform_version'].to_i >= 8
+    yum_repository 'osuosl-openldap' do
+      baseurl 'https://ftp.osuosl.org/pub/osl/repos/yum/$releasever/openldap/$basearch'
+      gpgkey 'https://ftp.osuosl.org/pub/osl/repos/yum/RPM-GPG-KEY-osuosl'
+      description 'OSUOSL OpenLDAP repository'
+      gpgcheck true
+      enabled true
+    end
+  end
+
   package server_package do
     response_file 'slapd.seed' if platform_family?('debian')
     action new_resource.package_action
@@ -57,7 +69,7 @@ action_class do
     when 'debian'
       'db-util'
     when 'rhel', 'amazon'
-      'compat-db47'
+      'compat-db47' if node['platform_version'].to_i < 8
     when 'freebsd'
       'libdbi'
     end

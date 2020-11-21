@@ -19,7 +19,7 @@ This cookbook is maintained by the Sous Chefs. The Sous Chefs are a community of
 - Ubuntu
 - Debian
 - FreeBSD
-- RHEL/CentOS ~> 7.0 *NOTE: RHEL 8 [removed support](https://www.redhat.com/en/blog/preparing-identity-management-red-hat-enterprise-linux-8) for openldap*
+- RHEL/CentOS >= 7.0 *NOTE: RHEL 8 [removed support](https://www.redhat.com/en/blog/preparing-identity-management-red-hat-enterprise-linux-8) for openldap. We provide support via a repository provided by the [OSUOSL](https://osuosl.org).*
 - Fedora
 - openSUSE Leap
 
