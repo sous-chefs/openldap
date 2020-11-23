@@ -37,6 +37,13 @@ platforms:
       volumes:
         - /sys/fs/cgroup:/sys/fs/cgroup
 
+  - name: centos-8
+    driver:
+      image: dokken/centos-8
+      pid_one_command: /usr/lib/systemd/systemd
+      volumes:
+        - /sys/fs/cgroup:/sys/fs/cgroup
+
   - name: fedora-latest
     driver:
       image: dokken/fedora-latest
