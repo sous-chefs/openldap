@@ -54,6 +54,7 @@ template "#{node['openldap']['dir']}/slapd.conf" do
   mode '0640'
   owner node['openldap']['system_acct']
   group node['openldap']['system_group']
+  sensitive true
   notifies :restart, 'service[slapd]', :immediately
 end
 
