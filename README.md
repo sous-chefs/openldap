@@ -56,6 +56,9 @@ Set this via a node/role/env attribute or in a wrapper cookbook with an encrypte
 
 - `openldap['schemas']` - Array of ldap schema file names to load
 - `openldap['modules']` - Array of slapd modules names to load
+- `openldap['indexes]' - Array of indexes to use
+- `openldap['admin_cn']` - Admin CN name `administrators (default)`
+- `openldap['user_attrs']` - User access attributes `userPassword,shadowLastChange (default)`
 
 ### TLS/SSL
 

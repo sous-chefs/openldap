@@ -71,6 +71,7 @@ default['openldap']['package_install_action'] = :install
 
 default['openldap']['basedn'] = 'dc=localdomain'
 default['openldap']['cn'] = 'admin'
+default['openldap']['admin_cn'] = 'administrators'
 default['openldap']['server'] = 'ldap.localdomain'
 
 unless node['domain'].nil? || node['domain'].split('.').count < 2
@@ -82,6 +83,14 @@ default['openldap']['rootpw'] = nil
 default['openldap']['preseed_dir'] = '/var/cache/local/preseeding'
 default['openldap']['loglevel'] = 'sync config'
 default['openldap']['schemas'] = %w(core.schema cosine.schema nis.schema inetorgperson.schema)
+default['openldap']['indexes'] = [
+  'default pres,eq,approx,sub',
+  'objectClass eq',
+  'cn,ou,sn,uid,l,mail,gecos,memberUid,description',
+  'loginShell,homeDirectory pres,eq,approx',
+  'uidNumber,gidNumber pres,eq',
+]
+default['openldap']['user_attrs'] = 'userPassword,shadowLastChange'
 
 # TLS/SSL
 default['openldap']['ldaps_enabled'] = false
