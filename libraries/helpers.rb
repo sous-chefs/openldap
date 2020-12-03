@@ -1,6 +1,30 @@
 module Openldap
   module Cookbook
     module Helpers
+      def openldap_server_package
+        case node['platform_family']
+        when 'rhel', 'fedora', 'amazon'
+          'openldap-servers'
+        when 'debian'
+          'slapd'
+        when 'suse'
+          'openldap2'
+        when 'freebsd'
+          'openldap-server'
+        end
+      end
+
+      def openldap_db_package
+        case node['platform_family']
+        when 'rhel', 'amazon'
+          'compat-db47' if node['platform_version'].to_i < 8
+        when 'debian'
+          'db-util'
+        when 'freebsd'
+          'libdbi'
+        end
+      end
+
       def openldap_dir
         case node['platform_family']
         when 'rhel', 'fedora', 'suse', 'amazon'
