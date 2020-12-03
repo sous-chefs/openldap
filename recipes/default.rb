@@ -31,6 +31,11 @@ node.default_unless['openldap']['syncrepl_consumer_config']['searchbase'] = "\"#
 node.default_unless['openldap']['syncrepl_consumer_config']['binddn'] = "\"#{node['openldap']['syncrepl_cn']},#{node['openldap']['basedn']}\""
 node.default_unless['openldap']['syncrepl_consumer_config']['credentials'] = "\"#{node['openldap']['slapd_replpw']}\""
 
+systemd_unit 'slapd.service' do
+  content openldap_el8_systemd_unit
+  action [:create]
+end if openldap_el8_systemd_unit?
+
 template "#{openldap_dir}/slapd.conf" do
   source 'slapd.conf.erb'
   helpers(::Openldap::Cookbook::Helpers)
@@ -39,13 +44,17 @@ template "#{openldap_dir}/slapd.conf" do
   group openldap_system_group
   sensitive true
   notifies :restart, 'service[slapd]', :immediately
+  notifies :run, 'execute[rebuild slapd.d files]', :immediately if lazy { openldap_slapd_d_dir? }
 end
-
-systemd_unit 'slapd.service' do
-  content openldap_el8_systemd_unit
-  action [:create]
-end if openldap_el8_systemd_unit?
 
 service 'slapd' do
   action [:enable, :start]
+end
+
+execute 'rebuild slapd.d files' do
+  command "rm -rf #{openldap_slapd_d_dir}/* && slaptest -f #{openldap_dir}/slapd.conf -F #{openldap_slapd_d_dir}"
+  user openldap_system_acct
+  group openldap_system_group
+  action :nothing
+  notifies :restart, 'service[slapd]', :immediately
 end

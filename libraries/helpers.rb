@@ -84,6 +84,10 @@ module Openldap
         end
       end
 
+      def openldap_slapd_d_dir
+        "#{openldap_dir}/slapd.d"
+      end
+
       def openldap_system_acct
         case node['platform_family']
         when 'rhel', 'fedora', 'suse', 'amazon', 'freebsd'
@@ -151,6 +155,10 @@ module Openldap
 
       def openldap_el8_systemd_unit?
         (platform_family?('rhel') && node['platform_version'].to_i >= 8) || platform_family?('fedora')
+      end
+
+      def openldap_slapd_d_dir?
+        ::File.exist?(openldap_slapd_d_dir)
       end
     end
   end
