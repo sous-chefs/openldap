@@ -21,27 +21,9 @@ openldap_install 'Install packages' do
   package_action node['openldap']['package_install_action']
 end
 
-case node['platform_family']
-when 'debian'
-  template '/etc/default/slapd' do
-    source 'default_slapd.erb'
-    notifies :restart, 'service[slapd]'
-  end
-when 'rhel', 'amazon'
-  template '/etc/sysconfig/slapd' do
-    source 'sysconfig_slapd.erb'
-    notifies :restart, 'service[slapd]'
-  end
-when 'suse'
-  template '/etc/sysconfig/openldap' do
-    source 'sysconfig_openldap.erb'
-    notifies :restart, 'service[slapd]'
-  end
-when 'freebsd'
-  template '/etc/rc.conf.d/slapd' do
-    source 'rc_slapd.erb'
-    notifies :restart, 'service[slapd]'
-  end
+template openldap_defaults_path do
+  source openldap_defaults_template
+  notifies :restart, 'service[slapd]'
 end
 
 ##  Set syncrepl_consumer_config dynamic values here
@@ -49,11 +31,12 @@ node.default_unless['openldap']['syncrepl_consumer_config']['searchbase'] = "\"#
 node.default_unless['openldap']['syncrepl_consumer_config']['binddn'] = "\"#{node['openldap']['syncrepl_cn']},#{node['openldap']['basedn']}\""
 node.default_unless['openldap']['syncrepl_consumer_config']['credentials'] = "\"#{node['openldap']['slapd_replpw']}\""
 
-template "#{node['openldap']['dir']}/slapd.conf" do
+template "#{openldap_dir}/slapd.conf" do
   source 'slapd.conf.erb'
+  helpers(::Openldap::Cookbook::Helpers)
   mode '0640'
-  owner node['openldap']['system_acct']
-  group node['openldap']['system_group']
+  owner openldap_system_acct
+  group openldap_system_group
   sensitive true
   notifies :restart, 'service[slapd]', :immediately
 end

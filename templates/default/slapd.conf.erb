@@ -20,21 +20,21 @@ TLSCipherSuite         <%= node['openldap']['tls_ciphersuite'] %>
 
 # Schema and objectClass definitions
 <% node['openldap']['schemas'].sort.each do |schema| -%>
-include         <%= node['openldap']['dir'] %>/schema/<%= schema %>
+include         <%= openldap_dir %>/schema/<%= schema %>
 <% end -%>
 
 # Where the pid file is put. The init.d script will not stop the server if you
 # change this.
-pidfile         <%= node['openldap']['run_dir'] %>/slapd.pid
+pidfile         <%= openldap_run_dir %>/slapd.pid
 
 # List of arguments that were passed to the server
-argsfile        <%= node['openldap']['run_dir'] %>/slapd.args
+argsfile        <%= openldap_run_dir %>/slapd.args
 
 # Read slapd.conf(5) for possible values
 loglevel        <%= node['openldap']['loglevel'] %>
 
 # Where the dynamically loaded modules are stored
-modulepath       <%= node['openldap']['module_dir'] %>
+modulepath       <%= openldap_module_dir %>
 <% node['openldap']['modules'].sort.each do |mod| -%>
 moduleload       <%= mod %>
 <% end -%>
@@ -59,7 +59,7 @@ database        <%= node['openldap']['database'] %>
 suffix          "<%= node['openldap']['basedn'] %>"
 rootdn          "cn=<%= node['openldap']['cn'] %>,<%= node['openldap']['basedn'] %>"
 rootpw          <%= node['openldap']['rootpw'] %>
-directory       "<%= node['openldap']['db_dir'] %>"
+directory       "<%= openldap_db_dir %>"
 lastmod         on
 
 <% if node['openldap']['database'] == 'hdb' -%>

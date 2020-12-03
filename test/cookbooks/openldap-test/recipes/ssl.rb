@@ -1,4 +1,4 @@
-ssl_dir = "#{node['openldap']['dir']}/ssl"
+ssl_dir = "#{openldap_dir}/ssl"
 node.default['openldap']['tls_cert'] = "#{ssl_dir}/#{node['openldap']['server']}.crt"
 node.default['openldap']['tls_key'] = "#{ssl_dir}/#{node['openldap']['server']}.key"
 node.default['openldap']['tls_cafile'] = "#{ssl_dir}/#{node['openldap']['server']}.pem"
@@ -7,7 +7,7 @@ node.default[:certs] = ["#{ssl_dir}/#{node['openldap']['server']}.crt",
                         "#{ssl_dir}/#{node['openldap']['server']}.key",
                         "#{ssl_dir}/#{node['openldap']['server']}.pem"]
 
-directory node['openldap']['dir'] do
+directory openldap_dir do
   mode '755'
   action :create
 end

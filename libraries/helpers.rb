@@ -1,6 +1,96 @@
 module Openldap
   module Cookbook
     module Helpers
+      def openldap_dir
+        case node['platform_family']
+        when 'rhel', 'fedora', 'suse', 'amazon'
+          '/etc/openldap'
+        when 'debian'
+          '/etc/ldap'
+        when 'freebsd'
+          '/usr/local/etc/openldap'
+        end
+      end
+
+      def openldap_run_dir
+        case node['platform_family']
+        when 'rhel', 'fedora', 'amazon'
+          '/var/run/openldap'
+        when 'suse'
+          '/run/slapd'
+        when 'debian'
+          '/var/run/slapd'
+        when 'freebsd'
+          '/var/run/openldap'
+        end
+      end
+
+      def openldap_db_dir
+        case node['platform_family']
+        when 'rhel', 'fedora', 'suse', 'amazon'
+          '/var/lib/ldap'
+        when 'debian'
+          '/var/lib/ldap'
+        when 'freebsd'
+          '/var/db/openldap-data'
+        end
+      end
+
+      def openldap_module_dir
+        case node['platform_family']
+        when 'rhel', 'fedora', 'suse', 'amazon'
+          '/usr/lib64/openldap'
+        when 'debian'
+          '/usr/lib/ldap'
+        when 'freebsd'
+          '/usr/local/libexec/openldap'
+        end
+      end
+
+      def openldap_system_acct
+        case node['platform_family']
+        when 'rhel', 'fedora', 'suse', 'amazon', 'freebsd'
+          'ldap'
+        when 'debian'
+          'openldap'
+        end
+      end
+
+      def openldap_system_group
+        case node['platform_family']
+        when 'rhel', 'fedora', 'suse', 'amazon', 'freebsd'
+          'ldap'
+        when 'debian'
+          'openldap'
+        end
+      end
+
+      def openldap_defaults_path
+        case node['platform_family']
+        when 'rhel', 'fedora', 'amazon'
+          '/etc/sysconfig/slapd'
+        when 'debian'
+          '/etc/default/slapd'
+        when 'suse'
+          '/etc/sysconfig/openldap'
+        when 'freebsd'
+          '/etc/rc.conf.d/slapd'
+        end
+      end
+
+      def openldap_defaults_template
+        case node['platform_family']
+        when 'rhel', 'fedora', 'amazon'
+          'sysconfig_slapd.erb'
+        when 'debian'
+          'default_slapd.erb'
+        when 'suse'
+          'sysconfig_openldap.erb'
+        when 'freebsd'
+          'rc_slapd.erb'
+        end
+      end
+
       def openldap_el8_systemd_unit
         {
           'Unit' => {
