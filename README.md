@@ -106,6 +106,10 @@ pair in the `openldap['syncrepl_*_config]` (See the OpenLDAP Adminstrator Guide)
 
 Install and configure OpenLDAP (slapd).
 
+## Resources
+
+- [install](https://github.com/sous-chefs/openldap/blob/master/documentation/resource_openldap_install.md)
+
 ## Contributors
 
 This project exists thanks to all the people who [contribute.](https://opencollective.com/sous-chefs/contributors.svg?width=890&button=false)

@@ -18,6 +18,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add `install_client` and `install_server` properties to `openldap_install` resource
 - Improve ChefSpec tests
 - Automatically rebuild slapd.d configuration when slapd.conf is updated
+- Documentation for `openldap_install` resource
 
 ## 4.3.0 - *2020-11-23*
 
