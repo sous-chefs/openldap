@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add `default['openldap']['user_attrs']` for customizing the user access attributes
 - Cleanup template formatting
 - Set `sensitive true` for `slapd.conf` template
+- Fix EL8 systemd unit for slapd daemon
 
 ## 4.3.0 - *2020-11-23*
 

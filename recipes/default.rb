@@ -58,6 +58,11 @@ template "#{node['openldap']['dir']}/slapd.conf" do
   notifies :restart, 'service[slapd]', :immediately
 end
 
+systemd_unit 'slapd.service' do
+  content openldap_el8_systemd_unit
+  action [:create]
+end if platform_family?('rhel') && node['platform_version'].to_i >= 8
+
 service 'slapd' do
   action [:enable, :start]
 end
