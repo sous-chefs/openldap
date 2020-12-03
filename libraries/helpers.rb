@@ -148,6 +148,10 @@ module Openldap
           },
         }
       end
+
+      def openldap_el8_systemd_unit?
+        (platform_family?('rhel') && node['platform_version'].to_i >= 8) || platform_family?('fedora')
+      end
     end
   end
 end
