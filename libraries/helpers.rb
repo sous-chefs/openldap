@@ -25,6 +25,19 @@ module Openldap
         end
       end
 
+      def openldap_client_package
+        case node['platform_family']
+        when 'rhel', 'fedora', 'amazon'
+          'openldap-clients'
+        when 'debian'
+          'ldap-utils'
+        when 'suse'
+          'openldap2-client'
+        when 'freebsd'
+          'openldap-client'
+        end
+      end
+
       def openldap_dir
         case node['platform_family']
         when 'rhel', 'fedora', 'suse', 'amazon'

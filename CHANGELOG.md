@@ -15,6 +15,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Set `sensitive true` for `slapd.conf` template
 - Fix EL8 systemd unit for slapd daemon
 - Move platform attributes and resource methods to library helpers
+- Add `install_client` and `install_server` properties to `openldap_install` resource
 
 ## 4.3.0 - *2020-11-23*
 

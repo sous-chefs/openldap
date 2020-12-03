@@ -1,16 +1,14 @@
 property :package_action, Symbol, default: :install
+property :install_client, [true, false], default: true, description: 'Install openldap client package(s)'
+property :install_server, [true, false], default: true, description: 'Install openldap server package(s)'
 
 action :install do
-  if openldap_db_package
-    package openldap_db_package do
-      action new_resource.package_action
-    end
-  end
+  package openldap_db_package do
+    action new_resource.package_action
+  end if openldap_db_package
 
   # the debian package needs a preseed file in order to silently install
   if platform_family?('debian')
-    package 'ldap-utils'
-
     directory node['openldap']['preseed_dir'] do
       action :create
       recursive true
@@ -44,8 +42,12 @@ action :install do
     end
   end
 
+  package openldap_client_package do
+    action new_resource.package_action
+  end if new_resource.install_client
+
   package openldap_server_package do
     response_file 'slapd.seed' if platform_family?('debian')
     action new_resource.package_action
-  end
+  end if new_resource.install_server
 end
