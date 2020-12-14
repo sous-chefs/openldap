@@ -1,16 +1,14 @@
 property :package_action, Symbol, default: :install
+property :install_client, [true, false], default: true, description: 'Install openldap client package(s)'
+property :install_server, [true, false], default: true, description: 'Install openldap server package(s)'
 
 action :install do
-  if db_package
-    package db_package do
-      action new_resource.package_action
-    end
-  end
+  package openldap_db_package do
+    action new_resource.package_action
+  end if openldap_db_package
 
   # the debian package needs a preseed file in order to silently install
   if platform_family?('debian')
-    package 'ldap-utils'
-
     directory node['openldap']['preseed_dir'] do
       action :create
       recursive true
@@ -27,7 +25,7 @@ action :install do
       group node['root_group']
     end
 
-    dpkg_autostart server_package do
+    dpkg_autostart openldap_server_package do
       allow false
     end
   end
@@ -44,34 +42,12 @@ action :install do
     end
   end
 
-  package server_package do
+  package openldap_client_package do
+    action new_resource.package_action
+  end if new_resource.install_client
+
+  package openldap_server_package do
     response_file 'slapd.seed' if platform_family?('debian')
     action new_resource.package_action
-  end
-end
-
-action_class do
-  def server_package
-    case node['platform_family']
-    when 'debian'
-      'slapd'
-    when 'rhel', 'fedora', 'amazon'
-      'openldap-servers'
-    when 'freebsd'
-      'openldap-server'
-    when 'suse'
-      'openldap2'
-    end
-  end
-
-  def db_package
-    case node['platform_family']
-    when 'debian'
-      'db-util'
-    when 'rhel', 'amazon'
-      'compat-db47' if node['platform_version'].to_i < 8
-    when 'freebsd'
-      'libdbi'
-    end
-  end
+  end if new_resource.install_server
 end

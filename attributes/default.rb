@@ -16,39 +16,6 @@
 # limitations under the License.
 #
 
-#
-# per platform settings (generally not overwritten by the user)
-#
-
-# File and directory locations for openldap.
-case node['platform_family']
-when 'rhel', 'fedora', 'suse', 'amazon'
-  default['openldap']['dir'] = '/etc/openldap'
-  default['openldap']['run_dir'] = if platform_family?('suse')
-                                     '/run/slapd'
-                                   else
-                                     '/var/run/openldap'
-                                   end
-  default['openldap']['db_dir'] = '/var/lib/ldap'
-  default['openldap']['module_dir'] = '/usr/lib64/openldap'
-  default['openldap']['system_acct'] = 'ldap'
-  default['openldap']['system_group'] = 'ldap'
-when 'debian'
-  default['openldap']['dir'] = '/etc/ldap'
-  default['openldap']['run_dir'] = '/var/run/slapd'
-  default['openldap']['db_dir'] = '/var/lib/ldap'
-  default['openldap']['module_dir'] = '/usr/lib/ldap'
-  default['openldap']['system_acct'] = 'openldap'
-  default['openldap']['system_group'] = 'openldap'
-when 'freebsd'
-  default['openldap']['dir'] = '/usr/local/etc/openldap'
-  default['openldap']['run_dir'] = '/var/run/openldap'
-  default['openldap']['db_dir'] = '/var/db/openldap-data'
-  default['openldap']['module_dir'] = '/usr/local/libexec/openldap'
-  default['openldap']['system_acct'] = 'ldap'
-  default['openldap']['system_group'] = 'ldap'
-end
-
 # backing database
 if platform_family?('freebsd')
   default['openldap']['modules'] = %w(back_mdb)
@@ -71,6 +38,7 @@ default['openldap']['package_install_action'] = :install
 
 default['openldap']['basedn'] = 'dc=localdomain'
 default['openldap']['cn'] = 'admin'
+default['openldap']['admin_cn'] = 'administrators'
 default['openldap']['server'] = 'ldap.localdomain'
 
 unless node['domain'].nil? || node['domain'].split('.').count < 2
@@ -82,6 +50,14 @@ default['openldap']['rootpw'] = nil
 default['openldap']['preseed_dir'] = '/var/cache/local/preseeding'
 default['openldap']['loglevel'] = 'sync config'
 default['openldap']['schemas'] = %w(core.schema cosine.schema nis.schema inetorgperson.schema)
+default['openldap']['indexes'] = [
+  'default pres,eq,approx,sub',
+  'objectClass eq',
+  'cn,ou,sn,uid,l,mail,gecos,memberUid,description',
+  'loginShell,homeDirectory pres,eq,approx',
+  'uidNumber,gidNumber pres,eq',
+]
+default['openldap']['user_attrs'] = 'userPassword,shadowLastChange'
 
 # TLS/SSL
 default['openldap']['ldaps_enabled'] = false

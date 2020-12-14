@@ -7,6 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+- Improve customization of server with additional attributes
+- Add `default['openldap']['admin_cn']` for customizing the admin CN
+- Add `default['openldap']['indexes']` for customizing the indexes configured
+- Add `default['openldap']['user_attrs']` for customizing the user access attributes
+- Cleanup template formatting
+- Set `sensitive true` for `slapd.conf` template
+- Fix EL8 systemd unit for slapd daemon
+- Move platform attributes and resource methods to library helpers
+- Add `install_client` and `install_server` properties to `openldap_install` resource
+- Improve ChefSpec tests
+- Automatically rebuild slapd.d configuration when slapd.conf is updated
+- Documentation for `openldap_install` resource
+
 ## 4.3.0 - *2020-11-23*
 
 - Add RHEL/CentOS 8 support

@@ -56,6 +56,9 @@ Set this via a node/role/env attribute or in a wrapper cookbook with an encrypte
 
 - `openldap['schemas']` - Array of ldap schema file names to load
 - `openldap['modules']` - Array of slapd modules names to load
+- `openldap['indexes]' - Array of indexes to use
+- `openldap['admin_cn']` - Admin CN name `administrators (default)`
+- `openldap['user_attrs']` - User access attributes `userPassword,shadowLastChange (default)`
 
 ### TLS/SSL
 
@@ -102,6 +105,10 @@ pair in the `openldap['syncrepl_*_config]` (See the OpenLDAP Adminstrator Guide)
 ### default
 
 Install and configure OpenLDAP (slapd).
+
+## Resources
+
+- [install](https://github.com/sous-chefs/openldap/blob/master/documentation/resource_openldap_install.md)
 
 ## Contributors
 
