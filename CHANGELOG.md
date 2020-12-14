@@ -5,7 +5,7 @@ This file is used to list changes made in each version of the openldap cookbook.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## Unreleased
+## 5.0.0 - *2020-12-14*
 
 - Improve customization of server with additional attributes
 - Add `default['openldap']['admin_cn']` for customizing the admin CN
