@@ -4,6 +4,7 @@ driver:
 provisioner:
   name: chef_zero
   product_name: chef
+  chef_license: accept-no-persist
   enforce_idempotency: true
   multiple_converge: 2
   deprecations_as_errors: true
@@ -18,8 +19,8 @@ platforms:
   - name: debian-9
   - name: debian-10
   - name: fedora-latest
-  - name: ubuntu-16.04
   - name: ubuntu-18.04
+  - name: ubuntu-20.04
   - name: freebsd-12
 
 suites:

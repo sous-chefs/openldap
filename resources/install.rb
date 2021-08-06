@@ -1,3 +1,5 @@
+unified_mode true
+
 property :package_action, Symbol, default: :install
 property :install_client, [true, false], default: true, description: 'Install openldap client package(s)'
 property :install_server, [true, false], default: true, description: 'Install openldap server package(s)'
