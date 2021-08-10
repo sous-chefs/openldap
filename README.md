@@ -25,7 +25,7 @@ This cookbook is maintained by the Sous Chefs. The Sous Chefs are a community of
 
 ### Chef
 
-- Chef 12.15+
+- Chef 15.3+
 
 ### Cookbooks
 
