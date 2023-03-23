@@ -7,7 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+- Remove delivery folder
+- Replace with lint-and-unit workflow
+- Update overcommit config
+- Add markdownlint config
+- Standardise yamllint with sous-chefs/repo-management
+
 ## 6.0.8 - *2023-02-27*
+
+Standardise files with files in sous-chefs/repo-management
 
 ## 6.0.7 - *2023-02-23*
 
