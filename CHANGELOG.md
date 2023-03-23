@@ -66,16 +66,13 @@ Standardise files with files in sous-chefs/repo-management
 
 ## 4.2.0 (2020-11-04)
 
-### Changed
-
 - Sous Chefs Adoption
 - Update Changelog to Sous Chefs
 - Update to use Sous Chefs GH workflow
 - Update test-kitchen to Sous Chefs
 - Update README to sous-chefs
 - Update metadata.rb to Sous Chefs
-
-### Fixed
+@2.0.1
 
 - resolved cookstyle error: spec/unit/recipes/default_spec.rb:42:18 warning: `ChefDeprecations/DeprecatedChefSpecPlatform`
 - resolved cookstyle error: spec/unit/recipes/default_spec.rb:59:18 warning: `ChefDeprecations/DeprecatedChefSpecPlatform`
@@ -89,11 +86,7 @@ Standardise files with files in sous-chefs/repo-management
 - Fix tls for Amazon Linux
 - Fix testing on FreeBSD
 
-### Added
-
 - Additional InSpec tests
-
-### Removed
 
 - Remove EL6 testing and support
 

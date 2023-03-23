@@ -21,7 +21,6 @@ platforms:
   - name: fedora-latest
   - name: ubuntu-18.04
   - name: ubuntu-20.04
-  - name: freebsd-12
 
 suites:
   - name: default
@@ -43,7 +42,7 @@ suites:
       - recipe[openldap-test::default]
     attributes:
       openldap:
-        slapd_type: 'provider'
+        slapd_type: "provider"
     verifier:
       inspec_tests:
         - name: openldap-default
@@ -53,7 +52,7 @@ suites:
       - recipe[openldap-test::default]
     attributes:
       openldap:
-        slapd_type: 'consumer'
+        slapd_type: "consumer"
     verifier:
       inspec_tests:
         - name: openldap-default
