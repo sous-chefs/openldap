@@ -13,6 +13,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add markdownlint config
 - Standardise yamllint with sous-chefs/repo-management
 
+## 6.0.10 - *2023-03-20*
+
+Standardise files with files in sous-chefs/repo-management
+
+## 6.0.9 - *2023-03-15*
+
+Standardise files with files in sous-chefs/repo-management
+
 ## 6.0.8 - *2023-02-27*
 
 Standardise files with files in sous-chefs/repo-management
