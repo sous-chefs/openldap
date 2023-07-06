@@ -3,6 +3,7 @@ unified_mode true
 property :package_action, Symbol, default: :install
 property :install_client, [true, false], default: true, description: 'Install openldap client package(s)'
 property :install_server, [true, false], default: true, description: 'Install openldap server package(s)'
+property :install_repository, [true, false], default: true, description: 'Install extra repository for client & server package(s)'
 
 action :install do
   package openldap_db_package do
@@ -34,7 +35,7 @@ action :install do
 
   # NOTE(ramereth): RHEL 8 doesn't include openldap-servers so we pull from the
   # OSUOSL which builds the latest Fedora release for EL8
-  if platform_family?('rhel') && node['platform_version'].to_i >= 8
+  if new_resource.install_repository && platform_family?('rhel') && node['platform_version'].to_i >= 8
     yum_repository 'osuosl-openldap' do
       baseurl 'https://ftp.osuosl.org/pub/osl/repos/yum/$releasever/openldap/$basearch'
       gpgkey 'https://ftp.osuosl.org/pub/osl/repos/yum/RPM-GPG-KEY-osuosl'

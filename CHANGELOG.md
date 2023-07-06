@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+Allow to toggle OSUSOL RPM repo configuration on openldap_install resource
+
 ## 6.0.13 - *2023-04-07*
 
 Standardise files with files in sous-chefs/repo-management

@@ -19,6 +19,7 @@
 
 openldap_install 'Install packages' do
   package_action node['openldap']['package_install_action']
+  install_repository node['openldap']['package_install_repository']
 end
 
 template openldap_defaults_path do
