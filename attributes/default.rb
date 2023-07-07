@@ -31,6 +31,7 @@ end
 
 # package settings
 default['openldap']['package_install_action'] = :install
+default['openldap']['package_install_repository'] = true
 
 #
 # openldap configuration (generally overwritten by the user)
