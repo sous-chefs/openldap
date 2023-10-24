@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+Fix CI Files
+
 ## 6.1.1 - *2023-09-04*
 
 ## 6.1.0 - *2023-07-07*
@@ -260,25 +262,25 @@ adding checks for node['domain'].nil? in attributes
 
 ### Improvement
 
-- **[COOK-3699](https://tickets.chef.io/browse/COOK-3699)** - OpenLDAP Cookbooks - add extra options
+- OpenLDAP Cookbooks - add extra options
 
 ## u tv0.12.0
 
 ### New Feature
 
-- **[COOK-3561](https://tickets.chef.io/browse/COOK-3561)** - Support out of band SSL certificates in openldap::server
+- Support out of band SSL certificates in openldap::server
 
 ### Bug
 
-- **[COOK-3548](https://tickets.chef.io/browse/COOK-3548)** - Fix an issue where preseeding may fail if directory does not exist
-- **[COOK-3543](https://tickets.chef.io/browse/COOK-3543)** - Do not try to set up as a slave
-- **[COOK-3351](https://tickets.chef.io/browse/COOK-3351)** - Fix a typo in `ldap-ldap.conf.erb` template
+- Fix an issue where preseeding may fail if directory does not exist
+- Do not try to set up as a slave
+- Fix a typo in `ldap-ldap.conf.erb` template
 
 ## v0.11.4
 
 ### Bug
 
-- **[COOK-3348](https://tickets.chef.io/browse/COOK-3348)** - Fix typo in default attributes
+- Fix typo in default attributes
 
 ## v0.11.2
 

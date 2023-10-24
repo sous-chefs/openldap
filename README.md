@@ -41,7 +41,7 @@ This is not an exhaustive list of attributes as most are directly comparable to 
 
 This should be a password hash generated from slappasswd. The default slappasswd command will generate a salted SHA1 hash:
 
-```
+```shell
 $ slappasswd -s "secretsauce"
 {SSHA}6BjlvtSbVCL88li8IorkqMSofkLio58/
 ```
