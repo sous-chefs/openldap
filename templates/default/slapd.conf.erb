@@ -114,14 +114,14 @@ syncrepl rid=<%= node['openldap']['slapd_rid'] %>
 # The userPassword by default can be changed by the entry owning it if they are
 # authenticated. Others should not be able to see it, except the admin entry
 # below. These access lines apply to database #1 only.
-access to attrs=<%= node['openldap']['user_attrs'] %>
-        by group.exact="cn=<%= node['openldap']['admin_cn'] %>,<%= node['openldap']['basedn'] %>" write
-<% if node['openldap']['slapd_type'] == "provider" -%>
-        by dn="<%= node['openldap']['syncrepl_cn'] %>,<%= node['openldap']['basedn'] %>" read
-<% end -%>
-        by anonymous auth
-        by self write
-        by * none
+# access to attrs=<%= node['openldap']['user_attrs'] %>
+#         by group.exact="cn=<%= node['openldap']['admin_cn'] %>,<%= node['openldap']['basedn'] %>" write
+# <% if node['openldap']['slapd_type'] == "provider" -%>
+#         by dn="<%= node['openldap']['syncrepl_cn'] %>,<%= node['openldap']['basedn'] %>" read
+# <% end -%>
+#         by anonymous auth
+#         by self write
+        # by * none
 
 # Ensure read access to the base for things like supportedSASLMechanisms.
 # Without this you may have problems with SASL not knowing what mechanisms are
@@ -131,9 +131,17 @@ access to attrs=<%= node['openldap']['user_attrs'] %>
 access to dn.base="" by * read
 
 # The admin dn has full write access, everyone else can read everything.
-access to *
-        by group.exact="cn=<%= node['openldap']['admin_cn'] %>,<%= node['openldap']['basedn'] %>" write
-<% if node['openldap']['slapd_type'] == "provider" -%>
-        by dn="<%= node['openldap']['syncrepl_cn'] %>,<%= node['openldap']['basedn'] %>" read
-<% end -%>
-        by * read
+# access to *
+#         by group.exact="cn=<%= node['openldap']['admin_cn'] %>,<%= node['openldap']['basedn'] %>" write
+# <% if node['openldap']['slapd_type'] == "provider" -%>
+#         by dn="<%= node['openldap']['syncrepl_cn'] %>,<%= node['openldap']['basedn'] %>" read
+# <% end -%>
+#         by * read
+
+# added method to add custom admin acls. 
+<% node['openldap']['iam'].uniq.each do |acl| %>
+        access to <%= acl['what'] %>
+        <% acl['type'].uniq.each do |type| %>
+                by <%= type['who'] %> <%= type['access'] %>
+        <% end %>
+        <% end %>

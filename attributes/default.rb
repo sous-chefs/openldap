@@ -101,3 +101,20 @@ default['openldap']['syncrepl_consumer_config']['credentials'] = nil
 
 # The maximum number of entries that is returned for a search operation
 default['openldap']['server_config_hash']['sizelimit'] = 500
+
+# The iam default block is to setup custom admin acls. 
+default['openldap']['iam'] = [
+  {
+    'what': '*',
+    'type': [
+      {
+        'who': 'self',
+        'access': 'write',
+      },
+      {
+        'who': '*',
+        'access': 'read',
+      },
+    ],
+  },
+]
