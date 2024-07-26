@@ -140,8 +140,8 @@ access to dn.base="" by * read
 
 # added method to add custom admin acls. 
 <% node['openldap']['iam'].uniq.each do |acl| %>
-        access to <%= acl['what'] %>
-        <% acl['type'].uniq.each do |type| %>
-                by <%= type['who'] %> <%= type['access'] %>
-        <% end %>
-        <% end %>
+access to <%= acl['what'] %>
+<% acl['type'].uniq.each do |type| %>
+        by <%= type['who'] %> <%= type['access'] %>
+<% end %>
+<% end %>
