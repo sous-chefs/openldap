@@ -111,5 +111,5 @@ default['openldap']['accesslog']['logops'] = 'writes'
 default['openldap']['accesslog']['logbase'] = nil
 default['openldap']['accesslog']['logold'] = '(objectclass=*)'
 default['openldap']['accesslog']['logoldattr'] = nil
-default['openldap']['accesslog']['logpurge'] = '8+00:00 1+00:00' 
+default['openldap']['accesslog']['logpurge'] = '8+00:00 1+00:00'
 default['openldap']['accesslog']['logsuccess'] = false

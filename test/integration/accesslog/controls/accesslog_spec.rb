@@ -13,7 +13,7 @@ control 'accesslog' do
     its('content') { should match /# accesslog configuration/ }
     its('content') { should match /overlay accesslog/ }
   end
-  
+
   describe service('slapd') do
     it { should be_installed }
     it { should be_running }
