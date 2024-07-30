@@ -65,7 +65,7 @@ lastmod         on
 <% if node['openldap']['accesslog']['enabled'] || node['openldap']['accesslog']['enabled']-%>
 # accesslog configuration
 database       <%= node['openldap']['database'] %>
-suffix         "<%= node['openldap']['accesslog']['logdn'] %>"
+suffix         "<%= node['openldap']['accesslog']['logdb'] %>"
 directory      <%= node['openldap']['accesslog']['directory'] %>
 index          <%= node['openldap']['accesslog']['index'] %>
 <% end -%>
