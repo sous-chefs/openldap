@@ -110,9 +110,9 @@ Attributes related to Accesslog database and overlay configuration.
 `openldap['accesslog']['logops']` - defaults to `'writes'`
 `openldap['accesslog']['logbase']` - not set by default
 `openldap['accesslog']['logold']` - defaults to '(objectclass=*)'
-`openldap['accesslog']['logoldattr']` = nil
-`openldap['accesslog']['logpurge']` = '8+00:00 1+00:00' 
-`openldap['accesslog']['logsuccess']` = false
+`openldap['accesslog']['logoldattr']` - defaults to nil
+`openldap['accesslog']['logpurge']` - defaults to '8+00:00 1+00:00' 
+`openldap['accesslog']['logsuccess']` - defaults to false
 
 
 ## Recipes
