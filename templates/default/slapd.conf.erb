@@ -65,7 +65,7 @@ lastmod         on
 <% if node['openldap']['accesslog']['enabled'] || node['openldap']['accesslog']['enabled']-%>
 # accesslog configuration
 database       <%= node['openldap']['database'] %>
-suffix         "<%= node['openldap']['accesslog']['suffix'] %>"
+suffix         "<%= node['openldap']['accesslog']['logdn'] %>"
 directory      <%= node['openldap']['accesslog']['directory'] %>
 index          <%= node['openldap']['accesslog']['index'] %>
 <% end -%>
@@ -146,6 +146,16 @@ access to *
 <% end -%>
         by * read
 
+
+
+# added method to add custom admin acls. 
+<% node['openldap']['iam'].uniq.each do |acl| %>
+access to <%= acl['what'] %>
+<% acl['type'].uniq.each do |type| %>
+        by <%= type['who'] %> <%= type['access'] %>
+<% end %>
+<% end %>
+
 <% if node['openldap']['accesslog']['enabled'] || node['openldap']['accesslog']['enabled']-%>
 # enable the accesslog overlay so that we can audit LDAP updates
 overlay accesslog
@@ -158,11 +168,11 @@ logbase <%= node['openldap']['accesslog']['logbase'] %>
 <% end -%>
 # log the entry's previous info if it's being deleted or modified
 logold <%= node['openldap']['accesslog']['logold'] %>
-# logoldattr <attr> .... 
+# logoldattr <attr> 
 <% if node['openldap']['accesslog']['logoldattr'] -%>
 logoldattr <%= node['openldap']['accesslog']['logoldattr'] %>
 <% end -%>
-# purge entries after 8 days; check daily for old entries
+# purge entries after 8 days; check daily for old entries (8+00:00 1+00:00)
 logpurge <%= node['openldap']['accesslog']['logpurge'] %>
 <% if node['openldap']['accesslog']['logsuccess'] -%>
 # logsuccess TRUE | FALSE (default false)
