@@ -11,7 +11,7 @@ Accesslog Database and Overlay configuration.
 Added additional attributes.
 - default['openldap']['accesslog']['enabled'] to enable additional accesslog configuration.
 - default['openldap']['accesslog']['logdb'] specifies the suffix of the database.
-- default['openldap']['accesslog']['directory'] specifes what tyhpe of operations. to log. 
+- default['openldap']['accesslog']['directory'] specifes the directory to store the accesslog database.
 - default['openldap']['accesslog']['index'] specifies the database index.
 - default['openldap']['accesslog']['logops'] specifies which type of operations to log.
 - default['openldap']['accesslog']['logbase'] specifies a set of operations that will only be logged if they occur under a specific subtree of the database.

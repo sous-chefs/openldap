@@ -62,7 +62,7 @@ rootpw          <%= node['openldap']['rootpw'] %>
 directory       "<%= openldap_db_dir %>"
 lastmod         on
 
-<% if node['openldap']['accesslog']['enabled'] || node['openldap']['accesslog']['enabled']-%>
+<% if node['openldap']['accesslog']['enabled'] == true -%>
 # accesslog configuration
 database       <%= node['openldap']['database'] %>
 suffix         "<%= node['openldap']['accesslog']['logdb'] %>"
@@ -156,7 +156,7 @@ access to <%= acl['what'] %>
 <% end %>
 <% end %>
 
-<% if node['openldap']['accesslog']['enabled'] || node['openldap']['accesslog']['enabled']-%>
+<% if node['openldap']['accesslog']['enabled'] == true -%>
 # enable the accesslog overlay so that we can audit LDAP updates
 overlay accesslog
 logdb "<%= node['openldap']['accesslog']['logdb'] %>" 
