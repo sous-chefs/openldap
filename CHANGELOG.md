@@ -8,6 +8,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## Unreleased
 
 Accesslog Database and Overlay configuration.
+
+- added accesslog database and overlay stanza into slapd.conf.erb template.
+
 Added additional attributes.
 
 - `default['openldap']['accesslog']['enabled']` to enable additional accesslog configuration.
