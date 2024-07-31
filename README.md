@@ -100,9 +100,9 @@ pair in the `openldap['syncrepl_*_config]` (See the OpenLDAP Adminstrator Guide)
 - `openldap['syncrepl_consumer_config']['starttls']` - `yes | no (default)`
 - `openldap['syncrepl_consumer_config']['credentials']` - defaults to `openldap['slapd_replpw']`
 
-### Accesslog 
+### Accesslog
 
-Attributes related to Accesslog database and overlay configuration. 
+Attributes related to Accesslog database and overlay configuration.
 `openldap['accesslog']['enabled']` - add accesslog configuration true | false (default)
 `openldap['accesslog']['logdb']` -  defaults to `"cn=accesslog"`
 `openldap['accesslog']['directory']` - defaults to `'/var/log/'`
@@ -111,9 +111,8 @@ Attributes related to Accesslog database and overlay configuration.
 `openldap['accesslog']['logbase']` - not set by default
 `openldap['accesslog']['logold']` - defaults to '(objectclass=*)'
 `openldap['accesslog']['logoldattr']` - defaults to nil
-`openldap['accesslog']['logpurge']` - defaults to '8+00:00 1+00:00' 
+`openldap['accesslog']['logpurge']` - defaults to '8+00:00 1+00:00' purges after 8 and checks daily.
 `openldap['accesslog']['logsuccess']` - defaults to false
-
 
 ## Recipes
 

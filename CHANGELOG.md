@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 Accesslog Database and Overlay configuration.
 Added additional attributes.
+
 - `default['openldap']['accesslog']['enabled']` to enable additional accesslog configuration. 
 - `default['openldap']['accesslog']['logdb']` specifies the suffix of the database.
 - `default['openldap']['accesslog']['directory']` specifes the directory to store the accesslog database.
