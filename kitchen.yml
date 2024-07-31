@@ -61,16 +61,7 @@ suites:
   - name: accesslog
     run_list:
       - recipe[openldap-test::accesslog]
-    attributes:
-      openldap:
-        accesslog:
-          enabled: true
-          logdb: '"cn=accesslog"'
-          directory: '/var/log/'
-          index: 'reqStart,reqEnd,reqResult eq'
-          logops: 'write'
-          logpurge: '8+00:00 1+00:00'
     verifier:
       inspec_tests:
-        - name: openldap-default
-          path: test/integration/default
+        - name: openldap-accesslog
+          path: test/integration/accesslog
