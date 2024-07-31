@@ -7,8 +7,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
-## 6.1.5 - *2024-tbd*
-
 Accesslog Database and Overlay configuration.
 Added additional attributes.
 
