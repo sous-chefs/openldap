@@ -11,7 +11,7 @@ node.default['openldap']['modules'] << 'accesslog'
 directories = ['/var/lib/ldap', '/var/lib/ldap/accesslog']
 
 directories.each do |dir|
-  directory dir do  
+  directory dir do
     mode '0755'
     owner 'root'
     group 'root'
