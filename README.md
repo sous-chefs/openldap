@@ -102,7 +102,12 @@ pair in the `openldap['syncrepl_*_config]` (See the OpenLDAP Adminstrator Guide)
 
 ### Accesslog
 
+Enabling Accesslog will require to include the accesslog.la module. 
+
+- add `node.default['openldap']['modules'] << 'accesslog'
+
 Attributes related to Accesslog database and overlay configuration.
+
 `openldap['accesslog']['enabled']` - add accesslog configuration true | false (default)
 `openldap['accesslog']['logdb']` -  defaults to `"cn=accesslog"`
 `openldap['accesslog']['directory']` - defaults to `'/var/log/'`
