@@ -102,7 +102,7 @@ pair in the `openldap['syncrepl_*_config]` (See the OpenLDAP Adminstrator Guide)
 
 ### Accesslog
 
-Enabling Accesslog will require to include the accesslog.la module. 
+Enabling Accesslog will require to include the accesslog.la module.
 
 - add `node.default['openldap']['modules'] << 'accesslog'
 
