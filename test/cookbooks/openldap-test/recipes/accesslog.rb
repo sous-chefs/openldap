@@ -19,11 +19,10 @@ node.default['openldap']['accesslog']['logpurge'] = '8+00:00 1+00:00'
 node.default['openldap']['modules'] << 'accesslog'
 
 directory '#{ldap_dir}/accesslog' do
-    mode '0755'
-    owner 'root'
-    group 'root'
-    action :create
-  end
+  mode '0755'
+  owner 'openldap'
+  group 'openldap'
+  action :create
 end
 
 include_recipe 'openldap::default'
