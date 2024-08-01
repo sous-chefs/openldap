@@ -4,4 +4,3 @@ title: Openldap accesslog tests
 supports:
   - os-family: linux
   - os-family: bsd
-  
