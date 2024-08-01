@@ -55,13 +55,6 @@ backend		<%= node['openldap']['database'] %>
 #####
 # Database
 #####
-database        <%= node['openldap']['database'] %>
-suffix          "<%= node['openldap']['basedn'] %>"
-rootdn          "cn=<%= node['openldap']['cn'] %>,<%= node['openldap']['basedn'] %>"
-rootpw          <%= node['openldap']['rootpw'] %>
-directory       "<%= openldap_db_dir %>"
-lastmod         on
-
 <% if node['openldap']['accesslog']['enabled'] == true -%>
 # accesslog configuration
 database       <%= node['openldap']['database'] %>
@@ -69,6 +62,13 @@ suffix         "<%= node['openldap']['accesslog']['logdb'] %>"
 directory      <%= node['openldap']['accesslog']['directory'] %>
 index          <%= node['openldap']['accesslog']['index'] %>
 <% end -%>
+
+database        <%= node['openldap']['database'] %>
+suffix          "<%= node['openldap']['basedn'] %>"
+rootdn          "cn=<%= node['openldap']['cn'] %>,<%= node['openldap']['basedn'] %>"
+rootpw          <%= node['openldap']['rootpw'] %>
+directory       "<%= openldap_db_dir %>"
+lastmod         on
 
 <% if node['openldap']['database'] == 'hdb' -%>
 dbconfig set_cachesize <%= node['openldap']['dbconfig']['set_cachesize'] %>
