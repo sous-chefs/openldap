@@ -38,7 +38,6 @@ jobs:
           - "type-provider"
           - "type-consumer"
           - "accesslog"
-          
       fail-fast: false
 
     steps:
