@@ -6,4 +6,6 @@ node.default['openldap']['accesslog']['logops'] = 'writes'
 node.default['openldap']['accesslog']['logold'] = '(objectclass=*)'
 node.default['openldap']['accesslog']['logpurge'] = '8+00:00 1+00:00'
 
+node.default['openldap']['modules'] << 'accesslog'
+
 include_recipe 'openldap::default'
