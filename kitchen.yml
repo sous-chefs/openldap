@@ -58,3 +58,10 @@ suites:
       inspec_tests:
         - name: openldap-default
           path: test/integration/default
+  - name: accesslog
+    run_list:
+      - recipe[openldap-test::accesslog]
+    verifier:
+      inspec_tests:
+        - name: openldap-accesslog
+          path: test/integration/accesslog

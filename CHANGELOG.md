@@ -7,6 +7,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+Accesslog Database and Overlay configuration.
+
+- added accesslog database and overlay stanza into slapd.conf.erb template.
+
+Added additional attributes.
+
+- `default['openldap']['accesslog']['enabled']` to enable additional accesslog configuration.
+- `default['openldap']['accesslog']['logdb']` specifies the suffix of the database.
+- `default['openldap']['accesslog']['directory']` specifes the directory to store the accesslog database.
+- `default['openldap']['accesslog']['index']` specifies the database index.
+- `default['openldap']['accesslog']['logops']` specifies which type of operations to log.
+- `default['openldap']['accesslog']['logbase']` specifies a set of operations that will only be logged if they occur under a specific subtree of the database.
+- `default['openldap']['accesslog']['logold']` specifies a filter for matching against Deleted and Modified entries.
+- `default['openldap']['accesslog']['logoldattr']` specify a list of attributes whose old contents are always logged in Modify and ModRDN requests that match any of the filters configured in logold.
+- `default['openldap']['accesslog']['logpurge']` specify the maximum age for log entries to be retained in the database
+- `default['openldap']['accesslog']['logsuccess']` if set to TRUE then log records will only be generated for successful requests.
+
 ## 6.1.4 - *2024-07-15*
 
 Standardise files with files in sous-chefs/repo-management

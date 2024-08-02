@@ -101,3 +101,15 @@ default['openldap']['syncrepl_consumer_config']['credentials'] = nil
 
 # The maximum number of entries that is returned for a search operation
 default['openldap']['server_config_hash']['sizelimit'] = 500
+
+# accesslog db and overlay parameters
+default['openldap']['accesslog']['enabled'] = false
+default['openldap']['accesslog']['logdb'] = '"cn=accesslog"'
+default['openldap']['accesslog']['directory'] = '/var/lib/ldap/accesslog'
+default['openldap']['accesslog']['index'] = 'reqStart,reqEnd,reqResult eq'
+default['openldap']['accesslog']['logops'] = 'writes'
+default['openldap']['accesslog']['logbase'] = nil
+default['openldap']['accesslog']['logold'] = '(objectclass=*)'
+default['openldap']['accesslog']['logoldattr'] = nil
+default['openldap']['accesslog']['logpurge'] = '8+00:00 1+00:00'
+default['openldap']['accesslog']['logsuccess'] = false

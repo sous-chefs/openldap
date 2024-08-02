@@ -55,6 +55,14 @@ backend		<%= node['openldap']['database'] %>
 #####
 # Database
 #####
+<% if node['openldap']['accesslog']['enabled'] == true -%>
+# accesslog configuration
+database       <%= node['openldap']['database'] %>
+suffix         "<%= node['openldap']['accesslog']['logdb'] %>"
+directory      <%= node['openldap']['accesslog']['directory'] %>
+index          <%= node['openldap']['accesslog']['index'] %>
+<% end -%>
+
 database        <%= node['openldap']['database'] %>
 suffix          "<%= node['openldap']['basedn'] %>"
 rootdn          "cn=<%= node['openldap']['cn'] %>,<%= node['openldap']['basedn'] %>"
@@ -137,3 +145,27 @@ access to *
         by dn="<%= node['openldap']['syncrepl_cn'] %>,<%= node['openldap']['basedn'] %>" read
 <% end -%>
         by * read
+
+<% if node['openldap']['accesslog']['enabled'] == true -%>
+# enable the accesslog overlay so that we can audit LDAP updates
+overlay accesslog
+logdb "<%= node['openldap']['accesslog']['logdb'] %>" 
+# log add, delete, modify, modrdn operations
+logops <%= node['openldap']['accesslog']['logops'] %>
+# logbase <operations> <baseDN> are delimited by a | character
+<% if node['openldap']['accesslog']['logbase'] -%>
+logbase <%= node['openldap']['accesslog']['logbase'] %>
+<% end -%>
+# log the entry's previous info if it's being deleted or modified
+logold <%= node['openldap']['accesslog']['logold'] %>
+# logoldattr <attr> 
+<% if node['openldap']['accesslog']['logoldattr'] -%>
+logoldattr <%= node['openldap']['accesslog']['logoldattr'] %>
+<% end -%>
+# purge entries after 8 days; check daily for old entries (8+00:00 1+00:00)
+logpurge <%= node['openldap']['accesslog']['logpurge'] %>
+<% if node['openldap']['accesslog']['logsuccess'] -%>
+# logsuccess TRUE | FALSE (default false)
+logsuccess <%= node['openldap']['accesslog']['logsuccess'] %>
+<% end -%>
+<% end -%>

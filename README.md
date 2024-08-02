@@ -100,6 +100,25 @@ pair in the `openldap['syncrepl_*_config]` (See the OpenLDAP Adminstrator Guide)
 - `openldap['syncrepl_consumer_config']['starttls']` - `yes | no (default)`
 - `openldap['syncrepl_consumer_config']['credentials']` - defaults to `openldap['slapd_replpw']`
 
+### Accesslog
+
+Enabling Accesslog will require to include the accesslog.la module.
+
+- add `node.default['openldap']['modules'] << 'accesslog'
+
+Attributes related to Accesslog database and overlay configuration.
+
+`openldap['accesslog']['enabled']` - add accesslog configuration true | false (default)
+`openldap['accesslog']['logdb']` -  defaults to `"cn=accesslog"`
+`openldap['accesslog']['directory']` - defaults to `'/var/log/'`
+`openldap['accesslog']['index']` - defaults to `'reqStart,reqEnd,reqResult eq'`
+`openldap['accesslog']['logops']` - defaults to `'writes'`
+`openldap['accesslog']['logbase']` - not set by default
+`openldap['accesslog']['logold']` - defaults to '(objectclass=*)'
+`openldap['accesslog']['logoldattr']` - defaults to nil
+`openldap['accesslog']['logpurge']` - defaults to '8+00:00 1+00:00' purges after 8 and checks daily.
+`openldap['accesslog']['logsuccess']` - defaults to false
+
 ## Recipes
 
 ### default

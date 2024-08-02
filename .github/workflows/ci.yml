@@ -37,6 +37,7 @@ jobs:
           - "tls-enabled"
           - "type-provider"
           - "type-consumer"
+          - "accesslog"
       fail-fast: false
 
     steps:
