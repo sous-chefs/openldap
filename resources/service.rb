@@ -118,12 +118,15 @@ action :create do
   template "#{openldap_dir}/slapd.conf" do
     cookbook 'openldap'
     source 'slapd.conf.erb'
-    variables(config: template_config, paths: {
-      dir: openldap_dir,
-      run_dir: openldap_run_dir,
-      db_dir: openldap_db_dir,
-      module_dir: openldap_module_dir,
-    })
+    variables(
+      config: template_config,
+      paths: {
+        dir: openldap_dir,
+        run_dir: openldap_run_dir,
+        db_dir: openldap_db_dir,
+        module_dir: openldap_module_dir,
+      }
+    )
     mode '0640'
     owner openldap_system_acct
     group openldap_system_group
