@@ -9,12 +9,12 @@ repository.
 ### APT (Debian/Ubuntu)
 
 * Debian 12: distribution `slapd`, `ldap-utils`, and `db-util` packages are available.
-* Ubuntu 20.04, 22.04, and 24.04: distribution `slapd`, `ldap-utils`, and `db-util` packages are available.
-* Symas OpenLDAP 2.6 LTS also publishes packages for Debian 11, Debian 12, Ubuntu 20.04, Ubuntu 22.04, and Ubuntu 24.04.
+* Ubuntu 22.04 and 24.04: distribution `slapd`, `ldap-utils`, and `db-util` packages are available.
+* Symas OpenLDAP 2.6 LTS also publishes packages for Debian 11, Debian 12, Ubuntu 22.04, and Ubuntu 24.04.
 
 ### DNF/YUM (RHEL family)
 
-* AlmaLinux/Rocky/Oracle/RHEL 8 and 9 compatible platforms are supported by the cookbook.
+* AlmaLinux/Rocky/Oracle/RHEL 8 compatible platforms are supported by the cookbook.
 * RHEL 8 and newer removed `openldap-servers` from base distribution repositories; this cookbook uses the OSUOSL repository when `install_repository true`.
 * Amazon Linux 2023 and Fedora use distribution packages where available.
 * Symas OpenLDAP 2.6 LTS publishes packages for RHEL 8 and RHEL 9.
@@ -36,4 +36,5 @@ Source installation is not implemented. This cookbook manages packaged OpenLDAP 
 ## Known Issues
 
 * RHEL-family server installation depends on an extra repository for platforms that do not ship `openldap-servers`.
+* RHEL-family 9 platforms are not currently in the supported test matrix because the OSUOSL `openldap-servers` packages conflict with protected system packages in CI.
 * This migration removes the recipe and node attribute API. Use `openldap_install` and `openldap_service` properties instead.

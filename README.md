@@ -16,9 +16,9 @@ This cookbook is maintained by the Sous Chefs. The Sous Chefs are a community of
 
 ### Platforms
 
-- Ubuntu 20.04+
+- Ubuntu 22.04+
 - Debian 12+
-- RHEL-family 8+ *NOTE: RHEL 8 [removed support](https://www.redhat.com/en/blog/preparing-identity-management-red-hat-enterprise-linux-8) for openldap. We provide support via a repository provided by the [OSUOSL](https://osuosl.org).*
+- RHEL-family 8 *NOTE: RHEL 8 [removed support](https://www.redhat.com/en/blog/preparing-identity-management-red-hat-enterprise-linux-8) for openldap. We provide support via a repository provided by the [OSUOSL](https://osuosl.org).*
 - Amazon Linux 2023
 - Fedora
 - openSUSE Leap
