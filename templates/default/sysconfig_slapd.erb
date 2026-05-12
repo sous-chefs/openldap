@@ -9,7 +9,7 @@
 #   (use SASL with EXTERNAL mechanism for authentication)
 # - default: ldapi:/// ldap:///
 # - example: ldapi:/// ldap://127.0.0.1/ ldap://10.0.0.1:1389/ ldaps:///
-<% if node['openldap']['ldaps_enabled'] -%>
+<% if @config[:ldaps_enabled] -%>
 SLAPD_URLS="ldap:/// ldapi:/// ldaps:///"
 <% else -%>
 SLAPD_URLS="ldap:/// ldapi:///"

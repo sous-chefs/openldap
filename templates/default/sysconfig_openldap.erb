@@ -26,7 +26,7 @@ OPENLDAP_START_LDAP="yes"
 #       specify "TLSCertificateFile" and "TLSCertificateKeyFile" in your config
 #       file
 #
-<% if node['openldap']['ldaps_enabled'] -%>
+<% if @config[:ldaps_enabled] -%>
 OPENLDAP_START_LDAPS="yes"
 <% else -%>
 OPENLDAP_START_LDAPS="no"

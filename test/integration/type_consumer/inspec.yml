@@ -1,6 +1,7 @@
 ---
 name: openldap-type-consumer
-title: Openldap type-consumer tests
-supports:
-  - os-family: linux
-  - os-family: bsd
+title: OpenLDAP consumer tests
+maintainer: Sous Chefs
+license: Apache-2.0
+summary: Verifies OpenLDAP consumer configuration
+version: 1.0.0

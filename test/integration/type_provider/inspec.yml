@@ -1,6 +1,7 @@
 ---
 name: openldap-type-provider
-title: Openldap type-provider tests
-supports:
-  - os-family: linux
-  - os-family: bsd
+title: OpenLDAP provider tests
+maintainer: Sous Chefs
+license: Apache-2.0
+summary: Verifies OpenLDAP provider configuration
+version: 1.0.0

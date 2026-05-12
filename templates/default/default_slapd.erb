@@ -26,7 +26,7 @@ SLAPD_PIDFILE=
 # sockets.
 # Example usage:
 # SLAPD_SERVICES="ldap://127.0.0.1:389/ ldaps:/// ldapi:///"
-<% if node['openldap']['ldaps_enabled'] -%>
+<% if @config[:ldaps_enabled] -%>
 SLAPD_SERVICES="ldap:/// ldapi:/// ldaps:///"
 <% else -%>
 SLAPD_SERVICES="ldap:/// ldapi:///"

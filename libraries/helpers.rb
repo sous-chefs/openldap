@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Openldap
   module Cookbook
     module Helpers
@@ -9,20 +11,11 @@ module Openldap
           'slapd'
         when 'suse'
           'openldap2'
-        when 'freebsd'
-          'openldap-server'
         end
       end
 
       def openldap_db_package
-        case node['platform_family']
-        when 'rhel', 'amazon'
-          'compat-db47' if node['platform_version'].to_i < 8
-        when 'debian'
-          'db-util'
-        when 'freebsd'
-          'libdbi'
-        end
+        'db-util' if platform_family?('debian')
       end
 
       def openldap_client_package
@@ -33,8 +26,6 @@ module Openldap
           'ldap-utils'
         when 'suse'
           'openldap2-client'
-        when 'freebsd'
-          'openldap-client'
         end
       end
 
@@ -44,33 +35,22 @@ module Openldap
           '/etc/openldap'
         when 'debian'
           '/etc/ldap'
-        when 'freebsd'
-          '/usr/local/etc/openldap'
         end
       end
 
       def openldap_run_dir
         case node['platform_family']
         when 'rhel', 'fedora', 'amazon'
-          '/var/run/openldap'
+          '/run/openldap'
         when 'suse'
           '/run/slapd'
         when 'debian'
-          '/var/run/slapd'
-        when 'freebsd'
-          '/var/run/openldap'
+          '/run/slapd'
         end
       end
 
       def openldap_db_dir
-        case node['platform_family']
-        when 'rhel', 'fedora', 'suse', 'amazon'
-          '/var/lib/ldap'
-        when 'debian'
-          '/var/lib/ldap'
-        when 'freebsd'
-          '/var/db/openldap-data'
-        end
+        '/var/lib/ldap'
       end
 
       def openldap_module_dir
@@ -79,8 +59,6 @@ module Openldap
           '/usr/lib64/openldap'
         when 'debian'
           '/usr/lib/ldap'
-        when 'freebsd'
-          '/usr/local/libexec/openldap'
         end
       end
 
@@ -89,21 +67,11 @@ module Openldap
       end
 
       def openldap_system_acct
-        case node['platform_family']
-        when 'rhel', 'fedora', 'suse', 'amazon', 'freebsd'
-          'ldap'
-        when 'debian'
-          'openldap'
-        end
+        platform_family?('debian') ? 'openldap' : 'ldap'
       end
 
       def openldap_system_group
-        case node['platform_family']
-        when 'rhel', 'fedora', 'suse', 'amazon', 'freebsd'
-          'ldap'
-        when 'debian'
-          'openldap'
-        end
+        platform_family?('debian') ? 'openldap' : 'ldap'
       end
 
       def openldap_defaults_path
@@ -114,8 +82,6 @@ module Openldap
           '/etc/default/slapd'
         when 'suse'
           '/etc/sysconfig/openldap'
-        when 'freebsd'
-          '/etc/rc.conf.d/slapd'
         end
       end
 
@@ -127,41 +93,59 @@ module Openldap
           'default_slapd.erb'
         when 'suse'
           'sysconfig_openldap.erb'
-        when 'freebsd'
-          'rc_slapd.erb'
         end
       end
 
-      def openldap_el8_systemd_unit
+      def openldap_systemd_unit_content
         {
-          'Unit' => {
-            'Description' => 'OpenLDAP Server Daemon',
-            'After' => 'syslog.target network-online.target',
+          Unit: {
+            Description: 'OpenLDAP Server Daemon',
+            After: 'syslog.target network-online.target',
           },
-          'Service' => {
-            'Type' => 'forking',
-            'PIDFile' => '/var/run/openldap/slapd.pid',
-            'Environment' => '"SLAPD_URLS=ldap:/// ldapi:///" "SLAPD_OPTIONS="',
-            'EnvironmentFile' => '/etc/sysconfig/slapd',
-            'ExecStartPre' => '/usr/libexec/openldap/check-config.sh',
-            'ExecStart' => '/usr/sbin/slapd -u ldap -h ${SLAPD_URLS} $SLAPD_OPTIONS',
+          Service: {
+            Type: 'forking',
+            PIDFile: '/run/openldap/slapd.pid',
+            Environment: '"SLAPD_URLS=ldap:/// ldapi:///" "SLAPD_OPTIONS="',
+            EnvironmentFile: '/etc/sysconfig/slapd',
+            ExecStartPre: '/usr/libexec/openldap/check-config.sh',
+            ExecStart: '/usr/sbin/slapd -u ldap -h ${SLAPD_URLS} $SLAPD_OPTIONS',
           },
-          'Install' => {
-            'WantedBy' => 'multi-user.target',
-            'Alias' => 'openldap.service',
+          Install: {
+            WantedBy: 'multi-user.target',
+            Alias: 'openldap.service',
           },
         }
       end
 
-      def openldap_el8_systemd_unit?
+      def openldap_systemd_unit_required?
         (platform_family?('rhel') && node['platform_version'].to_i >= 8) || platform_family?('fedora')
       end
 
       def openldap_slapd_d_dir?
         ::File.exist?(openldap_slapd_d_dir)
       end
+
+      def openldap_default_basedn
+        domain = node['domain']
+        return 'dc=localdomain' if domain.nil? || domain.split('.').count < 2
+
+        "dc=#{domain.split('.').join(',dc=')}"
+      end
+
+      def openldap_default_server
+        domain = node['domain']
+        return 'ldap.localdomain' if domain.nil? || domain.split('.').count < 2
+
+        "ldap.#{domain}"
+      end
+
+      def openldap_default_modules
+        %w(back_mdb)
+      end
+
+      def openldap_default_database
+        'mdb'
+      end
     end
   end
 end
-Chef::DSL::Recipe.include ::Openldap::Cookbook::Helpers
-Chef::Resource.include ::Openldap::Cookbook::Helpers

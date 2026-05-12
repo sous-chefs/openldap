@@ -1,60 +1,71 @@
+---
 driver:
   name: vagrant
 
 provisioner:
-  name: chef_zero
+  name: chef_infra
   product_name: chef
-  chef_license: accept-no-persist
+  product_version: latest
+  channel: stable
+  chef_license: accept
   enforce_idempotency: true
   multiple_converge: 2
   deprecations_as_errors: true
 
 verifier:
   name: inspec
+  sudo: true
 
 platforms:
-  - name: amazonlinux-2
-  - name: centos-7
-  - name: centos-8
-  - name: debian-9
-  - name: debian-10
+  - name: almalinux-8
+  - name: almalinux-9
+  - name: amazonlinux-2023
+  - name: centos-stream-9
+  - name: debian-12
   - name: fedora-latest
-  - name: ubuntu-18.04
+  - name: opensuse-leap-15
+  - name: oraclelinux-8
+  - name: oraclelinux-9
+  - name: rockylinux-8
+  - name: rockylinux-9
   - name: ubuntu-20.04
-  - name: freebsd-12
+  - name: ubuntu-22.04
+  - name: ubuntu-24.04
+
+x-run_lists:
+  default: &default_run_list
+    - recipe[test::default]
+  tls_enabled: &tls_enabled_run_list
+    - recipe[test::ssl]
+  type_provider: &type_provider_run_list
+    - recipe[test::provider]
+  type_consumer: &type_consumer_run_list
+    - recipe[test::consumer]
+
+x-verifiers:
+  default: &default_verifier
+    inspec_tests:
+      - path: test/integration/default
+  tls_enabled: &tls_enabled_verifier
+    inspec_tests:
+      - path: test/integration/tls_enabled
+  type_provider: &type_provider_verifier
+    inspec_tests:
+      - path: test/integration/type_provider
+  type_consumer: &type_consumer_verifier
+    inspec_tests:
+      - path: test/integration/type_consumer
 
 suites:
   - name: default
-    run_list:
-      - recipe[openldap-test::default]
-  - name: tls_enabled
-    run_list:
-      - recipe[openldap-test::ssl]
-    attributes:
-      openldap:
-        tls_enabled: true
-        ldaps_enabled: true
-    verifier:
-      inspec_tests:
-        - name: openldap-default
-          path: test/integration/default
-  - name: type_provider
-    run_list:
-      - recipe[openldap-test::default]
-    attributes:
-      openldap:
-        slapd_type: 'provider'
-    verifier:
-      inspec_tests:
-        - name: openldap-default
-          path: test/integration/default
-  - name: type_consumer
-    run_list:
-      - recipe[openldap-test::default]
-    attributes:
-      openldap:
-        slapd_type: 'consumer'
-    verifier:
-      inspec_tests:
-        - name: openldap-default
-          path: test/integration/default
+    run_list: *default_run_list
+    verifier: *default_verifier
+  - name: tls-enabled
+    run_list: *tls_enabled_run_list
+    verifier: *tls_enabled_verifier
+  - name: type-provider
+    run_list: *type_provider_run_list
+    verifier: *type_provider_verifier
+  - name: type-consumer
+    run_list: *type_consumer_run_list
+    verifier: *type_consumer_verifier

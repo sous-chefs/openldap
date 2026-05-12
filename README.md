@@ -6,7 +6,7 @@
 [![OpenCollective](https://opencollective.com/sous-chefs/sponsors/badge.svg)](#sponsors)
 [![License](https://img.shields.io/badge/License-Apache%202.0-green.svg)](https://opensource.org/licenses/Apache-2.0)
 
-Configures a server to be an OpenLDAP provider or replication consumer. Also includes a recipe to install the client libs, but not to setup actual LDAP auth as there are several ways to do this. We recommend looking at the [sssd_ldap cookbook](https://github.com/chef-cookbooks/sssd_ldap).
+Configures a server to be an OpenLDAP provider or replication consumer with custom resources. It does not set up LDAP auth clients as there are several ways to do this. We recommend looking at the [sssd_ldap cookbook](https://github.com/chef-cookbooks/sssd_ldap).
 
 ## Maintainers
 
@@ -16,10 +16,10 @@ This cookbook is maintained by the Sous Chefs. The Sous Chefs are a community of
 
 ### Platforms
 
-- Ubuntu
-- Debian
-- FreeBSD
-- RHEL/CentOS >= 7.0 *NOTE: RHEL 8 [removed support](https://www.redhat.com/en/blog/preparing-identity-management-red-hat-enterprise-linux-8) for openldap. We provide support via a repository provided by the [OSUOSL](https://osuosl.org).*
+- Ubuntu 20.04+
+- Debian 12+
+- RHEL-family 8+ *NOTE: RHEL 8 [removed support](https://www.redhat.com/en/blog/preparing-identity-management-red-hat-enterprise-linux-8) for openldap. We provide support via a repository provided by the [OSUOSL](https://osuosl.org).*
+- Amazon Linux 2023
 - Fedora
 - openSUSE Leap
 
@@ -31,13 +31,17 @@ This cookbook is maintained by the Sous Chefs. The Sous Chefs are a community of
 
 - dpkg_autostart
 
-## Attributes
+## Migration
 
-This is not an exhaustive list of attributes as most are directly comparable to their OpenLDAP equivalents.
+This cookbook no longer ships recipes or attributes. See [migration.md](migration.md) for the breaking change from `openldap::default` and `node['openldap']` attributes to custom resources.
+
+## Resource Properties
+
+This is not an exhaustive list of properties as most are directly comparable to their OpenLDAP equivalents.
 
 ### Required
 
-- `openldap['rootpw']`
+- `rootpw`
 
 This should be a password hash generated from slappasswd. The default slappasswd command will generate a salted SHA1 hash:
 
@@ -46,69 +50,64 @@ $ slappasswd -s "secretsauce"
 {SSHA}6BjlvtSbVCL88li8IorkqMSofkLio58/
 ```
 
-Set this via a node/role/env attribute or in a wrapper cookbook with an encrypted data_bag. OpenLDAP will fail to start if this is not set.
+Set this property from a wrapper cookbook or data bag value. OpenLDAP will fail to start if this is not set.
 
 ### Install/Upgrade
 
-- `openldap['package_install_action']` - The action to be taken for all packages in the recipes. Defaults to :install, but can also be set to :upgrade to upgrade all packages referenced in the recipes.
+- `package_action` - The action to be taken for all packages in the install resource. Defaults to `:install`, but can also be set to `:upgrade`.
 
 ### General configuration
 
-- `openldap['schemas']` - Array of ldap schema file names to load
-- `openldap['modules']` - Array of slapd modules names to load
-- `openldap['indexes]' - Array of indexes to use
-- `openldap['admin_cn']` - Admin CN name `administrators (default)`
-- `openldap['user_attrs']` - User access attributes `userPassword,shadowLastChange (default)`
+- `schemas` - Array of LDAP schema file names to load
+- `modules` - Array of slapd modules names to load
+- `indexes` - Array of indexes to use
+- `admin_cn` - Admin CN name `administrators` (default)
+- `user_attrs` - User access attributes `userPassword,shadowLastChange` (default)
 
 ### TLS/SSL
 
-If `openldap['ldaps_enabled']` or `openldap['tls_enabled']` are set, then `openldap['tls_cert']` and `openldap['tls_key']` must also be set and the files must exist prior to execution. Depending on the certificates, `openldap['tls_cafile']` may also need to be set. See the test cookbook for an example.
+If `ldaps_enabled` or `tls_enabled` are set, then `tls_cert` and `tls_key` must also be set and the files must exist prior to execution. Depending on the certificates, `tls_cafile` may also need to be set. See the test cookbook for an example.
 
-- `openldap['ldaps_enabled']` - listen on LDAPS (636) true | false (default)
-- `openldap['tls_enabled']` - true | false (default)
-- `openldap['tls_cert']` - full path to your SSL certificate
-- `openldap['tls_key']` - full path to your SSL key
-- `openldap['tls_cafile']` - full path to your CA certificate (or intermediate authorities), if needed.
-- `openldap['tls_ciphersuite']` - OpenSSL cipher suite specification to use, defaults to none (use system default)
+- `ldaps_enabled` - listen on LDAPS (636) true | false (default)
+- `tls_enabled` - true | false (default)
+- `tls_cert` - full path to your SSL certificate
+- `tls_key` - full path to your SSL key
+- `tls_cafile` - full path to your CA certificate (or intermediate authorities), if needed.
+- `tls_ciphersuite` - OpenSSL cipher suite specification to use, defaults to none (use system default)
 
 ### Replication
 
 Attributes related to replication (syncrepl). Only used if a provider or consumer.
 
-- `openldap['slapd_type']` - `'provider' | 'consumer'`, default is `nil`
-- `openldap['slapd_provider']` - hostname of slapd provider
-- `openldap['slapd_replpw']` - replication password
-- `openldap['slapd_rid']` - unique integer ID, required if type is consumer
-- `openldap['syncrepl_uri']` - `ldap (default) | ldaps`
-- `openldap['syncrepl_port']` - `'389 (default) | 636'`
-- `openldap['syncrepl_cn']` - the CN (only) of the user to use as binddn as consumer
+- `slapd_type` - `'provider' | 'consumer'`, default is `nil`
+- `slapd_provider` - hostname of slapd provider
+- `slapd_replpw` - replication password
+- `slapd_rid` - unique integer ID, required if type is consumer
+- `syncrepl_uri` - `ldap (default) | ldaps`
+- `syncrepl_port` - `'389 (default) | 636'`
+- `syncrepl_cn` - the CN (only) of the user to use as binddn as consumer
 
 The following syncrepl values are set by default, others can be added by setting the appropriate key value
-pair in the `openldap['syncrepl_*_config]` (See the OpenLDAP Adminstrator Guide):
+pair in `syncrepl_*_config` (See the OpenLDAP Adminstrator Guide):
 
-- `openldap']['syncrepl_provider_config']['overlay']` - defaults to 'syncprov'
-- `openldap']['syncrepl_provider_config']['syncprov-checkpoint']` - defaults to '100 10'
-- `openldap']['syncrepl_provider_config']['syncprov-sessionlog']` - defaults to '100'
-- `openldap['syncrepl_consumer_config']['type']` - defaults to 'refreshAndPersist'
-- `openldap['syncrepl_consumer_config']['interval']` - interval for the sync. Defaults to 1 day
-- `openldap['syncrepl_consumer_config']['searchbase']` - calculated in recipe
-- `openldap['syncrepl_consumer_config']['filter']` - search filter to use in the replication
-- `openldap['syncrepl_consumer_config']['scope']` - defaults to 'sub'
-- `openldap['syncrepl_consumer_config']['schemachecking']` - defaults to 'off'
-- `openldap['syncrepl_consumer_config']['bindmethod']` - defaults to 'simple'
-- `openldap['syncrepl_consumer_config']['binddn']` - calculated in recipe
-- `openldap['syncrepl_consumer_config']['starttls']` - `yes | no (default)`
-- `openldap['syncrepl_consumer_config']['credentials']` - defaults to `openldap['slapd_replpw']`
-
-## Recipes
-
-### default
-
-Install and configure OpenLDAP (slapd).
+- `syncrepl_provider_config['overlay']` - defaults to `syncprov`
+- `syncrepl_provider_config['syncprov-checkpoint']` - defaults to `100 10`
+- `syncrepl_provider_config['syncprov-sessionlog']` - defaults to `100`
+- `syncrepl_consumer_config['type']` - defaults to `refreshAndPersist`
+- `syncrepl_consumer_config['interval']` - interval for the sync. Defaults to 1 day
+- `syncrepl_consumer_config['searchbase']` - calculated from `basedn`
+- `syncrepl_consumer_config['filter']` - search filter to use in the replication
+- `syncrepl_consumer_config['scope']` - defaults to `sub`
+- `syncrepl_consumer_config['schemachecking']` - defaults to `off`
+- `syncrepl_consumer_config['bindmethod']` - defaults to `simple`
+- `syncrepl_consumer_config['binddn']` - calculated from `syncrepl_cn` and `basedn`
+- `syncrepl_consumer_config['starttls']` - `yes | no (default)`
+- `syncrepl_consumer_config['credentials']` - defaults to `slapd_replpw`
 
 ## Resources
 
-- [install](https://github.com/sous-chefs/openldap/blob/master/documentation/resource_openldap_install.md)
+- [openldap_install](https://github.com/sous-chefs/openldap/blob/master/documentation/openldap_install.md)
+- [openldap_service](https://github.com/sous-chefs/openldap/blob/master/documentation/openldap_service.md)
 
 ## Contributors
 
