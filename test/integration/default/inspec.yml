@@ -1,6 +1,7 @@
 ---
 name: openldap-default
-title: Openldap default tests
-supports:
-  - os-family: linux
-  - os-family: bsd
+title: OpenLDAP default tests
+maintainer: Sous Chefs
+license: Apache-2.0
+summary: Verifies default OpenLDAP installation
+version: 1.0.0

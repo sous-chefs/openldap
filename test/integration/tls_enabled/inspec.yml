@@ -1,6 +1,7 @@
 ---
 name: openldap-tls-enabled
-title: Openldap tls-enabled tests
-supports:
-  - os-family: linux
-  - os-family: bsd
+title: OpenLDAP TLS tests
+maintainer: Sous Chefs
+license: Apache-2.0
+summary: Verifies OpenLDAP TLS configuration
+version: 1.0.0
