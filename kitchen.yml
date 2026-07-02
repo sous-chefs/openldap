@@ -27,16 +27,6 @@ platforms:
   - name: ubuntu-22.04
   - name: ubuntu-24.04
 
-x-run_lists:
-  default: &default_run_list
-    - recipe[test::default]
-  tls_enabled: &tls_enabled_run_list
-    - recipe[test::ssl]
-  type_provider: &type_provider_run_list
-    - recipe[test::provider]
-  type_consumer: &type_consumer_run_list
-    - recipe[test::consumer]
-
 x-verifiers:
   default: &default_verifier
     inspec_tests:
@@ -53,14 +43,13 @@ x-verifiers:
 
 suites:
   - name: default
-    run_list: *default_run_list
     verifier: *default_verifier
   - name: tls-enabled
-    run_list: *tls_enabled_run_list
+    named_run_list: ssl
     verifier: *tls_enabled_verifier
   - name: type-provider
-    run_list: *type_provider_run_list
+    named_run_list: provider
     verifier: *type_provider_verifier
   - name: type-consumer
-    run_list: *type_consumer_run_list
+    named_run_list: consumer
     verifier: *type_consumer_verifier

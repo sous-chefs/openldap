@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
 name 'openldap'
-default_source :supermarket
 
 run_list 'test::default'
 
 cookbook 'openldap', path: '.'
 cookbook 'test', path: './test/cookbooks/test'
+cookbook 'dpkg_autostart', git: 'https://github.com/sous-chefs/dpkg_autostart.git', branch: 'main'
 
 Dir.children('./test/cookbooks/test/recipes').grep(/\.rb\z/).sort.each do |recipe|
   recipe_name = File.basename(recipe, '.rb')
