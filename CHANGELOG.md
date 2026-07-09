@@ -8,6 +8,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 Standardise files with files in sous-chefs/repo-management
 Standardise files with files in sous-chefs/repo-management
 
+## [7.0.1](https://github.com/sous-chefs/openldap/compare/v7.0.0...v7.0.1) (2026-07-09)
+
+
+### Bug Fixes
+
+* migrate to Policyfile ([#180](https://github.com/sous-chefs/openldap/issues/180)) ([88a9003](https://github.com/sous-chefs/openldap/commit/88a90030a723d9636d9d2e04ec808dc9bdfcaa32))
+
 ## [7.0.0](https://github.com/sous-chefs/openldap/compare/v6.1.8...v7.0.0) (2026-05-12)
 
 
